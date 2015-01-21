@@ -1,0 +1,7 @@
+# Ignore docs files
+styles/.sass-cache
+styles/.sass-cache/*
+ 
+# Not working? 
+# Try: http://stackoverflow.com/questions/11451535/gitignore-not-working
+# Try: http://stackoverflow.com/questions/1139762/gitignore-file-not-ignoring
