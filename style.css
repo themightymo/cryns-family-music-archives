@@ -607,7 +607,11 @@ a {
 
 #page {
   width: 50%;
-  margin: 0 auto; }
+  margin: 0 auto;
+  padding: 0 1em; }
+  @media screen and (max-width: 767px) {
+    #page {
+      width: 100%; } }
 
 /*--------------------------------------------------------------
 10.2 Asides
