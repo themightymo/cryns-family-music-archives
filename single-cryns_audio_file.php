@@ -12,6 +12,23 @@ get_header(); ?>
 
 		<?php while ( have_posts() ) : the_post(); ?>
 
+			<?php if (get_post_meta($post->ID, 'Audio File', true)) { ?>
+		    	<span class="audio-meta">
+				Download: <a href="<?php echo wp_get_attachment_url(get_post_meta($post->ID, 'Audio File', true)); ?>"><?php the_title(); ?></a><br /><br />
+		        </span>
+		        <div><?php
+			        $mp3 = wp_get_attachment_url(get_post_meta($post->ID, 'Audio File', true)); 
+					$attr = array(
+						'src'      => $mp3,
+						'loop'     => '',
+						'autoplay' => '',
+						'preload' => 'none'
+						);
+					echo wp_audio_shortcode( $attr ); 
+					?>
+		        </div>
+		    <?php } ?>
+				    
 			<?php get_template_part( 'content', 'single' ); ?>
 			
 			<?php		
@@ -100,26 +117,6 @@ get_header(); ?>
 				echo get_the_term_list( get_the_ID(), 'cryns_written_by', "Written By: ", ', ' );
 				echo '<br /></span>';
 			}
-			?>
-		   	
-		    <?php if (get_post_meta($post->ID, 'Audio File', true)) { ?>
-		    	<span class="audio-meta">
-				Download: <a href="<?php echo wp_get_attachment_url(get_post_meta($post->ID, 'Audio File', true)); ?>"><?php the_title(); ?></a><br /><br />
-		        </span>
-		        <div><?php
-			        $mp3 = wp_get_attachment_url(get_post_meta($post->ID, 'Audio File', true)); 
-					$attr = array(
-						'src'      => $mp3,
-						'loop'     => '',
-						'autoplay' => '',
-						'preload' => 'none'
-						);
-					echo wp_audio_shortcode( $attr ); ?>
-		        </div>
-		    <?php } ?>
-		    
-		    <?php
-			
 			?>
 
 			<?php the_post_navigation(); ?>
