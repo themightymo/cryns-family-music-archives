@@ -1,0 +1,4 @@
+/* For some reason, the FacetWP plugin turns off visibility when it runs its loop */
+.wp-audio-shortcode {
+	visibility: visible !important;
+}

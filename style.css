@@ -710,4 +710,11 @@ object {
 .gallery-caption {
   display: block; }
 
+/*--------------------------------------------------------------
+12.3 MP3s
+--------------------------------------------------------------*/
+/* For some reason, the FacetWP plugin turns off visibility when it runs its loop */
+.wp-audio-shortcode {
+  visibility: visible !important; }
+
 /*# sourceMappingURL=style.css.map */
