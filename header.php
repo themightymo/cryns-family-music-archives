@@ -35,4 +35,4 @@
 
 	<div id="content" class="site-content">
 		
-		<?php breadcrumb_trail(); ?>
+		<?php if ( function_exists( 'breadcrumb_trail' ) ) { breadcrumb_trail(); } ?>
