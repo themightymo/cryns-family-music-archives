@@ -228,8 +228,8 @@ button,
 input,
 select,
 textarea {
-  color: #404040;
-  font-family: sans-serif;
+  color: #403024;
+  font-family: "Roboto", sans-serif;
   font-size: 16px;
   font-size: 1rem;
   line-height: 1.5; }
@@ -295,7 +295,7 @@ html {
   box-sizing: inherit; }
 
 body {
-  background: #fff;
+  background: #e0ddd4;
   /* Fallback for when there is no custom background color defined. */ }
 
 blockquote:before, blockquote:after,
@@ -414,11 +414,14 @@ textarea {
 5.1 Links
 --------------------------------------------------------------*/
 a {
-  color: royalblue; }
+  color: #b93631;
+  text-decoration: none; }
   a:visited {
-    color: purple; }
+    color: #b93631; }
   a:hover, a:focus, a:active {
-    color: midnightblue; }
+    color: #b93631;
+    opacity: .9;
+    text-decoration: underline; }
   a:focus {
     outline: thin dotted; }
   a:hover, a:active {
