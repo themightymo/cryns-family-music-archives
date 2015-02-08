@@ -100,6 +100,15 @@ add_action( 'widgets_init', 'cfma_widgets_init' );
  * Enqueue scripts and styles.
  */
 function cfma_scripts() {
+	
+	wp_enqueue_script('jquery');
+	
+	wp_enqueue_script(
+		'jquery-json-custom-script',
+		get_stylesheet_directory_uri() . '/jquery-json/js/main.js',
+		array( 'jquery' )
+	);
+	
 	wp_enqueue_style( 'cfma-style', get_stylesheet_uri() );
 
 	wp_enqueue_script( 'cfma-navigation', get_template_directory_uri() . '/js/navigation.js', array(), '20120206', true );

@@ -6,11 +6,7 @@
  *
  * @package cryns-family-music-archive
  */
-
-get_header(); ?>
-
-	<div id="primary" class="content-area">
-		<main id="main" class="site-main" role="main">
+?>
 
 		<?php if ( have_posts() ) : ?>
 
@@ -20,7 +16,9 @@ get_header(); ?>
 					the_archive_description( '<div class="taxonomy-description">', '</div>' );
 				?>
 			</header><!-- .page-header -->
-
+			
+			<div id="single-audio-content"></div>
+			
 			<?php /* Start the Loop */ ?>
 			<?php while ( have_posts() ) : the_post(); ?>
 
@@ -41,9 +39,3 @@ get_header(); ?>
 			<?php get_template_part( 'content', 'none' ); ?>
 
 		<?php endif; ?>
-
-		</main><!-- #main -->
-	</div><!-- #primary -->
-
-<?php get_sidebar(); ?>
-<?php get_footer(); ?>
