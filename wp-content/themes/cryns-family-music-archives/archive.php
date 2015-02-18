@@ -17,7 +17,6 @@
 				?>
 			</header><!-- .page-header -->
 			
-			<div id="single-audio-content"></div>
 			
 			<?php /* Start the Loop */ ?>
 			<?php while ( have_posts() ) : the_post(); ?>

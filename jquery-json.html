@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html ng-app="app">
 <head>
+	<!-- SINGLE PAGE TEMPLATE MAKES USE OF ANGULAR AND THE JSON-API PLUGIN -->
     <meta charset="utf-8">
     <title>WP-REST DEMO</title>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.11/angular.min.js"></script>
@@ -11,9 +12,10 @@
         function WpRestController($scope, $http) {
 
             $scope.viewList = true;
-
+			
+			// SUBMIT COMMENT
             $scope.submitComment = function(comment) {
-            console.log('sumbit form');
+            	//console.log('sumbit form');
                 $http({
                     method : 'GET',
                     url : '/api/respond/submit_comment?post_id=' + $scope.post_id
@@ -22,25 +24,26 @@
                         + '&content=' + escape($scope.comment.content)
                 })
                 .success(function(data, status) {
-                console.log('success', status);
+                	//console.log('success', status);
                     $scope.getOnePost($scope.post_id);
 
                 })
                 .error(function(data, status) {
-                    console.log('error');
-                    console.dir(status);
+                    //console.log('error');
+                    //console.dir(status);
                 });
             }
-
+			
+			// GET SINGLE POST FOR THE RIGHT SIDE
             $scope.getOnePost = function(id) {
-            console.log('loading post', id);
+            	console.log('loading post', id);
                 $http({
                     method : 'GET',
                     url : '/api/core/get_post',
                     params : { 'id' : id, 'post_type' : 'cryns_audio_file', 'custom_fields' : 'Audio File' }
                 })
                 .success(function(data, status) {
-                    console.dir(data);
+                    //console.dir(data);
                     //data = JSON.parse(data);
                     
                     $scope.getAudioFile(data.post.custom_fields['Audio File'][0]);
@@ -51,7 +54,6 @@
                     $scope.viewList = false;
                     $scope.audioFile = data.post.custom_fields['Audio File'][0];
                     
-                    
                     /* for testing */
                     $scope.comment = {};
                     $scope.comment.name = 'Erik';
@@ -60,12 +62,13 @@
 
                 })
                 .error(function(data, status) {
-                    console.dir(status);
+                    //console.dir(status);
                 });
             }
-
+			
+			// GET AUDIO FILE ATTACHMENT
             $scope.getAudioFile =  function(id) {
-                console.log('loading attachment');
+                //console.log('loading attachment');
                 $http({
                     method : 'GET',
                     url : '/api/core/get_post',
@@ -75,27 +78,29 @@
                     }
                 })
                 .success(function(data, status) {
-                    console.log('attachment response');
-                    console.dir(data);
+                    //console.log('attachment response');
+                    //console.dir(data);
                     $scope.audioFile = data.post.content;
                     var audioElement = document.getElementsByClassName('wp-audio-shortcode');
                     for (i in audioElement) {
-                        console.dir(i + ' == ' + audioElement[i]);
+                        //console.dir(i + ' == ' + audioElement[i]);
                     }
-                    console.dir(audioElement);
-                    audioElement.style.visible = true;
+                    //console.dir(audioElement);
+                    //audioElement.style.visible = true;
                     
 
                 })
                 .error(function(data, status) {
-                    console.dir(status);
+                    //console.dir(status);
                 });
             }
             
+            // ???
             $scope.backToList = function() {
                 $scope.viewList = true;
             }
             
+            // GET THE LIST OF POSTS FOR THE LEFT SIDE
             $scope.getItems = function() {
 
                 $http({
@@ -105,7 +110,10 @@
                 })
                 .success(function(data, status) {
                     $scope.data = data.posts;
+                    //$scope.albumTitle = data.post.custom_fields['taxonomy_cryns_album_title'][0];
+                    
                     console.dir(data);
+                    
                 })
                 .error(function(data, status) {
                     console.dir(status);
@@ -134,7 +142,8 @@
         <p><em ng-bind="post.date_gmt | date:'MMMM d, yyyy'"></em></p>
         <div ng-bind-html="post.content | unsafe"></div>
         <!-- <div>user_story_done_or_not = {{post.terms.user_story_done_or_not.0.slug}}</div> -->
-        <div>ID = {{post.id}}</div>
+        <div>ID: {{post.id}}</div>
+        <div>Album Title: {{post.taxonomy_cryns_album_title}}</div>
     </div>
 
 </div>
