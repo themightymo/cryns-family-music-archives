@@ -18,7 +18,7 @@ jQuery(function($) {
 			
 			$('#single-audio-content').load(link);
 			
-			//$('html, body').animate({ scrollTop: $('#single-audio-content').offset().top }, 500); // Scroll to the top of the page after the page is refreshed
+			$('html, body').animate({ scrollTop: $('#single-audio-content').offset().top }, 500); // Scroll to the top of the page after the page is refreshed
 			
 		});
 	}	
