@@ -454,10 +454,13 @@ a {
       .main-navigation ul ul a {
         width: 200px; }
     .main-navigation ul li:hover > ul {
-      left: auto; }
+      left: auto;
+      background-color: white;
+	  padding: 1em; }
   .main-navigation li {
     float: left;
-    position: relative; }
+    position: relative;
+    padding: 0 1em 1em 0; }
   .main-navigation a {
     display: block;
     text-decoration: none; }
