@@ -145,3 +145,12 @@ require get_template_directory() . '/inc/customizer.php';
  * Load Jetpack compatibility file.
  */
 require get_template_directory() . '/inc/jetpack.php';
+
+/**
+ * Include cryns_audio_file post type in Jetpack Related Posts
+ */
+function allow_my_post_types($allowed_post_types) {
+    $allowed_post_types[] = 'cryns_audio_file';
+    return $allowed_post_types;
+}
+add_filter( 'rest_api_allowed_post_types', 'allow_my_post_types' );
