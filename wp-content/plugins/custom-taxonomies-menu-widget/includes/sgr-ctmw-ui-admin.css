@@ -1,0 +1,61 @@
+/**
+ * CSS for the widget control form
+ *
+ * @author Ade WALKER  (email : info@studiograsshopper.ch)
+ * @copyright Copyright 2010-2013
+ * @package custom_taxonomies_menu_widget
+ * @version 1.3.1
+ *
+ * Loaded via wp_enqueue_script() hooked to admin_enqueue_scripts
+ *
+ * @since 1.0
+ * @updated 1.3.1
+ */
+
+/* Columns */
+.custom-taxonomies-menu-column {
+	width: 246px;
+	float: left;
+	margin-bottom: 10px;
+}
+
+.custom-taxonomies-menu-column p {
+	font-size: 13px;
+}
+
+.custom-taxonomies-menu-column p.description {
+	font-style: italic;
+}
+
+.custom-taxonomies-menu-column-right {
+	margin-left: 10px;
+}
+
+.custom-taxonomies-menu-column-inner {
+	background: #f1f1f1;
+	border: 1px solid #ddd;
+	padding: 0px 10px;
+}
+
+.custom-taxonomies-menu-column-inner-bottom {
+	margin-top:10px;
+}
+
+/* Div containing info at top of widget form */
+.custom-taxonomies-menu-top {}
+
+/* Inner Div for each taxonomy list */
+.custom-taxonomies-menu-list {
+	border-top:1px #ddd solid;
+	margin-top:10px;
+	padding-top:6px;
+}
+	
+label.sgr-ctmw-tax-label {
+	font-weight:bold;
+}
+	
+.custom-taxonomies-menu-list ul.children {
+	padding-left:20px;
+	margin-top:6px;
+}

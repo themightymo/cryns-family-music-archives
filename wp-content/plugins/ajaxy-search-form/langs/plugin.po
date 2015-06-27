@@ -1,0 +1,822 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Ajaxy Live Search\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2014-05-25 23:04+0200\n"
+"PO-Revision-Date: 2014-05-25 23:17+0200\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-KeywordsList: _;gettext;gettext_noop;_e\n"
+"X-Poedit-Basepath: C:\\Program Files\\BitNami WordPress Stack\\apps\\wordpress\\htdocs\\new-blog\\wp-content\\plugins\\ajaxy-search-form\n"
+"X-Poedit-SearchPath-0: C:\\Program Files\\BitNami WordPress Stack\\apps\\wordpress\\htdocs\\new-blog\\wp-content\\plugins\\ajaxy-search-form\n"
+
+#: C:\Program
+#: Files\BitNami WordPress
+#: Stack\apps\wordpress\htdocs\new-blog\wp-content\plugins\ajaxy-search-form/sf.php:135
+#, php-format
+msgid "%s templates hidden"
+msgstr "%s قوالب مخفية"
+
+#: C:\Program
+#: Files\BitNami WordPress
+#: Stack\apps\wordpress\htdocs\new-blog\wp-content\plugins\ajaxy-search-form/sf.php:146
+#, php-format
+msgid "%s templates shown"
+msgstr "%s قوالب ظاهرة"
+
+#: C:\Program
+#: Files\BitNami WordPress
+#: Stack\apps\wordpress\htdocs\new-blog\wp-content\plugins\ajaxy-search-form/sf.php:160
+msgid "Template modified"
+msgstr "لقد تم تعديل هذا القالب"
+
+#: C:\Program
+#: Files\BitNami WordPress
+#: Stack\apps\wordpress\htdocs\new-blog\wp-content\plugins\ajaxy-search-form/sf.php:184
+msgid "Ajaxy Live Search"
+msgstr "البحث الحي من اجاكسي"
+
+#: C:\Program
+#: Files\BitNami WordPress
+#: Stack\apps\wordpress\htdocs\new-blog\wp-content\plugins\ajaxy-search-form/sf.php:186
+msgid "General settings"
+msgstr "الإعدادات"
+
+#: C:\Program
+#: Files\BitNami WordPress
+#: Stack\apps\wordpress\htdocs\new-blog\wp-content\plugins\ajaxy-search-form/sf.php:187
+msgid "Post type Search"
+msgstr "ابحث"
+
+#: C:\Program
+#: Files\BitNami WordPress
+#: Stack\apps\wordpress\htdocs\new-blog\wp-content\plugins\ajaxy-search-form/sf.php:188
+#, fuzzy
+msgid "Taxonomy Search"
+msgstr "البحث الحي من اجاكسي"
+
+#: C:\Program
+#: Files\BitNami WordPress
+#: Stack\apps\wordpress\htdocs\new-blog\wp-content\plugins\ajaxy-search-form/sf.php:189
+#, fuzzy
+msgid "Author Search"
+msgstr "ابحث"
+
+#: C:\Program
+#: Files\BitNami WordPress
+#: Stack\apps\wordpress\htdocs\new-blog\wp-content\plugins\ajaxy-search-form/sf.php:191
+msgid "WooCommerce"
+msgstr ""
+
+#: C:\Program
+#: Files\BitNami WordPress
+#: Stack\apps\wordpress\htdocs\new-blog\wp-content\plugins\ajaxy-search-form/sf.php:192
+#, fuzzy
+msgid "Selective Search"
+msgstr "البحث الحي من اجاكسي"
+
+#: C:\Program
+#: Files\BitNami WordPress
+#: Stack\apps\wordpress\htdocs\new-blog\wp-content\plugins\ajaxy-search-form/sf.php:194
+msgid "Themes"
+msgstr "إعدادات الشكل"
+
+#: C:\Program
+#: Files\BitNami WordPress
+#: Stack\apps\wordpress\htdocs\new-blog\wp-content\plugins\ajaxy-search-form/sf.php:195
+msgid "Shortcodes"
+msgstr ""
+
+#: C:\Program
+#: Files\BitNami WordPress
+#: Stack\apps\wordpress\htdocs\new-blog\wp-content\plugins\ajaxy-search-form/sf.php:196
+msgid "Preview"
+msgstr "عرض مسبق"
+
+#: C:\Program
+#: Files\BitNami WordPress
+#: Stack\apps\wordpress\htdocs\new-blog\wp-content\plugins\ajaxy-search-form/sf.php:263
+msgid "Use the form above to preview theme changes and settings, please note that the changes could vary from one theme to another, please contact the author of this plugin for more help"
+msgstr "استخدام النموذج أعلاه لمعاينة التغييرات والإعدادات، يرجى ملاحظة أن التغييرات يمكن أن تختلف من موضوع إلى آخر، يرجى الاتصال بصاحب هذا البرنامج للمزيد من المساعدة"
+
+#: C:\Program
+#: Files\BitNami WordPress
+#: Stack\apps\wordpress\htdocs\new-blog\wp-content\plugins\ajaxy-search-form/sf.php:269
+#: Stack\apps\wordpress\htdocs\new-blog\wp-content\plugins\ajaxy-search-form/sf.php:289
+msgid "WooCommerce Taxonomies"
+msgstr ""
+
+#: C:\Program
+#: Files\BitNami WordPress
+#: Stack\apps\wordpress\htdocs\new-blog\wp-content\plugins\ajaxy-search-form/sf.php:276
+#: Stack\apps\wordpress\htdocs\new-blog\wp-content\plugins\ajaxy-search-form/sf.php:296
+msgid "WooCommerce Post Types"
+msgstr ""
+
+#: C:\Program
+#: Files\BitNami WordPress
+#: Stack\apps\wordpress\htdocs\new-blog\wp-content\plugins\ajaxy-search-form/admin/admin-edit-post-form.php:39
+#: Stack\apps\wordpress\htdocs\new-blog\wp-content\plugins\ajaxy-search-form/admin/admin-edit-role-form.php:44
+#: Stack\apps\wordpress\htdocs\new-blog\wp-content\plugins\ajaxy-search-form/admin/admin-edit-taxonomy-form.php:40
+msgid "Settings saved"
+msgstr "لقد تم حفظ الإعدادات"
+
+#: C:\Program
+#: Files\BitNami WordPress
+#: Stack\apps\wordpress\htdocs\new-blog\wp-content\plugins\ajaxy-search-form/admin/admin-edit-post-form.php:42
+#: Stack\apps\wordpress\htdocs\new-blog\wp-content\plugins\ajaxy-search-form/admin/admin-edit-role-form.php:47
+#: Stack\apps\wordpress\htdocs\new-blog\wp-content\plugins\ajaxy-search-form/admin/admin-edit-taxonomy-form.php:43
+msgid "Settings have been already saved"
+msgstr "لقد تم حفظ الإعدادات"
+
+#: C:\Program
+#: Files\BitNami WordPress
+#: Stack\apps\wordpress\htdocs\new-blog\wp-content\plugins\ajaxy-search-form/admin/admin-edit-post-form.php:49
+#: Stack\apps\wordpress\htdocs\new-blog\wp-content\plugins\ajaxy-search-form/admin/admin-edit-role-form.php:56
+#: Stack\apps\wordpress\htdocs\new-blog\wp-content\plugins\ajaxy-search-form/admin/admin-edit-taxonomy-form.php:52
+#, php-format
+msgid "Edit %s template & settings"
+msgstr ""
+
+#: C:\Program
+#: Files\BitNami WordPress
+#: Stack\apps\wordpress\htdocs\new-blog\wp-content\plugins\ajaxy-search-form/admin/admin-edit-post-form.php:69
+#: Stack\apps\wordpress\htdocs\new-blog\wp-content\plugins\ajaxy-search-form/admin/admin-edit-post-form.php:128
+#: Stack\apps\wordpress\htdocs\new-blog\wp-content\plugins\ajaxy-search-form/admin/admin-edit-role-form.php:79
+#: Stack\apps\wordpress\htdocs\new-blog\wp-content\plugins\ajaxy-search-form/admin/admin-edit-role-form.php:139
+#: Stack\apps\wordpress\htdocs\new-blog\wp-content\plugins\ajaxy-search-form/admin/admin-edit-taxonomy-form.php:75
+#: Stack\apps\wordpress\htdocs\new-blog\wp-content\plugins\ajaxy-search-form/admin/admin-edit-taxonomy-form.php:135
+msgid "Click to toggle"
+msgstr ""
+
+#: C:\Program
+#: Files\BitNami WordPress
+#: Stack\apps\wordpress\htdocs\new-blog\wp-content\plugins\ajaxy-search-form/admin/admin-edit-post-form.php:70
+#: Stack\apps\wordpress\htdocs\new-blog\wp-content\plugins\ajaxy-search-form/admin/admin-edit-role-form.php:80
+#: Stack\apps\wordpress\htdocs\new-blog\wp-content\plugins\ajaxy-search-form/admin/admin-edit-taxonomy-form.php:76
+#, fuzzy
+msgid "Save Settings"
+msgstr "الإعدادات"
+
+#: C:\Program
+#: Files\BitNami WordPress
+#: Stack\apps\wordpress\htdocs\new-blog\wp-content\plugins\ajaxy-search-form/admin/admin-edit-post-form.php:75
+#: Stack\apps\wordpress\htdocs\new-blog\wp-content\plugins\ajaxy-search-form/admin/admin-edit-role-form.php:85
+#: Stack\apps\wordpress\htdocs\new-blog\wp-content\plugins\ajaxy-search-form/admin/admin-edit-taxonomy-form.php:81
+msgid "Status:"
+msgstr "الواضع:"
+
+#: C:\Program
+#: Files\BitNami WordPress
+#: Stack\apps\wordpress\htdocs\new-blog\wp-content\plugins\ajaxy-search-form/admin/admin-edit-post-form.php:77
+#: Stack\apps\wordpress\htdocs\new-blog\wp-content\plugins\ajaxy-search-form/admin/admin-edit-role-form.php:87
+#: Stack\apps\wordpress\htdocs\new-blog\wp-content\plugins\ajaxy-search-form/admin/admin-edit-taxonomy-form.php:83
+#, fuzzy
+msgid "Show on search"
+msgstr "ابحث"
+
+#: C:\Program
+#: Files\BitNami WordPress
+#: Stack\apps\wordpress\htdocs\new-blog\wp-content\plugins\ajaxy-search-form/admin/admin-edit-post-form.php:78
+#: Stack\apps\wordpress\htdocs\new-blog\wp-content\plugins\ajaxy-search-form/admin/admin-edit-role-form.php:88
+#: Stack\apps\wordpress\htdocs\new-blog\wp-content\plugins\ajaxy-search-form/admin/admin-edit-taxonomy-form.php:84
+msgid "hide on search"
+msgstr "لا تظهره على البحث"
+
+#: C:\Program
+#: Files\BitNami WordPress
+#: Stack\apps\wordpress\htdocs\new-blog\wp-content\plugins\ajaxy-search-form/admin/admin-edit-post-form.php:81
+#: Stack\apps\wordpress\htdocs\new-blog\wp-content\plugins\ajaxy-search-form/admin/admin-edit-role-form.php:91
+#: Stack\apps\wordpress\htdocs\new-blog\wp-content\plugins\ajaxy-search-form/admin/admin-edit-taxonomy-form.php:87
+#, fuzzy
+msgid "Search mode:"
+msgstr "ابحث"
+
+#: C:\Program
+#: Files\BitNami WordPress
+#: Stack\apps\wordpress\htdocs\new-blog\wp-content\plugins\ajaxy-search-form/admin/admin-edit-post-form.php:83
+#: Stack\apps\wordpress\htdocs\new-blog\wp-content\plugins\ajaxy-search-form/admin/admin-edit-role-form.php:93
+#: Stack\apps\wordpress\htdocs\new-blog\wp-content\plugins\ajaxy-search-form/admin/admin-edit-taxonomy-form.php:89
+msgid "Only title"
+msgstr "العنوان فقط"
+
+#: C:\Program
+#: Files\BitNami WordPress
+#: Stack\apps\wordpress\htdocs\new-blog\wp-content\plugins\ajaxy-search-form/admin/admin-edit-post-form.php:84
+#: Stack\apps\wordpress\htdocs\new-blog\wp-content\plugins\ajaxy-search-form/admin/admin-edit-role-form.php:94
+#: Stack\apps\wordpress\htdocs\new-blog\wp-content\plugins\ajaxy-search-form/admin/admin-edit-taxonomy-form.php:90
+msgid "Title and content (Slow)"
+msgstr "العنوان والمضمون (بطيء)"
+
+#: C:\Program
+#: Files\BitNami WordPress
+#: Stack\apps\wordpress\htdocs\new-blog\wp-content\plugins\ajaxy-search-form/admin/admin-edit-post-form.php:88
+#: Stack\apps\wordpress\htdocs\new-blog\wp-content\plugins\ajaxy-search-form/admin/admin-edit-role-form.php:98
+#: Stack\apps\wordpress\htdocs\new-blog\wp-content\plugins\ajaxy-search-form/admin/admin-edit-taxonomy-form.php:94
+msgid "Order results by:"
+msgstr "ترتيب المعلومات:"
+
+#: C:\Program
+#: Files\BitNami WordPress
+#: Stack\apps\wordpress\htdocs\new-blog\wp-content\plugins\ajaxy-search-form/admin/admin-edit-post-form.php:90
+#: Stack\apps\wordpress\htdocs\new-blog\wp-content\plugins\ajaxy-search-form/admin/admin-edit-role-form.php:100
+#: Stack\apps\wordpress\htdocs\new-blog\wp-content\plugins\ajaxy-search-form/admin/admin-edit-taxonomy-form.php:96
+msgid "None (Default)"
+msgstr "بدون ترتيب"
+
+#: C:\Program
+#: Files\BitNami WordPress
+#: Stack\apps\wordpress\htdocs\new-blog\wp-content\plugins\ajaxy-search-form/admin/admin-edit-post-form.php:91
+#: Stack\apps\wordpress\htdocs\new-blog\wp-content\plugins\ajaxy-search-form/admin/admin-edit-role-form.php:101
+#: Stack\apps\wordpress\htdocs\new-blog\wp-content\plugins\ajaxy-search-form/admin/admin-edit-taxonomy-form.php:97
+msgid "Title - Ascending"
+msgstr "العنوان - من الكبير إلى الصغير"
+
+#: C:\Program
+#: Files\BitNami WordPress
+#: Stack\apps\wordpress\htdocs\new-blog\wp-content\plugins\ajaxy-search-form/admin/admin-edit-post-form.php:92
+#: Stack\apps\wordpress\htdocs\new-blog\wp-content\plugins\ajaxy-search-form/admin/admin-edit-role-form.php:102
+#: Stack\apps\wordpress\htdocs\new-blog\wp-content\plugins\ajaxy-search-form/admin/admin-edit-taxonomy-form.php:98
+msgid "Title - Descending"
+msgstr "العنوان - من الصغير إلى الكبير"
+
+#: C:\Program
+#: Files\BitNami WordPress
+#: Stack\apps\wordpress\htdocs\new-blog\wp-content\plugins\ajaxy-search-form/admin/admin-edit-post-form.php:93
+#: Stack\apps\wordpress\htdocs\new-blog\wp-content\plugins\ajaxy-search-form/admin/admin-edit-role-form.php:103
+#: Stack\apps\wordpress\htdocs\new-blog\wp-content\plugins\ajaxy-search-form/admin/admin-edit-taxonomy-form.php:99
+msgid "Date - Ascending"
+msgstr "التاريخ - من الكبير إلى الصغير"
+
+#: C:\Program
+#: Files\BitNami WordPress
+#: Stack\apps\wordpress\htdocs\new-blog\wp-content\plugins\ajaxy-search-form/admin/admin-edit-post-form.php:94
+#: Stack\apps\wordpress\htdocs\new-blog\wp-content\plugins\ajaxy-search-form/admin/admin-edit-role-form.php:104
+#: Stack\apps\wordpress\htdocs\new-blog\wp-content\plugins\ajaxy-search-form/admin/admin-edit-taxonomy-form.php:100
+msgid "Date - Descending"
+msgstr "التاريخ - من الصغير إلى الكبير"
+
+#: C:\Program
+#: Files\BitNami WordPress
+#: Stack\apps\wordpress\htdocs\new-blog\wp-content\plugins\ajaxy-search-form/admin/admin-edit-post-form.php:98
+#: Stack\apps\wordpress\htdocs\new-blog\wp-content\plugins\ajaxy-search-form/admin/admin-edit-role-form.php:108
+#: Stack\apps\wordpress\htdocs\new-blog\wp-content\plugins\ajaxy-search-form/admin/admin-edit-taxonomy-form.php:104
+msgid "Show \"Posts under Category\":"
+msgstr ""
+
+#: C:\Program
+#: Files\BitNami WordPress
+#: Stack\apps\wordpress\htdocs\new-blog\wp-content\plugins\ajaxy-search-form/admin/admin-edit-post-form.php:100
+#: Stack\apps\wordpress\htdocs\new-blog\wp-content\plugins\ajaxy-search-form/admin/admin-edit-role-form.php:110
+#: Stack\apps\wordpress\htdocs\new-blog\wp-content\plugins\ajaxy-search-form/admin/admin-edit-taxonomy-form.php:106
+msgid "Show"
+msgstr "أظهر"
+
+#: C:\Program
+#: Files\BitNami WordPress
+#: Stack\apps\wordpress\htdocs\new-blog\wp-content\plugins\ajaxy-search-form/admin/admin-edit-post-form.php:101
+#: Stack\apps\wordpress\htdocs\new-blog\wp-content\plugins\ajaxy-search-form/admin/admin-edit-role-form.php:111
+#: Stack\apps\wordpress\htdocs\new-blog\wp-content\plugins\ajaxy-search-form/admin/admin-edit-taxonomy-form.php:107
+msgid "hide"
+msgstr "خبئ"
+
+#: C:\Program
+#: Files\BitNami WordPress
+#: Stack\apps\wordpress\htdocs\new-blog\wp-content\plugins\ajaxy-search-form/admin/admin-edit-post-form.php:105
+#: Stack\apps\wordpress\htdocs\new-blog\wp-content\plugins\ajaxy-search-form/admin/admin-edit-role-form.php:115
+#: Stack\apps\wordpress\htdocs\new-blog\wp-content\plugins\ajaxy-search-form/admin/admin-edit-taxonomy-form.php:111
+msgid "Order:"
+msgstr "رتب"
+
+#: C:\Program
+#: Files\BitNami WordPress
+#: Stack\apps\wordpress\htdocs\new-blog\wp-content\plugins\ajaxy-search-form/admin/admin-edit-post-form.php:108
+#: Stack\apps\wordpress\htdocs\new-blog\wp-content\plugins\ajaxy-search-form/admin/admin-edit-role-form.php:118
+#: Stack\apps\wordpress\htdocs\new-blog\wp-content\plugins\ajaxy-search-form/admin/admin-edit-taxonomy-form.php:114
+msgid "Limit results to:"
+msgstr "لا تظهر أكثر من:"
+
+#: C:\Program
+#: Files\BitNami WordPress
+#: Stack\apps\wordpress\htdocs\new-blog\wp-content\plugins\ajaxy-search-form/admin/admin-edit-post-form.php:116
+#: Stack\apps\wordpress\htdocs\new-blog\wp-content\plugins\ajaxy-search-form/admin/admin-edit-role-form.php:126
+#: Stack\apps\wordpress\htdocs\new-blog\wp-content\plugins\ajaxy-search-form/admin/admin-edit-taxonomy-form.php:122
+msgid "Save"
+msgstr "إحفظ"
+
+#: C:\Program
+#: Files\BitNami WordPress
+#: Stack\apps\wordpress\htdocs\new-blog\wp-content\plugins\ajaxy-search-form/admin/admin-edit-post-form.php:129
+#: Stack\apps\wordpress\htdocs\new-blog\wp-content\plugins\ajaxy-search-form/admin/admin-edit-role-form.php:140
+#: Stack\apps\wordpress\htdocs\new-blog\wp-content\plugins\ajaxy-search-form/admin/admin-edit-taxonomy-form.php:136
+#, php-format
+msgid "Excluded \"%s\""
+msgstr ""
+
+#: C:\Program
+#: Files\BitNami WordPress
+#: Stack\apps\wordpress\htdocs\new-blog\wp-content\plugins\ajaxy-search-form/admin/admin-edit-post-form.php:133
+#, php-format
+msgid "Search %s to exclude"
+msgstr ""
+
+#: C:\Program
+#: Files\BitNami WordPress
+#: Stack\apps\wordpress\htdocs\new-blog\wp-content\plugins\ajaxy-search-form/admin/admin-edit-post-form.php:151
+#, php-format
+msgid "There are no \"%s\" excluded yet"
+msgstr ""
+
+#: C:\Program
+#: Files\BitNami WordPress
+#: Stack\apps\wordpress\htdocs\new-blog\wp-content\plugins\ajaxy-search-form/admin/admin-edit-post-form.php:156
+#: Stack\apps\wordpress\htdocs\new-blog\wp-content\plugins\ajaxy-search-form/admin/admin-edit-role-form.php:165
+#: Stack\apps\wordpress\htdocs\new-blog\wp-content\plugins\ajaxy-search-form/admin/admin-edit-taxonomy-form.php:173
+#, php-format
+msgid "Prevent selected \"%s\" from appearing in the search results"
+msgstr ""
+
+#: C:\Program
+#: Files\BitNami WordPress
+#: Stack\apps\wordpress\htdocs\new-blog\wp-content\plugins\ajaxy-search-form/admin/admin-edit-post-form.php:174
+#: Stack\apps\wordpress\htdocs\new-blog\wp-content\plugins\ajaxy-search-form/admin/admin-edit-role-form.php:187
+#: Stack\apps\wordpress\htdocs\new-blog\wp-content\plugins\ajaxy-search-form/admin/admin-edit-taxonomy-form.php:195
+#, php-format
+msgid "\"%s\" Template"
+msgstr ""
+
+#: C:\Program
+#: Files\BitNami WordPress
+#: Stack\apps\wordpress\htdocs\new-blog\wp-content\plugins\ajaxy-search-form/admin/admin-edit-post-form.php:175
+#: Stack\apps\wordpress\htdocs\new-blog\wp-content\plugins\ajaxy-search-form/admin/admin-edit-role-form.php:188
+#: Stack\apps\wordpress\htdocs\new-blog\wp-content\plugins\ajaxy-search-form/admin/admin-edit-taxonomy-form.php:196
+msgid "Changes are live, use the tags below to customize the data replaced by each template."
+msgstr ""
+
+#: C:\Program
+#: Files\BitNami WordPress
+#: Stack\apps\wordpress\htdocs\new-blog\wp-content\plugins\ajaxy-search-form/admin/admin-edit-post-form.php:178
+#: Stack\apps\wordpress\htdocs\new-blog\wp-content\plugins\ajaxy-search-form/admin/admin-edit-role-form.php:191
+#: Stack\apps\wordpress\htdocs\new-blog\wp-content\plugins\ajaxy-search-form/admin/admin-edit-taxonomy-form.php:199
+msgid "Tags:"
+msgstr ""
+
+#: C:\Program
+#: Files\BitNami WordPress
+#: Stack\apps\wordpress\htdocs\new-blog\wp-content\plugins\ajaxy-search-form/admin/admin-edit-post-form.php:188
+msgid "WooCoomerce tags:"
+msgstr ""
+
+#: C:\Program
+#: Files\BitNami WordPress
+#: Stack\apps\wordpress\htdocs\new-blog\wp-content\plugins\ajaxy-search-form/admin/admin-edit-post-form.php:216
+#: Stack\apps\wordpress\htdocs\new-blog\wp-content\plugins\ajaxy-search-form/admin/admin-edit-role-form.php:209
+#: Stack\apps\wordpress\htdocs\new-blog\wp-content\plugins\ajaxy-search-form/admin/admin-edit-taxonomy-form.php:217
+msgid "Oops it looks like this page is no longer available or have been deleted :("
+msgstr ""
+
+#: C:\Program
+#: Files\BitNami WordPress
+#: Stack\apps\wordpress\htdocs\new-blog\wp-content\plugins\ajaxy-search-form/admin/admin-edit-role-form.php:180
+#: Stack\apps\wordpress\htdocs\new-blog\wp-content\plugins\ajaxy-search-form/admin/admin-edit-taxonomy-form.php:188
+msgid "Enter title here"
+msgstr ""
+
+#: C:\Program
+#: Files\BitNami WordPress
+#: Stack\apps\wordpress\htdocs\new-blog\wp-content\plugins\ajaxy-search-form/admin/admin-settings.php:67
+#: Stack\apps\wordpress\htdocs\new-blog\wp-content\plugins\ajaxy-search-form/admin/admin-shortcodes.php:46
+msgid "Search Form box"
+msgstr ""
+
+#: C:\Program
+#: Files\BitNami WordPress
+#: Stack\apps\wordpress\htdocs\new-blog\wp-content\plugins\ajaxy-search-form/admin/admin-settings.php:72
+#, fuzzy
+msgid "Allow Ajaxy to Hook Search"
+msgstr "السماح بتعديل عنصر البحث على هذا الموقع"
+
+#: C:\Program
+#: Files\BitNami WordPress
+#: Stack\apps\wordpress\htdocs\new-blog\wp-content\plugins\ajaxy-search-form/admin/admin-settings.php:75
+msgid "unCheck this in case you want to use your theme search form and use the ID box."
+msgstr ""
+
+#: C:\Program
+#: Files\BitNami WordPress
+#: Stack\apps\wordpress\htdocs\new-blog\wp-content\plugins\ajaxy-search-form/admin/admin-settings.php:79
+#: Stack\apps\wordpress\htdocs\new-blog\wp-content\plugins\ajaxy-search-form/admin/admin-shortcodes.php:51
+msgid "Use Right to Left styles"
+msgstr ""
+
+#: C:\Program
+#: Files\BitNami WordPress
+#: Stack\apps\wordpress\htdocs\new-blog\wp-content\plugins\ajaxy-search-form/admin/admin-settings.php:82
+#: Stack\apps\wordpress\htdocs\new-blog\wp-content\plugins\ajaxy-search-form/admin/admin-shortcodes.php:54
+msgid "Check this in case you want to use rtl themes to support right to left languages like arabic."
+msgstr ""
+
+#: C:\Program
+#: Files\BitNami WordPress
+#: Stack\apps\wordpress\htdocs\new-blog\wp-content\plugins\ajaxy-search-form/admin/admin-settings.php:86
+#: Stack\apps\wordpress\htdocs\new-blog\wp-content\plugins\ajaxy-search-form/admin/admin-shortcodes.php:58
+msgid "Search label"
+msgstr ""
+
+#: C:\Program
+#: Files\BitNami WordPress
+#: Stack\apps\wordpress\htdocs\new-blog\wp-content\plugins\ajaxy-search-form/admin/admin-settings.php:88
+#: Stack\apps\wordpress\htdocs\new-blog\wp-content\plugins\ajaxy-search-form/admin/admin-shortcodes.php:60
+msgid "Search"
+msgstr "ابحث"
+
+#: C:\Program
+#: Files\BitNami WordPress
+#: Stack\apps\wordpress\htdocs\new-blog\wp-content\plugins\ajaxy-search-form/admin/admin-settings.php:89
+#: Stack\apps\wordpress\htdocs\new-blog\wp-content\plugins\ajaxy-search-form/admin/admin-shortcodes.php:61
+msgid "This label appears inside the search form and will be hidden when the user clicks inside."
+msgstr ""
+
+#: C:\Program
+#: Files\BitNami WordPress
+#: Stack\apps\wordpress\htdocs\new-blog\wp-content\plugins\ajaxy-search-form/admin/admin-settings.php:93
+msgid "Input ID or class name"
+msgstr ""
+
+#: C:\Program
+#: Files\BitNami WordPress
+#: Stack\apps\wordpress\htdocs\new-blog\wp-content\plugins\ajaxy-search-form/admin/admin-settings.php:96
+msgid "keep this blank to use ajaxy search form, or else put the id of the search or the class name in the form (#ID for id (# before the id) or else (.className) ( \".\" before the className)."
+msgstr ""
+
+#: C:\Program
+#: Files\BitNami WordPress
+#: Stack\apps\wordpress\htdocs\new-blog\wp-content\plugins\ajaxy-search-form/admin/admin-settings.php:100
+#: Stack\apps\wordpress\htdocs\new-blog\wp-content\plugins\ajaxy-search-form/admin/admin-settings.php:155
+#: Stack\apps\wordpress\htdocs\new-blog\wp-content\plugins\ajaxy-search-form/admin/admin-shortcodes.php:65
+#: Stack\apps\wordpress\htdocs\new-blog\wp-content\plugins\ajaxy-search-form/admin/admin-shortcodes.php:120
+msgid "Width"
+msgstr ""
+
+#: C:\Program
+#: Files\BitNami WordPress
+#: Stack\apps\wordpress\htdocs\new-blog\wp-content\plugins\ajaxy-search-form/admin/admin-settings.php:103
+#: Stack\apps\wordpress\htdocs\new-blog\wp-content\plugins\ajaxy-search-form/admin/admin-shortcodes.php:68
+msgid "The width of the search form (width is per pixel) - the value should be integer."
+msgstr ""
+
+#: C:\Program
+#: Files\BitNami WordPress
+#: Stack\apps\wordpress\htdocs\new-blog\wp-content\plugins\ajaxy-search-form/admin/admin-settings.php:107
+#: Stack\apps\wordpress\htdocs\new-blog\wp-content\plugins\ajaxy-search-form/admin/admin-shortcodes.php:72
+msgid "Allow expand"
+msgstr ""
+
+#: C:\Program
+#: Files\BitNami WordPress
+#: Stack\apps\wordpress\htdocs\new-blog\wp-content\plugins\ajaxy-search-form/admin/admin-settings.php:111
+#: Stack\apps\wordpress\htdocs\new-blog\wp-content\plugins\ajaxy-search-form/admin/admin-shortcodes.php:76
+msgid "The reduced width of the search form (this will allow the form to expand its width when it gains focus)."
+msgstr ""
+
+#: C:\Program
+#: Files\BitNami WordPress
+#: Stack\apps\wordpress\htdocs\new-blog\wp-content\plugins\ajaxy-search-form/admin/admin-settings.php:115
+#: Stack\apps\wordpress\htdocs\new-blog\wp-content\plugins\ajaxy-search-form/admin/admin-shortcodes.php:80
+msgid "Delay time"
+msgstr ""
+
+#: C:\Program
+#: Files\BitNami WordPress
+#: Stack\apps\wordpress\htdocs\new-blog\wp-content\plugins\ajaxy-search-form/admin/admin-settings.php:118
+#: Stack\apps\wordpress\htdocs\new-blog\wp-content\plugins\ajaxy-search-form/admin/admin-shortcodes.php:83
+msgid "The delay time before showing the results (this will allow the user to input more text before searching) -  <b>(in millisecond, i.e 5000 = 5sec)</b>."
+msgstr ""
+
+#: C:\Program
+#: Files\BitNami WordPress
+#: Stack\apps\wordpress\htdocs\new-blog\wp-content\plugins\ajaxy-search-form/admin/admin-settings.php:122
+#: Stack\apps\wordpress\htdocs\new-blog\wp-content\plugins\ajaxy-search-form/admin/admin-shortcodes.php:87
+msgid "Border width"
+msgstr ""
+
+#: C:\Program
+#: Files\BitNami WordPress
+#: Stack\apps\wordpress\htdocs\new-blog\wp-content\plugins\ajaxy-search-form/admin/admin-settings.php:125
+#: Stack\apps\wordpress\htdocs\new-blog\wp-content\plugins\ajaxy-search-form/admin/admin-shortcodes.php:90
+msgid "The width of the search form border."
+msgstr ""
+
+#: C:\Program
+#: Files\BitNami WordPress
+#: Stack\apps\wordpress\htdocs\new-blog\wp-content\plugins\ajaxy-search-form/admin/admin-settings.php:129
+#: Stack\apps\wordpress\htdocs\new-blog\wp-content\plugins\ajaxy-search-form/admin/admin-shortcodes.php:94
+msgid "Border type"
+msgstr ""
+
+#: C:\Program
+#: Files\BitNami WordPress
+#: Stack\apps\wordpress\htdocs\new-blog\wp-content\plugins\ajaxy-search-form/admin/admin-settings.php:132
+#: Stack\apps\wordpress\htdocs\new-blog\wp-content\plugins\ajaxy-search-form/admin/admin-shortcodes.php:97
+msgid "solid"
+msgstr ""
+
+#: C:\Program
+#: Files\BitNami WordPress
+#: Stack\apps\wordpress\htdocs\new-blog\wp-content\plugins\ajaxy-search-form/admin/admin-settings.php:133
+#: Stack\apps\wordpress\htdocs\new-blog\wp-content\plugins\ajaxy-search-form/admin/admin-shortcodes.php:98
+msgid "dotted"
+msgstr ""
+
+#: C:\Program
+#: Files\BitNami WordPress
+#: Stack\apps\wordpress\htdocs\new-blog\wp-content\plugins\ajaxy-search-form/admin/admin-settings.php:134
+#: Stack\apps\wordpress\htdocs\new-blog\wp-content\plugins\ajaxy-search-form/admin/admin-shortcodes.php:99
+msgid "dashed"
+msgstr ""
+
+#: C:\Program
+#: Files\BitNami WordPress
+#: Stack\apps\wordpress\htdocs\new-blog\wp-content\plugins\ajaxy-search-form/admin/admin-settings.php:136
+#: Stack\apps\wordpress\htdocs\new-blog\wp-content\plugins\ajaxy-search-form/admin/admin-shortcodes.php:101
+msgid "The type of the search form border."
+msgstr ""
+
+#: C:\Program
+#: Files\BitNami WordPress
+#: Stack\apps\wordpress\htdocs\new-blog\wp-content\plugins\ajaxy-search-form/admin/admin-settings.php:140
+#: Stack\apps\wordpress\htdocs\new-blog\wp-content\plugins\ajaxy-search-form/admin/admin-shortcodes.php:105
+msgid "Border color"
+msgstr ""
+
+#: C:\Program
+#: Files\BitNami WordPress
+#: Stack\apps\wordpress\htdocs\new-blog\wp-content\plugins\ajaxy-search-form/admin/admin-settings.php:143
+#: Stack\apps\wordpress\htdocs\new-blog\wp-content\plugins\ajaxy-search-form/admin/admin-shortcodes.php:108
+msgid "The color of the search form border (color value is hexa-decimal)."
+msgstr ""
+
+#: C:\Program
+#: Files\BitNami WordPress
+#: Stack\apps\wordpress\htdocs\new-blog\wp-content\plugins\ajaxy-search-form/admin/admin-settings.php:150
+#: Stack\apps\wordpress\htdocs\new-blog\wp-content\plugins\ajaxy-search-form/admin/admin-shortcodes.php:115
+msgid "Search Results box"
+msgstr ""
+
+#: C:\Program
+#: Files\BitNami WordPress
+#: Stack\apps\wordpress\htdocs\new-blog\wp-content\plugins\ajaxy-search-form/admin/admin-settings.php:158
+#: Stack\apps\wordpress\htdocs\new-blog\wp-content\plugins\ajaxy-search-form/admin/admin-shortcodes.php:123
+msgid "The width of the results box (width is per pixel) - the value should be integer."
+msgstr ""
+
+#: C:\Program
+#: Files\BitNami WordPress
+#: Stack\apps\wordpress\htdocs\new-blog\wp-content\plugins\ajaxy-search-form/admin/admin-settings.php:174
+msgid "Total words"
+msgstr ""
+
+#: C:\Program
+#: Files\BitNami WordPress
+#: Stack\apps\wordpress\htdocs\new-blog\wp-content\plugins\ajaxy-search-form/admin/admin-settings.php:177
+msgid "The post content total number of words to be shown under each result."
+msgstr ""
+
+#: C:\Program
+#: Files\BitNami WordPress
+#: Stack\apps\wordpress\htdocs\new-blog\wp-content\plugins\ajaxy-search-form/admin/admin-settings.php:181
+msgid "Thumb size"
+msgstr ""
+
+#: C:\Program
+#: Files\BitNami WordPress
+#: Stack\apps\wordpress\htdocs\new-blog\wp-content\plugins\ajaxy-search-form/admin/admin-settings.php:183
+msgid "height"
+msgstr ""
+
+#: C:\Program
+#: Files\BitNami WordPress
+#: Stack\apps\wordpress\htdocs\new-blog\wp-content\plugins\ajaxy-search-form/admin/admin-settings.php:185
+msgid "X width"
+msgstr ""
+
+#: C:\Program
+#: Files\BitNami WordPress
+#: Stack\apps\wordpress\htdocs\new-blog\wp-content\plugins\ajaxy-search-form/admin/admin-settings.php:187
+msgid "Maintain aspect ratio"
+msgstr ""
+
+#: C:\Program
+#: Files\BitNami WordPress
+#: Stack\apps\wordpress\htdocs\new-blog\wp-content\plugins\ajaxy-search-form/admin/admin-settings.php:189
+msgid "The thumbnail size used in the post template it will modify {post_image_html} only, Maintaining aspect ratio is relatively slow so be aware, modifing the thumb size will need some css changes."
+msgstr ""
+
+#: C:\Program
+#: Files\BitNami WordPress
+#: Stack\apps\wordpress\htdocs\new-blog\wp-content\plugins\ajaxy-search-form/admin/admin-settings.php:195
+#: Stack\apps\wordpress\htdocs\new-blog\wp-content\plugins\ajaxy-search-form/admin/admin-shortcodes.php:129
+msgid "More results box"
+msgstr ""
+
+#: C:\Program
+#: Files\BitNami WordPress
+#: Stack\apps\wordpress\htdocs\new-blog\wp-content\plugins\ajaxy-search-form/admin/admin-settings.php:200
+#: Stack\apps\wordpress\htdocs\new-blog\wp-content\plugins\ajaxy-search-form/admin/admin-shortcodes.php:134
+msgid "Search Url"
+msgstr ""
+
+#: C:\Program
+#: Files\BitNami WordPress
+#: Stack\apps\wordpress\htdocs\new-blog\wp-content\plugins\ajaxy-search-form/admin/admin-settings.php:203
+#: Stack\apps\wordpress\htdocs\new-blog\wp-content\plugins\ajaxy-search-form/admin/admin-shortcodes.php:137
+msgid "This search URL for the \"See more results\""
+msgstr ""
+
+#: C:\Program
+#: Files\BitNami WordPress
+#: Stack\apps\wordpress\htdocs\new-blog\wp-content\plugins\ajaxy-search-form/admin/admin-settings.php:210
+msgid "More results text (allowed parameters ( <b>{search_value}</b> <b>{search_value_escaped}</b> <b>{search_url_escaped}</b>)."
+msgstr ""
+
+#: C:\Program
+#: Files\BitNami WordPress
+#: Stack\apps\wordpress\htdocs\new-blog\wp-content\plugins\ajaxy-search-form/admin/admin-settings.php:216
+#, php-format
+msgid "Custom styles (%s)"
+msgstr ""
+
+#: C:\Program
+#: Files\BitNami WordPress
+#: Stack\apps\wordpress\htdocs\new-blog\wp-content\plugins\ajaxy-search-form/admin/admin-settings.php:224
+msgid "Custom styles to be added in the plugin css. add ( .screen-reader-text { display:none; } ) if you want to hide the search form title."
+msgstr ""
+
+#: C:\Program
+#: Files\BitNami WordPress
+#: Stack\apps\wordpress\htdocs\new-blog\wp-content\plugins\ajaxy-search-form/admin/admin-settings.php:230
+#: Stack\apps\wordpress\htdocs\new-blog\wp-content\plugins\ajaxy-search-form/admin/admin-shortcodes.php:143
+msgid "Credits"
+msgstr ""
+
+#: C:\Program
+#: Files\BitNami WordPress
+#: Stack\apps\wordpress\htdocs\new-blog\wp-content\plugins\ajaxy-search-form/admin/admin-settings.php:237
+#: Stack\apps\wordpress\htdocs\new-blog\wp-content\plugins\ajaxy-search-form/admin/admin-shortcodes.php:150
+msgid "Author \"Powered by\" link and credits."
+msgstr ""
+
+#: C:\Program
+#: Files\BitNami WordPress
+#: Stack\apps\wordpress\htdocs\new-blog\wp-content\plugins\ajaxy-search-form/admin/admin-settings.php:245
+msgid "Are you sure you want to reset all your settings?"
+msgstr ""
+
+#: C:\Program
+#: Files\BitNami WordPress
+#: Stack\apps\wordpress\htdocs\new-blog\wp-content\plugins\ajaxy-search-form/admin/admin-settings.php:245
+msgid "Reset Setting to defaults"
+msgstr ""
+
+#: C:\Program
+#: Files\BitNami WordPress
+#: Stack\apps\wordpress\htdocs\new-blog\wp-content\plugins\ajaxy-search-form/admin/admin-shortcodes.php:6
+msgid "Select the search settings below and click generate shortcode."
+msgstr ""
+
+#: C:\Program
+#: Files\BitNami WordPress
+#: Stack\apps\wordpress\htdocs\new-blog\wp-content\plugins\ajaxy-search-form/admin/admin-shortcodes.php:8
+#, fuzzy
+msgid "Search Settings"
+msgstr "الإعدادات"
+
+#: C:\Program
+#: Files\BitNami WordPress
+#: Stack\apps\wordpress\htdocs\new-blog\wp-content\plugins\ajaxy-search-form/admin/admin-shortcodes.php:14
+msgid "Show Categories"
+msgstr ""
+
+#: C:\Program
+#: Files\BitNami WordPress
+#: Stack\apps\wordpress\htdocs\new-blog\wp-content\plugins\ajaxy-search-form/admin/admin-shortcodes.php:17
+msgid "Show the categories in the search results."
+msgstr ""
+
+#: C:\Program
+#: Files\BitNami WordPress
+#: Stack\apps\wordpress\htdocs\new-blog\wp-content\plugins\ajaxy-search-form/admin/admin-shortcodes.php:21
+msgid "Show Post Categories"
+msgstr ""
+
+#: C:\Program
+#: Files\BitNami WordPress
+#: Stack\apps\wordpress\htdocs\new-blog\wp-content\plugins\ajaxy-search-form/admin/admin-shortcodes.php:24
+msgid "Show post of found categories in the search results."
+msgstr ""
+
+#: C:\Program
+#: Files\BitNami WordPress
+#: Stack\apps\wordpress\htdocs\new-blog\wp-content\plugins\ajaxy-search-form/admin/admin-shortcodes.php:28
+msgid "Post types"
+msgstr ""
+
+#: C:\Program
+#: Files\BitNami WordPress
+#: Stack\apps\wordpress\htdocs\new-blog\wp-content\plugins\ajaxy-search-form/admin/admin-shortcodes.php:40
+msgid "Select which post types to search, don't select any if you want to search all."
+msgstr ""
+
+#: C:\Program
+#: Files\BitNami WordPress
+#: Stack\apps\wordpress\htdocs\new-blog\wp-content\plugins\ajaxy-search-form/admin/admin-shortcodes.php:159
+msgid "Shortcode"
+msgstr ""
+
+#: C:\Program
+#: Files\BitNami WordPress
+#: Stack\apps\wordpress\htdocs\new-blog\wp-content\plugins\ajaxy-search-form/admin/admin-shortcodes.php:165
+msgid "Generate shortcode"
+msgstr ""
+
+#: C:\Program
+#: Files\BitNami WordPress
+#: Stack\apps\wordpress\htdocs\new-blog\wp-content\plugins\ajaxy-search-form/admin/admin-shortcodes.php:166
+msgid "Preview shortcode"
+msgstr ""
+
+#: C:\Program
+#: Files\BitNami WordPress
+#: Stack\apps\wordpress\htdocs\new-blog\wp-content\plugins\ajaxy-search-form/admin/admin-shortcodes.php:172
+msgid "Copy the shortcode to where you want it to appear."
+msgstr ""
+
+#: C:\Program
+#: Files\BitNami WordPress
+#: Stack\apps\wordpress\htdocs\new-blog\wp-content\plugins\ajaxy-search-form/admin/widgets/search.php:32
+msgid "Text before:"
+msgstr ""
+
+#: C:\Program
+#: Files\BitNami WordPress
+#: Stack\apps\wordpress\htdocs\new-blog\wp-content\plugins\ajaxy-search-form/admin/widgets/search.php:33
+msgid "Text after:"
+msgstr ""
+
+#: C:\Program
+#: Files\BitNami WordPress
+#: Stack\apps\wordpress\htdocs\new-blog\wp-content\plugins\ajaxy-search-form/admin/widgets/search.php:34
+msgid "Search label:"
+msgstr ""
+
+#: C:\Program
+#: Files\BitNami WordPress
+#: Stack\apps\wordpress\htdocs\new-blog\wp-content\plugins\ajaxy-search-form/admin/widgets/search.php:35
+msgid "Expand width:"
+msgstr ""
+
+#: C:\Program
+#: Files\BitNami WordPress
+#: Stack\apps\wordpress\htdocs\new-blog\wp-content\plugins\ajaxy-search-form/admin/widgets/search.php:36
+msgid "Width:"
+msgstr ""
+
+#: C:\Program
+#: Files\BitNami WordPress
+#: Stack\apps\wordpress\htdocs\new-blog\wp-content\plugins\ajaxy-search-form/admin/widgets/search.php:37
+msgid "Delay:"
+msgstr ""
+
+#: C:\Program
+#: Files\BitNami WordPress
+#: Stack\apps\wordpress\htdocs\new-blog\wp-content\plugins\ajaxy-search-form/admin/widgets/search.php:38
+msgid "Border:"
+msgstr ""
+
+#: C:\Program
+#: Files\BitNami WordPress
+#: Stack\apps\wordpress\htdocs\new-blog\wp-content\plugins\ajaxy-search-form/admin/widgets/search.php:39
+msgid "Credits:"
+msgstr ""
+
+#: C:\Program
+#: Files\BitNami WordPress
+#: Stack\apps\wordpress\htdocs\new-blog\wp-content\plugins\ajaxy-search-form/admin/widgets/search.php:40
+msgid "Show Category Results:"
+msgstr ""
+
+#: C:\Program
+#: Files\BitNami WordPress
+#: Stack\apps\wordpress\htdocs\new-blog\wp-content\plugins\ajaxy-search-form/admin/widgets/search.php:41
+msgid "Show Post Category Results:"
+msgstr ""
+
+#: C:\Program
+#: Files\BitNami WordPress
+#: Stack\apps\wordpress\htdocs\new-blog\wp-content\plugins\ajaxy-search-form/admin/widgets/search.php:42
+msgid "Post types (if set only these post types will be search):"
+msgstr ""
+

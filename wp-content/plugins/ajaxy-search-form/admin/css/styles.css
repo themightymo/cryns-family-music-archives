@@ -1,0 +1,77 @@
+.ajaxy-form-table{
+	padding: 0 25px;
+	background-color: #fff;
+	border-left: 4px solid #D03A3A;
+	-webkit-box-shadow: 0 1px 1px 0 rgba(0,0,0,.1);
+	box-shadow: 0 1px 1px 0 rgba(0,0,0,.1);
+	position:relative;
+}
+.ajaxy-form-table:before {
+	width: 0;
+	height: 0;
+	border-left: 10px solid transparent;
+	border-right: 10px solid transparent;
+	border-bottom: 10px solid #fff;
+	content: " ";
+	position: absolute;
+	top: -10px;
+	left: 20px;
+}
+.ajaxy-form-nowrap {
+	padding-top:20px;
+	padding-bottom:20px;
+}
+li.ajaxy-sf-new span.count-new {
+	background: #FF6600;
+	padding: 2px 10px;
+	font-size: 11px;
+	margin-left: 8px;
+	color: #fff;
+	border-radius: 4px;
+	position:relative;
+}li.ajaxy-sf-new span.count-new:before {
+	width: 0;
+	height: 0;
+	border-left: 5px solid transparent;
+	border-right: 5px solid #FF6600;
+	border-bottom: 5px solid transparent;
+	content: " ";
+	position: absolute;
+	top: 5px;
+	left: -9px;
+	border-top: 5px solid transparent;
+}
+div.ajaxy-form-left {
+	width:68%;
+	margin:0 4% 0 0;
+	padding:0;
+	float:left;
+	min-width:500px;
+}div.ajaxy-form-right {
+	width:28%;
+	margin:0;
+	padding:0;
+	float:left;
+}
+.ajaxy-sf-select{
+	background-color: #f8f8f8;
+	padding: 10px;
+	border: 1px solid #f1f1f1;
+	margin: 5px 0;
+}
+.ajaxy-sf-select li {
+	display:inline-block;
+	width:30%;
+}tr.row-no  td.show_on_search span{
+	background-color: #CC0606;
+	padding: 2px 10px;
+	color: #fff;
+	border-radius: 4px;
+	position:relative;
+}tr.row-yes  td.show_on_search span{
+	background-color: #26CC06;
+	padding: 2px 10px;
+	color: #fff;
+	border-radius: 4px;
+	position:relative;
+}
