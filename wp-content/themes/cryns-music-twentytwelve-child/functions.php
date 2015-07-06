@@ -11,3 +11,21 @@ function childtheme_formats(){
 
 // add post-formats to post_type 'my_custom_post_type'
 add_post_type_support( 'cryns_audio_file', 'post-formats' );
+
+
+/**
+ * Add a icon to the beginning of every post page.
+ *
+ * @uses is_single()
+ */
+function add_mp3_to_single_audio_posts ( $content ) {
+    if ( is_single() && has_post_format( 'audio' ) ) {
+	    global $post;
+	    $mp3 = wp_get_attachment_url( get_post_meta($post->ID, 'Audio File', true) );
+	    $myHTML = '<audio class="wp-audio-shortcode" id="audio-2383-1" preload="none" style="width: 100%; visibility: hidden;" controls="controls"><source type="audio/mpeg" src="' . $mp3 . '">http://music.cryns.com/wp-content/uploads/2012/03/Asshole-4-Life.mp3</a></audio>';
+	    $content .= $myHTML;
+    }
+    // Returns the content.
+	return $content;
+}
+add_filter( 'the_content', 'add_mp3_to_single_audio_posts', 20 );
