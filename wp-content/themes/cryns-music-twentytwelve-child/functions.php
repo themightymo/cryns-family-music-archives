@@ -29,3 +29,9 @@ function add_mp3_to_single_audio_posts ( $content ) {
 	return $content;
 }
 add_filter( 'the_content', 'add_mp3_to_single_audio_posts', 20 );
+
+function display_audio_post_count () {
+	$count_posts = wp_count_posts( 'cryns_audio_file' )->publish;
+	echo '<div style="color:#fff; text-align:center;">Total Songs Posted: ' . $count_posts . '</div>';
+}
+add_action('wp_footer', 'display_audio_post_count'); 
