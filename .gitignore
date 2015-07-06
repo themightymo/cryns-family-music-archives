@@ -63,6 +63,7 @@ wp-content/plugins/acf-*
 wp-content/plugins/enable-media-replace/*
 wp-content/plugins/fusion-core/*
 wp-content/plugins/revslider/*
+wp-content/plugins/jetpack/*
 wp-content/plugins/maintenance-mode/*
 wp-content/themes/Avada/*
 wp-content/plugins/phpinfo/*

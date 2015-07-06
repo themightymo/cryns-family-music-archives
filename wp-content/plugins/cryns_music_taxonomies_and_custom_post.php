@@ -268,3 +268,25 @@ function create_cryns_audio_files_taxonomies()
     'rewrite' => array( 'slug' => 'track-number' ),
   ));
 }
+
+/**
+ * Include cryns_audio_file post type in Jetpack Related Posts
+ */
+function allow_my_post_types($allowed_post_types) {
+    $allowed_post_types[] = 'cryns_audio_file';
+    return $allowed_post_types;
+}
+add_filter( 'rest_api_allowed_post_types', 'allow_my_post_types' );
+
+/**
+ * Change the “Related” headline at the top of the Related Posts section
+ **/
+function jetpackme_related_posts_headline( $headline ) {
+$headline = sprintf(
+            '<h3 class="jp-relatedposts-headline"><em>%s</em></h3>',
+            esc_html( 'Related songs:' )
+            );
+return $headline;
+}
+add_filter( 'jetpack_relatedposts_filter_headline', 'jetpackme_related_posts_headline' );
+
