@@ -11,10 +11,3 @@ function childtheme_formats(){
 
 // add post-formats to post_type 'my_custom_post_type'
 add_post_type_support( 'cryns_audio_file', 'post-formats' );
-
-
-/**
- * Add a icon to the beginning of every post page.
- *
- * @uses is_single()
- */
