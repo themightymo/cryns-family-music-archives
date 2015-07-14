@@ -290,3 +290,22 @@ return $headline;
 }
 add_filter( 'jetpack_relatedposts_filter_headline', 'jetpackme_related_posts_headline' );
 
+// Add mp3 player to single post view
+function add_mp3_to_single_audio_posts ( $content ) {
+    if ( is_single() && has_post_format( 'audio' ) ) {
+	    global $post;
+	    $mp3 = wp_get_attachment_url( get_post_meta($post->ID, 'Audio File', true) );
+	    $myHTML = '<audio class="wp-audio-shortcode" id="audio-2383-1" preload="none" style="width: 100%; visibility: hidden;" controls="controls"><source type="audio/mpeg" src="' . $mp3 . '">http://music.cryns.com/wp-content/uploads/2012/03/Asshole-4-Life.mp3</a></audio>';
+	    $content .= $myHTML;
+    }
+    // Returns the content.
+	return $content;
+}
+add_filter( 'the_content', 'add_mp3_to_single_audio_posts', 20 );
+
+// Add total audio posts to footer
+function display_audio_post_count () {
+	$count_posts = wp_count_posts( 'cryns_audio_file' )->publish;
+	echo '<div style="color:#fff; text-align:center;">Total Songs Posted: ' . $count_posts . '</div>';
+}
+add_action('wp_footer', 'display_audio_post_count'); 
