@@ -292,7 +292,7 @@ add_filter( 'jetpack_relatedposts_filter_headline', 'jetpackme_related_posts_hea
 
 // Add mp3 player to single post view
 function add_mp3_to_single_audio_posts ( $content ) {
-    if ( is_single() && has_post_format( 'audio' ) ) {
+    if ( ( is_single() && has_post_format( 'audio' ) ) || is_archive() && has_post_format( 'audio' ) || is_search() && has_post_format( 'audio' ) ) {
 	    global $post;
 	    $mp3 = wp_get_attachment_url( get_post_meta($post->ID, 'Audio File', true) );
 	    $myHTML = '<audio class="wp-audio-shortcode" id="audio-2383-1" preload="none" style="width: 100%; visibility: hidden;" controls="controls"><source type="audio/mpeg" src="' . $mp3 . '"></audio><span class="audio-meta"><a href="' . $mp3 . '" target="_blank">Download MP3 File</a>, ' . get_the_term_list ( $post->ID, 'cryns_artist', "Artist: " ) . get_the_term_list( get_the_ID(), 'cryns_written_by', ", Written By: ", ', ' ) . get_the_term_list( get_the_ID(), 'cryns_track_number', ", Track Number: " ) . get_the_term_list( get_the_ID(), 'cryns_release_year', ", Release Year: " ) . get_the_term_list( get_the_ID(), 'cryns_musicians', ", Musicians: ", ', ' ) . get_the_term_list( get_the_ID(), 'cryns_engineer', ", Engineer(s): ", ', ' ) . get_the_term_list( get_the_ID(), 'cryns_producer', ", Producer(s): ", ', ' ) . get_the_term_list( get_the_ID(), 'cryns_genre', ", Genre(s): ", ', ' ) . get_the_term_list( get_the_ID(), 'cryns_album_title', ", Album Title: " ) . get_the_term_list( get_the_ID(), 'cryns_artist', ", Artist: " ) . '</span>';
@@ -303,6 +303,8 @@ function add_mp3_to_single_audio_posts ( $content ) {
 	return $content;
 }
 add_filter( 'the_content', 'add_mp3_to_single_audio_posts', 20 );
+
+add_filter( 'the_excerpt', 'add_mp3_to_single_audio_posts', 20 );
 
 // Add total audio posts to footer
 function display_audio_post_count () {
