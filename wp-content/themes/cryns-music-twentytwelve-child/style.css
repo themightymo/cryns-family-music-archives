@@ -25,3 +25,6 @@ footer.entry-meta,
 	margin-bottom: 0;
 	padding-bottom: 0;
 }
+.entry-header {
+	margin: 1.714285714rem 0;
+}
