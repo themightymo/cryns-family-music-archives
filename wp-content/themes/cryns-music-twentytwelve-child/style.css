@@ -28,3 +28,6 @@ footer.entry-meta,
 .entry-header {
 	margin: 1.714285714rem 0;
 }
+button, input, select, textarea {
+	max-width: 100%;
+}
