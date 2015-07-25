@@ -8,12 +8,3 @@ add_action( 'after_setup_theme', 'childtheme_formats', 11 );
 function childtheme_formats(){
 	add_theme_support( 'post-formats', array( 'audio', 'video' ) );
 }
-
-// add post-formats to post_type 'my_custom_post_type'
-add_post_type_support( 'cryns_audio_file', 'post-formats' );
-
-function my_post_types($types) {
-    $types[] = 'cryns_audio_file';
-    return $types;
-}
-add_filter('s2_post_types', 'my_post_types');

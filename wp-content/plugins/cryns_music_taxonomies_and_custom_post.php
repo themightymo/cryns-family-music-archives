@@ -312,3 +312,14 @@ function display_audio_post_count () {
 	echo '<div style="color:#fff; text-align:center;">Total Songs Posted: ' . $count_posts . '</div>';
 }
 add_action('wp_footer', 'display_audio_post_count'); 
+
+
+// add post-formats to post_type 'my_custom_post_type'
+add_post_type_support( 'cryns_audio_file', 'post-formats' );
+
+// Subscribe2 uses "cryns_audio_file" post type
+function my_post_types($types) {
+    $types[] = 'cryns_audio_file';
+    return $types;
+}
+add_filter('s2_post_types', 'my_post_types');
