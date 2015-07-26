@@ -270,7 +270,7 @@ function create_cryns_audio_files_taxonomies()
 }
 
 /**
- * Include cryns_audio_file post type in Jetpack Related Posts
+ * Include cryns_audio_file post type in Jetpack Rest api
  */
 function allow_my_post_types($allowed_post_types) {
     $allowed_post_types[] = 'cryns_audio_file';
