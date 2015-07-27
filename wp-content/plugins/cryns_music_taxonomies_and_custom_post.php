@@ -323,3 +323,47 @@ function my_post_types($types) {
     return $types;
 }
 add_filter('s2_post_types', 'my_post_types');
+
+
+/* Displays a playlist in your template.  To be used in archive.php or equivalent.  
+ * cryns_audio_playlist();
+ */
+function cryns_audio_playlist() {
+	$queried_object = get_queried_object();
+	
+	$args = array(
+		'post_type'        => 'cryns_audio_file',
+		'post_status'      => 'publish',
+		'numberposts' => 0,
+		'tax_query' => array(
+		    array(
+				'taxonomy' => $queried_object->taxonomy,
+				'field' => 'id',
+				'terms' => $queried_object->term_id, // Where term_id of Term 1 is "1".
+			)
+		)
+	);
+	
+	//This is the array that will store all the audio file ids
+	$audioIDs = array();
+	
+	$myposts = get_posts( $args );
+	
+	foreach ( $myposts as $post ) : setup_postdata( $post ); 
+		// Get the audio file's id, and store it in a variable
+		$audioID = get_post_meta ( $post->ID,'Audio File',true );
+		// Add the audio file's id to the $audioIDs variable (array format)
+		array_push($audioIDs,$audioID);
+	endforeach; 
+	
+	// Since the $audioIDs array is not in the correct format, we put the files in a comma-separated list and store that list in the $audioList variable
+	foreach ( $audioIDs as $audioID ) {
+		$audioList .= $audioID . ',';
+	}
+	
+	// Display the playlist!
+	echo do_shortcode ('[playlist ids="' . $audioList . '"]');
+	
+	/* Restore original Post Data */
+	wp_reset_postdata();
+}

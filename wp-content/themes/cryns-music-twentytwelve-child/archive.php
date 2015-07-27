@@ -40,8 +40,7 @@ get_header(); ?>
 			<?php
 			/* Start the Loop */
 			
-			//This is the array that will store all the audio file ids
-			$audioIDs = array();
+			
 			
 			while ( have_posts() ) : the_post();
 
@@ -51,27 +50,24 @@ get_header(); ?>
 				 */
 				get_template_part( 'content', get_post_format() );
 				
-				// Get the audio file's id, and store it in a variable
-				$audioID = get_post_meta (get_the_ID(),'Audio File',true);
-				// Add the audio file's id to the $audioIDs variable (array format)
-				array_push($audioIDs,$audioID);
-				
 			endwhile;
 			
-			// Since the $audioIDs array is not in the correct format, we put the files in a comma-separated list and store that list in the $audioList variable
-			foreach ( $audioIDs as $audioID ) {
-				$audioList .= $audioID . ',';
-			}
 			
-			// Display the playlist!
-			echo do_shortcode ('[playlist ids="' . $audioList . '"]');
-
-			twentytwelve_content_nav( 'nav-below' );
+			
 			?>
 
 		<?php else : ?>
 			<?php get_template_part( 'content', 'none' ); ?>
 		<?php endif; ?>
+		
+		
+		
+		
+		<?php cryns_audio_playlist(); ?>
+		
+		<?php
+		twentytwelve_content_nav( 'nav-below' ); 
+		?>
 
 		</div><!-- #content -->
 	</section><!-- #primary -->
