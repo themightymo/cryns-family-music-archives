@@ -330,11 +330,15 @@ add_filter('s2_post_types', 'my_post_types');
  */
 function cryns_audio_playlist() {
 	$queried_object = get_queried_object();
-	
+	$paged = (get_query_var('paged')) ? get_query_var('paged') : 1; //Needed
 	$args = array(
-		'post_type'        => 'cryns_audio_file',
-		'post_status'      => 'publish',
+		'post_type' => 'cryns_audio_file',
+		'post_status' => 'publish',
 		'numberposts' => 0,
+		'posts_per_page' => 10,
+		'posts_per_archive_page' => 10,
+		'paged' => $paged,
+		'nopaging' => false,
 		'tax_query' => array(
 		    array(
 				'taxonomy' => $queried_object->taxonomy,
