@@ -40,14 +40,7 @@ Thumbs.db
 # Ignore everything in the "wp-content" directory, except the "plugins", "mu-plugins",
 # and "themes" directories.
 wp-content/*
-# !wp-content/mu-plugins/
-# !wp-content/plugins/
-# !wp-content/themes/
 
-# Ignore everything in the "mu-plugins" directory, except the mu-plugins you
-# specify (see the commented-out examples for hints on how to do this.)
-# !wp-content/mu-plugins/my-plugin.php
-# wp-content/mu-plugins/*
 
 # Ignore everything in the "plugins" directory, except the plugins you
 # specify (see the commented-out examples for hints on how to do this.)
@@ -61,6 +54,7 @@ wp-content/plugins/*
 wp-content/themes/*
 !wp-content/themes/cryns-family-music-archives/*
 !wp-content/themes/cryns-music-twentytwelve-child/*
+!wp-content/themes/apptheme-child/*
 
 
 # wpengine specific
