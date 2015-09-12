@@ -1,0 +1,58 @@
+
+/**
+ * Modals
+ * --------------------------------------------------
+ * Modals are independent windows that slide in from off-screen.
+ */
+
+.io-modal {
+  @include translate3d(0, 100%, 0);
+  position: fixed;
+  top: 0; 
+  z-index: 99;
+  overflow: hidden;
+
+  min-height: 100%;
+  width: 100%;
+
+  background-color: $body-bg;
+  opacity: 0;
+
+  right: 0;
+  padding-top: 48px;
+
+  // Active modal
+  &.active {
+    height: 100%;
+  }
+}
+
+.io-modal .io-modal-close {
+  position: absolute;
+  right: 0;
+  top: 0;
+  cursor: pointer;
+  padding: 15px;
+  margin: 0;
+}
+
+.io-modal .btn-primary.btn-camera {
+  margin: 10px 0;
+  float: left;
+}
+
+.io-modal .hide {
+  display: none;
+}
+
+.io-modal .show {
+  display: block;
+}
+
+.io-modal .io-modal-content {
+  height: 100%;
+  padding: 10px;
+  // overflow-y: scroll; /* has to be scroll, not auto */
+  overflow: hidden; // fix for camera button overlay
+  -webkit-overflow-scrolling: touch;
+  }

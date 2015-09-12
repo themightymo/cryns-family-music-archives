@@ -1,0 +1,31 @@
+/*
+
+ Theme Name:   AppTheme Child
+ Theme URI:    http://apppresser.com
+ Description:  A starter child theme for AppPresser.
+ Author:       AppPresser
+ Author URI:   AppPresser
+ Template:     AppPresser
+ Version:      1.0.0
+ License:      GNU General Public License
+ License URI:  http://www.gnu.org/licenses/gpl-2.0.html
+
+ AppPresser WordPress Child Theme, Copyright 2014 AppPresser
+ AppPresser is distributed under the terms of the GNU GPL
+
+ AppPresser uses code from _s ("Underscores") WordPress Theme, Copyright 2013 Automattic, Inc.
+ Bootstrap designed and built by @mdo and @fat, sass-ified by Aaron Lademann @alademann http://getbootstrap.com/ license http://www.apache.org/licenses/LICENSE-2.0
+ Images included with the theme are under GPL license.
+
+*/
+
+@import url("../AppPresser/style.css");
+
+/* Add your custom styles below */ 
+
+p {
+	font-size: 14px;
+}
+audio {
+	visibility: visible !important;
+}

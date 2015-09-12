@@ -51,7 +51,8 @@ wp-content/plugins/*
 
 # Ignore everything in the "themes" directory, except the themes you
 # specify (see the commented-out example for a hint on how to do this.)
-wp-content/themes/*
+# wp-content/themes/
+wp-content/themes/twentytwelve/
 !wp-content/themes/cryns-family-music-archives/*
 !wp-content/themes/cryns-music-twentytwelve-child/*
 !wp-content/themes/apptheme-child/*

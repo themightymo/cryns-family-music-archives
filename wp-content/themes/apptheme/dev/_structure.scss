@@ -1,0 +1,87 @@
+/* =Structure
+----------------------------------------------- */
+
+html, body, #body-container {
+	height: 100%; // sets up body-container for hiding off page menu [bug fix]
+}
+
+#body-container { // fixes off page menu bug
+	max-width: 100%;
+	overflow: hidden;
+	height: 100%;
+	position: relative;
+}
+
+body #page {
+  height: 100%;
+  background: $body-bg;
+}
+.header-inner,
+.site-main,
+.site-info,
+.footer-widget-area {
+	width: 96%;
+	margin: 0 auto;
+}
+#main {
+	position: absolute;
+	-webkit-backface-visibility: hidden;
+	top: 44px;
+	bottom: 0;
+	z-index: 1;
+	clear: both;
+	padding: 15px 2%;
+	width: 100%;
+	// Below is for smooth scrolling https://github.com/jakiestfu/Snap.js/#gotchas
+	overflow: auto;
+    -webkit-transition-property: top, bottom;
+    transition-property: top, bottom;
+    -webkit-transition-duration: .2s, .2s;
+    transition-duration: .2s, .2s;
+    -webkit-transition-timing-function: linear, linear;
+    transition-timing-function: linear, linear;
+    -webkit-overflow-scrolling: touch;
+}
+
+/*** Responsive Columns ***/
+
+.one-half, .one-third, .two-thirds, .three-fourths, .one-fourth {
+	float:left;
+	margin-bottom:20px;
+	margin-right:4%;
+	position:relative;
+}
+
+.one-half {
+	width: 48%;
+}
+
+.one-third {
+	width: 30.66%;
+}
+
+.two-thirds {
+	width: 65.33%;
+}
+
+.one-fourth {
+	width: 22%;
+}
+
+.three-fourths {
+	width: 74%;
+}
+
+.last-col {
+	clear:right;
+	margin-right:0;
+}
+
+@media only screen and (max-width : 35em) {
+	.one-half, .one-third, .two-thirds, .three-fourths, .one-fourth {
+		float: none;
+		clear: both;
+		margin-right: 0;
+		width: 100%;
+	}
+}

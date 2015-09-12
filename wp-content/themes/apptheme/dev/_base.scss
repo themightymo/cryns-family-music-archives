@@ -1,0 +1,135 @@
+/* =Global
+----------------------------------------------- */
+
+body,
+button,
+input,
+select,
+textarea {
+	font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+	font-size: 15px;
+	font-size: 1.5rem;
+	font-weight: 300;
+	line-height: 1.5;
+	-ms-word-wrap: break-word;
+	word-wrap: break-word;
+}
+
+input,
+select,
+textarea {
+	color: #555;
+}
+
+body {
+	color: #333;
+	overflow: hidden;
+}
+
+/* Headings */
+h1,h2,h3,h4 {
+	font-weight: 300;
+	margin-bottom: 15px;
+}
+.entry-title {
+	font-size: 15px;
+	font-size: 1.5rem;
+}
+.single .entry-title {
+	font-weight: bold;
+	font-size: 20px;
+	font-size: 2.0rem;
+	margin-top: 0;
+}
+.page-title {
+	color: $brand-primary;
+}
+hr {
+	background-color: #eee;
+	border: 0;
+	height: 1px;
+	margin-bottom: 1.5em;
+	clear: both;
+}
+p.subject, p.subtext {
+	font-size: 1.4rem;
+}
+p.subject, p.subtext {
+	margin-bottom: 0;
+}
+
+.more-link {
+	display: inline-block;
+}
+.page-links a {
+	padding: .4em;
+}
+
+/* Links */
+a {
+	color: #333;
+	text-decoration: none;
+}
+a:hover, a:focus {
+	text-decoration: none;
+}
+a, input, button {
+    -ms-touch-action: none !important; /* Removes click delay in IE10 */
+}
+
+.nav-previous a,
+.nav-next a {
+	margin-top: 0;
+	font-size: 13px;
+	font-size: 1.3rem;
+	color: #999;
+	display: block;
+}
+
+/* Alignment */
+.alignleft {
+	display: inline;
+	float: left;
+	margin-right: 1.5em;
+	margin-bottom: 1em;
+}
+.alignright {
+	display: inline;
+	float: right;
+	margin-left: 1.5em;
+	margin-bottom: 1em;
+}
+.aligncenter {
+	clear: both;
+	display: block;
+	margin: 0 auto 1.5em auto;
+}
+.alignnone {
+	margin-bottom: 1.5em;
+}
+
+/* Text meant only for screen readers */
+.screen-reader-text {
+	clip: rect(1px, 1px, 1px, 1px);
+	position: absolute !important;
+}
+
+/* Clearing */
+.clear {
+	clear: both;
+}
+.clear:before,
+.clear:after,
+[class*="content"]:before,
+[class*="content"]:after,
+[class*="site"]:before,
+[class*="site"]:after {
+	content: '';
+	display: table;
+}
+
+.clear:after,
+[class*="content"]:after,
+[class*="site"]:after {
+	clear: both;
+}

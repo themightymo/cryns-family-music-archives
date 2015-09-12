@@ -1,0 +1,359 @@
+/* =Site Header
+----------------------------------------------- */
+
+.site-header {
+	position: fixed;
+	height: 48px;
+	z-index: 3;
+	top: 0;
+	left: 0;
+	right: 0;
+	width: auto;
+	background-color: $brand-primary;
+	-moz-box-shadow: 0 2px 2px rgba(0,0,0,.1);
+	-webkit-box-shadow: 0 2px 2px rgba(0,0,0,.1);
+	box-shadow: 0 2px 2px rgba(0,0,0,.1);
+	a, i {
+		color: #fff;
+	}
+	// @include breakpoint(medium) {
+	// 	margin-left: 266px; // For open left panel. Make theme option for "persistent left panel"?
+	// }
+}
+.ios7 {
+	border-top: 20px solid $brand-primary;
+}
+.ios7 .site-header {
+	top: 20px;
+}
+.ios7.snapjs-left .site-header {
+	top: 0;
+}
+.site-title-wrap {
+	max-width: 45%;
+	margin: auto;
+	position: absolute;
+	left: 0;
+	right: 0;
+	overflow: hidden;
+	white-space: nowrap;
+}
+.site-title {
+	font-size: 18px;
+	font-size: 1.8rem;
+	line-height: 1.3em;
+	margin-top: .8em;
+	text-align: center;
+}
+.site-title, .site-title a {
+	color: #fff;
+}
+.site-description {
+	font-weight: 300;
+	display: none;
+}
+#site-logo {
+	display: block;
+	max-height: 33px;
+	margin: 10px auto 0 auto;
+}
+
+.toolbar {
+	padding: 10px;
+}
+
+/* =Menus
+----------------------------------------------- */
+
+.top-menu {
+	float: right;
+	margin-right: .5em;
+}
+.navigation-main ul, .top-menu ul, .sub-nav ul {
+	list-style: none;
+	margin: 0;
+	padding-left: 0;
+}
+.navigation-main {
+	position: relative;
+	overflow: hidden;
+	height: 150%;
+}
+.navigation-main a {
+	position: relative;
+    display: block;
+    font-size: 16px;
+    font-size: 1.6rem;
+    padding: 1.3rem 1.5rem;
+    text-decoration: none;
+    color: $gray-lighter;
+    border-bottom: 1px solid rgba(0,0,0,.1);
+}
+.navigation-main a i {
+	margin-top: .3em;
+	margin-right: .3em;
+}
+.navigation-main li.current_page_item {
+	background: #444;
+	background: rgba(0,0,0,.15);
+}
+.navigation-main li.current_page_item a {
+	color: $body-bg;
+}
+.top-menu ul a {
+	font-size: 1.3rem;
+	font-weight: normal;
+	padding: .5em 1em;
+	display: block;
+	text-decoration: none;
+}
+header .dropdown-menu ul a {
+	color: #444;
+}
+.navigation-main ul ul, .navigation-main ul ul ul {
+  position: absolute;
+  background: #333;
+  top: 0;
+  height: 150%;
+  z-index: 1;
+  width: 100%;
+  display: block;
+  -webkit-transform: translate3d(200%, 0, 0);
+  -moz-transform: translate3d(200%, 0, 0);
+  -ms-transform: translate3d(200%, 0, 0);
+  -o-transform: translate3d(200%, 0, 0);
+  transform: translate3d(200%, 0, 0);
+  -webkit-transition: -webkit-transform 300ms ease;
+  -moz-transition: -moz-transform 300ms ease;
+  -o-transition: -o-transform 300ms ease;
+  transition: transform 300ms ease; 
+}
+.sub-menu.open-sub-menu, .children.open-sub-menu {
+  -webkit-transform: translate3d(0, 0, 0);
+  -moz-transform: translate3d(0, 0, 0);
+  -ms-transform: translate3d(0, 0, 0);
+  -o-transform: translate3d(0, 0, 0);
+  transform: translate3d(0, 0, 0);
+  -webkit-transition: -webkit-transform 300ms ease;
+  -moz-transition: -moz-transform 300ms ease;
+  -o-transition: -o-transform 300ms ease;
+  transition: transform 300ms ease; 
+}
+.navigation-main ul ul a {
+	width: 100%;
+}
+.navigation-image, .navigation-comment, .navigation-paging {
+	overflow: hidden;
+	margin: 1em 0;
+}
+
+header .nav-left-btn {
+    display: inline-block;
+    padding: 1.05em 1.1em .9em .9em;
+    line-height: 1;
+    border: 0;
+    cursor: pointer;
+    outline: none;
+    overflow: hidden;
+    z-index: 9999;
+    white-space: nowrap;
+    opacity: .8;
+    margin-left: -.2em;
+}
+header .back.nav-left-btn {
+	padding-right: .3em;
+}
+.nav-right-btn, header .widget_search a {
+	display: block;
+	cursor: pointer;
+	opacity: .8;
+	padding: 1.05em .9em .9em;
+	line-height: 1;
+	font-size: 1.6rem;
+}
+header .widget_search a {
+	position: relative;
+	top: 2px;
+}
+.app-panel .nav-right-btn {
+	color: #fff;
+}
+#app-panel-menu {
+	position: relative;
+}
+header .dropdown-menu a {
+	color: $brand-primary;
+}
+
+header .sub-nav {
+	background: #333;
+	padding: 0;
+
+	li a {
+		color: #fff;
+		font-size: 1.4rem;
+	}
+}
+header .sub-nav ul li.current_page_item a {
+	background: #444;
+}
+header .sub-nav ul ul {
+	display: none;
+}
+.navigation-main .nav-divider a {
+	font-size: 12px;
+	text-transform: uppercase;
+	background: rgba(255,255,255,.1);
+	color: #ccc;
+	padding: .5em 1.5rem;
+	font-weight: bold;
+}
+
+/* =Shelf Menu
+----------------------------------------------- */
+
+#page {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  width: auto;
+  height: auto;
+  overflow: auto;
+  -moz-box-shadow: 0 0 1.5em rgba(0,0,0,.3);
+  -webkit-box-shadow: 0 0 1.5em rgba(0,0,0,.3);
+  box-shadow: 0 0 1.5em rgba(0,0,0,.3);
+  -webkit-overflow-scrolling: touch;
+  // Breaks fixed positioning
+  // -webkit-transform: translate3d(0, 0, 0);
+  //    -moz-transform: translate3d(0, 0, 0);
+  //     -ms-transform: translate3d(0, 0, 0);
+  //      -o-transform: translate3d(0, 0, 0);
+  //         transform: translate3d(0, 0, 0);
+  backface-visibility:hidden;
+  -webkit-backface-visibility:hidden; /* Chrome and Safari */
+  -moz-backface-visibility:hidden; /* Firefox */
+  -ms-backface-visibility:hidden; /* Internet Explorer 10+ */
+  // @include breakpoint(medium) {
+  // 	margin-left: 266px; // Opens left nav panel. Make theme option for "persistent left panel"?
+  // }
+}
+
+// .snap-drawers, .navigation-main {
+//   background: #333;
+//   position: absolute;
+//   top: 0;
+//   right: 0;
+//   bottom: 0;
+//   left: 0;
+//   width: auto;
+//   height: auto;
+// }
+
+.snap-drawer {
+  position: absolute;
+  z-index: 0;
+  background: #333;
+  top: 0;
+  right: auto;
+  bottom: 0;
+  left: auto;
+  width: 265px;
+  height: auto;
+  overflow: auto;
+  -webkit-overflow-scrolling: touch;
+  -webkit-transition: width 0.3s ease;
+     -moz-transition: width 0.3s ease;
+      -ms-transition: width 0.3s ease;
+       -o-transition: width 0.3s ease;
+          transition: width 0.3s ease;
+}
+
+.snap-drawer-left {
+  left: 0;
+  z-index: 1;
+}
+
+.snap-drawer-right {
+  right: 0;
+  z-index: 1;
+}
+
+.snapjs-left .snap-drawer-right,
+.snapjs-right .snap-drawer-left {
+  display: none;
+}
+
+.snapjs-expand-left .snap-drawer-left,
+.snapjs-expand-right .snap-drawer-right {
+  width: 100%;
+}
+
+.shelf-top {
+	width: 265px;
+	position: relative;
+	z-index: 1;
+	.user-name {
+		margin-top: 1.1em;
+		font-weight: normal;
+		color: $gray-lighter;
+	}
+}
+
+.shelf-top .avatar {
+	float: left;
+	margin: .5em;
+	width: 50px;
+	height: 50px;
+	-webkit-border-radius: 25px;
+	border-radius: 25px;
+	overflow: hidden;
+	border: 1px solid rgba(0,0,0,.2);
+}
+
+.shelf-search {
+	padding: .5em;
+}
+
+.shelf-search input {
+	background: #777;
+	color: #eee;
+	padding: 3px 8px;
+	font-size: 1.4rem;
+	border: 1px solid rgba(0,0,0,.2);
+	border-radius: 30px;
+	width: 250px;
+}
+
+.cart-items {
+
+	padding: 1.3rem 1.5rem;
+	background: rgba(0,0,0,.3);
+	color: $gray-lighter;
+	clear: both;
+
+	i {
+		float: left;
+		margin-right: .6em;
+		margin-top: .3em;
+	}
+
+	.cart-contents {
+		text-decoration: none;
+		font-size: 1.4rem;
+		color: $gray-lighter;
+
+		.amount {
+			background: rgba(0,0,0,.3);
+			border-radius: 5px;
+			padding: 5px;
+			margin-left: 1em;
+		}
+	}
+}
+
+.log-out-button a {
+	display: block;
+	margin: 10px;
+}

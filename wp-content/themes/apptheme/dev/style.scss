@@ -1,0 +1,31 @@
+/*!
+Theme Name: AppTheme
+Author: AppPresser Team
+Author URI: http://apppresser.com
+Description: A starter theme for WordPress application development.
+Version: 2.0.1
+License: GNU General Public License
+License URI: http://www.gnu.org/licenses/gpl-2.0.html
+Tags: flexible-width, custom-background, custom-colors, custom-header, flexible-header, featured-image-header, featured-images, light, white, full-width-template, theme-options, threaded-comments, translation-ready, one-column, two-columns, left-sidebar, right-sidebar
+
+AppPresser WordPress Theme, Copyright 2013 AppPresser
+AppPresser is distributed under the terms of the GNU GPL
+
+AppPresser uses code from _s ("Underscores") WordPress Theme, Copyright 2013 Automattic, Inc.
+Bootstrap designed and built by @mdo and @fat, sass-ified by Aaron Lademann @alademann http://getbootstrap.com/ license http://www.apache.org/licenses/LICENSE-2.0
+Images included with the theme are under GPL license.
+
+*/
+
+@import 'compass';
+@import 'mixins.scss';
+@import 'normalize.scss';
+@import 'bootstrap/sass-bootstrap.scss';
+@import 'base.scss';
+@import 'structure.scss';
+@import 'header-nav.scss';
+@import 'content.scss';
+@import 'comments.scss';
+@import 'io-animations.scss';
+@import 'io-modal.scss';
+@import 'fontawesome/_font-awesome.scss';

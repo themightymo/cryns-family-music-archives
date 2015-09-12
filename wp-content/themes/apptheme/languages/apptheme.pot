@@ -1,0 +1,720 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: AppTheme\n"
+"POT-Creation-Date: 2015-03-05 16:53-0600\n"
+"PO-Revision-Date: 2015-03-05 16:53-0600\n"
+"Last-Translator: Michael Beckwith <michael.d.beckwith@gmail.com>\n"
+"Language-Team: Michael Beckwith <michael.d.beckwith@gmail.com>\n"
+"Language: en_EN\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.7.4\n"
+"X-Poedit-Basepath: ..\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-KeywordsList: __;_e;_n:1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;esc_attr__;"
+"esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c;_n_noop:1,2;"
+"_nx_noop:3c,1,2;__ngettext_noop:1,2\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Poedit-SearchPath-0: .\n"
+
+#: 404.php:17
+msgid ""
+"It looks like nothing was found at this location. Maybe try one of the links "
+"below or a search?"
+msgstr ""
+
+#: 404.php:25
+msgid "Most Used Categories"
+msgstr ""
+
+#: 404.php:42
+#, php-format
+msgid "Try looking in the monthly archives. %1$s"
+msgstr ""
+
+#: appp-settings.php:59
+msgid "Theme Settings"
+msgstr ""
+
+#: appp-settings.php:64
+msgid "AppPresser Theme License Key"
+msgstr ""
+
+#: appp-settings.php:64
+msgid "Adding a license key enables automatic updates."
+msgstr ""
+
+#: appp-settings.php:65
+msgid "Disable dynamic page loading"
+msgstr ""
+
+#: appp-settings.php:68
+msgid ""
+"The AppPresser theme relies heavily on ajax to avoid page refreshes. Many "
+"WordPress plugins are not compatible with ajax, so disabling may help "
+"resolve some issues."
+msgstr ""
+
+#: appp-settings.php:78
+msgid "Theme Customizer"
+msgstr ""
+
+#: comments.php:29
+#, php-format
+msgctxt "comments title"
+msgid "One thought on &ldquo;%2$s&rdquo;"
+msgid_plural "%1$s thoughts on &ldquo;%2$s&rdquo;"
+msgstr[0] ""
+msgstr[1] ""
+
+#: comments.php:48
+msgid "Comment navigation"
+msgstr ""
+
+#: comments.php:49
+msgid "&larr; Older Comments"
+msgstr ""
+
+#: comments.php:50
+msgid "Newer Comments &rarr;"
+msgstr ""
+
+#: comments.php:60
+msgid "Comments are closed."
+msgstr ""
+
+#: content-archive.php:24 content.php:29
+msgid "Continue reading <span class=\"meta-nav\">&rarr;</span>"
+msgstr ""
+
+#: content-archive.php:28 content-page.php:15 content-single.php:22
+#: content.php:32 image.php:57
+msgid "Pages:"
+msgstr ""
+
+#: content-archive.php:37 content-archive.php:40 content-single.php:31
+#: content-single.php:34 content.php:43 content.php:53
+msgid ", "
+msgstr ""
+
+#: content-archive.php:45
+#, php-format
+msgid "Tags: %2$s"
+msgstr ""
+
+#: content-archive.php:53 content-single.php:39 content-single.php:47
+#, php-format
+msgid "Category: %1$s Tags: %2$s"
+msgstr ""
+
+#: content-archive.php:55 content-single.php:49 content.php:47
+#, php-format
+msgid "Category: %1$s"
+msgstr ""
+
+#: content-archive.php:69 content-page.php:20 content-single.php:63
+#: content.php:68 image.php:32 image.php:75 inc/classes/AppPresser_Tags.php:94
+#: inc/classes/AppPresser_Tags.php:113
+msgid "Edit"
+msgstr ""
+
+#: content.php:58
+#, php-format
+msgid "Tags: %1$s"
+msgstr ""
+
+#: content.php:65
+msgid "Leave a comment"
+msgstr ""
+
+#: content.php:65
+msgid "1 Comment"
+msgstr ""
+
+#: content.php:65
+msgid "% Comments"
+msgstr ""
+
+#: header.php:28
+msgid "Skip to content"
+msgstr ""
+
+#: header.php:35
+msgid "Sign Out"
+msgstr ""
+
+#: header.php:37
+msgid "Sign In"
+msgstr ""
+
+#: image.php:21
+#, php-format
+msgid ""
+"Published <span class=\"entry-date\"><time class=\"entry-date\" datetime="
+"\"%1$s\">%2$s</time></span> at <a href=\"%3$s\" title=\"Link to full-size "
+"image\">%4$s &times; %5$s</a> in <a href=\"%6$s\" title=\"Return to %7$s\" "
+"rel=\"gallery\">%8$s</a>"
+msgstr ""
+
+#: image.php:50
+msgid "<span class=\"meta-nav\">&larr;</span> Previous"
+msgstr ""
+
+#: image.php:51
+msgid "Next <span class=\"meta-nav\">&rarr;</span>"
+msgstr ""
+
+#: image.php:66
+#, php-format
+msgid ""
+"<a class=\"comment-link\" href=\"#respond\" title=\"Post a comment\">Post a "
+"comment</a> or leave a trackback: <a class=\"trackback-link\" href=\"%s\" "
+"title=\"Trackback URL for your post\" rel=\"trackback\">Trackback URL</a>."
+msgstr ""
+
+#: image.php:68
+#, php-format
+msgid ""
+"Comments are closed, but you can leave a trackback: <a class=\"trackback-link"
+"\" href=\"%s\" title=\"Trackback URL for your post\" rel=\"trackback"
+"\">Trackback URL</a>."
+msgstr ""
+
+#: image.php:70
+msgid ""
+"Trackbacks are closed, but you can <a class=\"comment-link\" href=\"#respond"
+"\" title=\"Post a comment\">post a comment</a>."
+msgstr ""
+
+#: image.php:72
+msgid "Both comments and trackbacks are currently closed."
+msgstr ""
+
+#: inc/classes/AppPresser_App_Functionality.php:53 inc/init.php:303
+msgid "Back"
+msgstr ""
+
+#: inc/classes/AppPresser_App_Functionality.php:89
+msgid "Please Login"
+msgstr ""
+
+#: inc/classes/AppPresser_App_Functionality.php:92
+msgid "Welcome back!"
+msgstr ""
+
+#: inc/classes/AppPresser_App_Functionality.php:136 searchform.php:12
+msgctxt "assistive text"
+msgid "Search"
+msgstr ""
+
+#: inc/classes/AppPresser_App_Functionality.php:137 searchform.php:13
+msgctxt "placeholder"
+msgid "Search &hellip;"
+msgstr ""
+
+#: inc/classes/AppPresser_Customizer.php:53
+msgid "Upload Logo (replaces text)"
+msgstr ""
+
+#: inc/classes/AppPresser_Customizer.php:61
+msgid "Top Menu 1 Icon"
+msgstr ""
+
+#: inc/classes/AppPresser_Customizer.php:70
+msgid "Top Menu 2 Icon"
+msgstr ""
+
+#: inc/classes/AppPresser_Customizer.php:167
+msgid "Body Background"
+msgstr ""
+
+#: inc/classes/AppPresser_Customizer.php:172
+msgid "Text Color"
+msgstr ""
+
+#: inc/classes/AppPresser_Customizer.php:177
+msgid "Link Color"
+msgstr ""
+
+#: inc/classes/AppPresser_Customizer.php:187
+msgid "Button Color"
+msgstr ""
+
+#: inc/classes/AppPresser_Customizer.php:197
+msgid "Accent Color"
+msgstr ""
+
+#: inc/classes/AppPresser_Customizer.php:205
+msgid "Headings Color"
+msgstr ""
+
+#: inc/classes/AppPresser_Customizer.php:210
+msgid "Header/Footer Text Color"
+msgstr ""
+
+#: inc/classes/AppPresser_Customizer.php:215
+msgid "Left Panel Background"
+msgstr ""
+
+#: inc/classes/AppPresser_Customizer.php:220
+msgid "Left Panel Text"
+msgstr ""
+
+#: inc/classes/AppPresser_Extra_Functionality.php:69
+#, php-format
+msgid "Page %s"
+msgstr ""
+
+#: inc/classes/AppPresser_Tags.php:51
+msgid "Post navigation"
+msgstr ""
+
+#: inc/classes/AppPresser_Tags.php:56
+msgctxt "Previous post link"
+msgid "&larr;"
+msgstr ""
+
+#: inc/classes/AppPresser_Tags.php:57
+msgctxt "Next post link"
+msgid "&rarr;"
+msgstr ""
+
+#: inc/classes/AppPresser_Tags.php:65
+msgid "<span class=\"meta-nav\">&larr;</span> Older posts"
+msgstr ""
+
+#: inc/classes/AppPresser_Tags.php:70
+msgid "Newer posts <span class=\"meta-nav\">&rarr;</span>"
+msgstr ""
+
+#: inc/classes/AppPresser_Tags.php:94
+msgid "Pingback:"
+msgstr ""
+
+#: inc/classes/AppPresser_Tags.php:104
+#, php-format
+msgid "%s <span class=\"says\">says:</span>"
+msgstr ""
+
+#: inc/classes/AppPresser_Tags.php:110
+#, php-format
+msgctxt "1: date, 2: time"
+msgid "%1$s at %2$s"
+msgstr ""
+
+#: inc/classes/AppPresser_Tags.php:117
+msgid "Your comment is awaiting moderation."
+msgstr ""
+
+#: inc/classes/AppPresser_Tags.php:187
+#, php-format
+msgid ""
+"Posted on <a href=\"%1$s\" title=\"%2$s\" rel=\"bookmark\"><time class="
+"\"entry-date\" datetime=\"%3$s\">%4$s</time></a><span class=\"byline\"> by "
+"<span class=\"author vcard\"><a class=\"url fn n\" href=\"%5$s\" title=\"%6$s"
+"\" rel=\"author\">%7$s</a></span></span>"
+msgstr ""
+
+#: inc/classes/AppPresser_Tags.php:193
+#, php-format
+msgid "View all posts by %s"
+msgstr ""
+
+#: inc/classes/AppPresser_Tags.php:291
+#, php-format
+msgid "Category Archives: %s"
+msgstr ""
+
+#: inc/classes/AppPresser_Tags.php:294
+#, php-format
+msgid "Tag Archives: %s"
+msgstr ""
+
+#: inc/classes/AppPresser_Tags.php:297
+#, php-format
+msgid "%s Archives"
+msgstr ""
+
+#: inc/classes/AppPresser_Tags.php:304
+#, php-format
+msgid "Author Archives: %s"
+msgstr ""
+
+#: inc/classes/AppPresser_Tags.php:312
+#, php-format
+msgid "Daily Archives: %s"
+msgstr ""
+
+#: inc/classes/AppPresser_Tags.php:315
+#, php-format
+msgid "Monthly Archives: %s"
+msgstr ""
+
+#: inc/classes/AppPresser_Tags.php:318
+#, php-format
+msgid "Yearly Archives: %s"
+msgstr ""
+
+#: inc/classes/AppPresser_Tags.php:321
+msgid "Oops! We can&rsquo;t find what you&rsquo;re looking for."
+msgstr ""
+
+#: inc/classes/AppPresser_Tags.php:324
+#, php-format
+msgid "Search Results for: %s"
+msgstr ""
+
+#: inc/classes/AppPresser_Tags.php:330
+msgid "Archives"
+msgstr ""
+
+#: inc/classes/TGM_Plugin_Activation.php:164
+msgid "Install Required Plugins"
+msgstr ""
+
+#: inc/classes/TGM_Plugin_Activation.php:165
+msgid "Install Plugins"
+msgstr ""
+
+#: inc/classes/TGM_Plugin_Activation.php:166
+#, php-format
+msgid "Installing Plugin: %s"
+msgstr ""
+
+#: inc/classes/TGM_Plugin_Activation.php:167
+msgid "Something went wrong."
+msgstr ""
+
+#: inc/classes/TGM_Plugin_Activation.php:168
+#, php-format
+msgid "This theme requires the following plugin: %1$s."
+msgid_plural "This theme requires the following plugins: %1$s."
+msgstr[0] ""
+msgstr[1] ""
+
+#: inc/classes/TGM_Plugin_Activation.php:169
+#, php-format
+msgid "This theme recommends the following plugin: %1$s."
+msgid_plural "This theme recommends the following plugins: %1$s."
+msgstr[0] ""
+msgstr[1] ""
+
+#: inc/classes/TGM_Plugin_Activation.php:170
+#, php-format
+msgid ""
+"Sorry, but you do not have the correct permissions to install the %s plugin. "
+"Contact the administrator of this site for help on getting the plugin "
+"installed."
+msgid_plural ""
+"Sorry, but you do not have the correct permissions to install the %s "
+"plugins. Contact the administrator of this site for help on getting the "
+"plugins installed."
+msgstr[0] ""
+msgstr[1] ""
+
+#: inc/classes/TGM_Plugin_Activation.php:171
+#, php-format
+msgid "The following required plugin is currently inactive: %1$s."
+msgid_plural "The following required plugins are currently inactive: %1$s."
+msgstr[0] ""
+msgstr[1] ""
+
+#: inc/classes/TGM_Plugin_Activation.php:172
+#, php-format
+msgid "The following recommended plugin is currently inactive: %1$s."
+msgid_plural "The following recommended plugins are currently inactive: %1$s."
+msgstr[0] ""
+msgstr[1] ""
+
+#: inc/classes/TGM_Plugin_Activation.php:173
+#, php-format
+msgid ""
+"Sorry, but you do not have the correct permissions to activate the %s "
+"plugin. Contact the administrator of this site for help on getting the "
+"plugin activated."
+msgid_plural ""
+"Sorry, but you do not have the correct permissions to activate the %s "
+"plugins. Contact the administrator of this site for help on getting the "
+"plugins activated."
+msgstr[0] ""
+msgstr[1] ""
+
+#: inc/classes/TGM_Plugin_Activation.php:174
+#, php-format
+msgid ""
+"The following plugin needs to be updated to its latest version to ensure "
+"maximum compatibility with this theme: %1$s."
+msgid_plural ""
+"The following plugins need to be updated to their latest version to ensure "
+"maximum compatibility with this theme: %1$s."
+msgstr[0] ""
+msgstr[1] ""
+
+#: inc/classes/TGM_Plugin_Activation.php:175
+#, php-format
+msgid ""
+"Sorry, but you do not have the correct permissions to update the %s plugin. "
+"Contact the administrator of this site for help on getting the plugin "
+"updated."
+msgid_plural ""
+"Sorry, but you do not have the correct permissions to update the %s plugins. "
+"Contact the administrator of this site for help on getting the plugins "
+"updated."
+msgstr[0] ""
+msgstr[1] ""
+
+#: inc/classes/TGM_Plugin_Activation.php:176
+msgid "Begin installing plugin"
+msgid_plural "Begin installing plugins"
+msgstr[0] ""
+msgstr[1] ""
+
+#: inc/classes/TGM_Plugin_Activation.php:177
+msgid "Activate installed plugin"
+msgid_plural "Activate installed plugins"
+msgstr[0] ""
+msgstr[1] ""
+
+#: inc/classes/TGM_Plugin_Activation.php:178
+#: inc/classes/TGM_Plugin_Activation.php:489
+msgid "Return to Required Plugins Installer"
+msgstr ""
+
+#: inc/classes/TGM_Plugin_Activation.php:179
+#: inc/classes/TGM_Plugin_Activation.php:1844
+msgid "Plugin activated successfully."
+msgstr ""
+
+#: inc/classes/TGM_Plugin_Activation.php:180
+#, php-format
+msgid "All plugins installed and activated successfully. %1$s"
+msgstr ""
+
+#: inc/classes/TGM_Plugin_Activation.php:516
+#: inc/classes/TGM_Plugin_Activation.php:2056
+msgid "Return to the Dashboard"
+msgstr ""
+
+#: inc/classes/TGM_Plugin_Activation.php:544
+#, php-format
+msgid "The following plugin was activated successfully: %s."
+msgstr ""
+
+#: inc/classes/TGM_Plugin_Activation.php:703
+msgid "Dismiss this notice"
+msgstr ""
+
+#: inc/classes/TGM_Plugin_Activation.php:1090
+msgid "External Link"
+msgstr ""
+
+#: inc/classes/TGM_Plugin_Activation.php:1095
+msgid "Private Repository"
+msgstr ""
+
+#: inc/classes/TGM_Plugin_Activation.php:1098
+msgid "Pre-Packaged"
+msgstr ""
+
+#: inc/classes/TGM_Plugin_Activation.php:1102
+msgid "WordPress Repository"
+msgstr ""
+
+#: inc/classes/TGM_Plugin_Activation.php:1105
+msgid "Required"
+msgstr ""
+
+#: inc/classes/TGM_Plugin_Activation.php:1105
+msgid "Recommended"
+msgstr ""
+
+#: inc/classes/TGM_Plugin_Activation.php:1108
+msgid "Not Installed"
+msgstr ""
+
+#: inc/classes/TGM_Plugin_Activation.php:1110
+msgid "Installed But Not Activated"
+msgstr ""
+
+#: inc/classes/TGM_Plugin_Activation.php:1280
+#, php-format
+msgid ""
+"No plugins to install or activate. <a href=\"%1$s\" title=\"Return to the "
+"Dashboard\">Return to the Dashboard</a>"
+msgstr ""
+
+#: inc/classes/TGM_Plugin_Activation.php:1296
+msgid "Plugin"
+msgstr ""
+
+#: inc/classes/TGM_Plugin_Activation.php:1297
+msgid "Source"
+msgstr ""
+
+#: inc/classes/TGM_Plugin_Activation.php:1298
+msgid "Type"
+msgstr ""
+
+#: inc/classes/TGM_Plugin_Activation.php:1299
+msgid "Status"
+msgstr ""
+
+#: inc/classes/TGM_Plugin_Activation.php:1317
+msgid "Install"
+msgstr ""
+
+#: inc/classes/TGM_Plugin_Activation.php:1318
+msgid "Activate"
+msgstr ""
+
+#: inc/classes/TGM_Plugin_Activation.php:1542
+msgid "The following plugin was activated successfully:"
+msgid_plural "The following plugins were activated successfully:"
+msgstr[0] ""
+msgstr[1] ""
+
+#: inc/classes/TGM_Plugin_Activation.php:1827
+msgid "Install package not available."
+msgstr ""
+
+#: inc/classes/TGM_Plugin_Activation.php:1828
+#, php-format
+msgid "Downloading install package from <span class=\"code\">%s</span>&#8230;"
+msgstr ""
+
+#: inc/classes/TGM_Plugin_Activation.php:1829
+msgid "Unpacking the package&#8230;"
+msgstr ""
+
+#: inc/classes/TGM_Plugin_Activation.php:1830
+msgid "Installing the plugin&#8230;"
+msgstr ""
+
+#: inc/classes/TGM_Plugin_Activation.php:1831
+msgid "Plugin install failed."
+msgstr ""
+
+#: inc/classes/TGM_Plugin_Activation.php:1832
+msgid "Plugin installed successfully."
+msgstr ""
+
+#: inc/classes/TGM_Plugin_Activation.php:1843
+msgid "Plugin activation failed."
+msgstr ""
+
+#: inc/classes/TGM_Plugin_Activation.php:1953
+msgid ""
+"The installation and activation process is starting. This process may take a "
+"while on some hosts, so please be patient."
+msgstr ""
+
+#: inc/classes/TGM_Plugin_Activation.php:1954
+#, php-format
+msgid "%1$s installed and activated successfully."
+msgstr ""
+
+#: inc/classes/TGM_Plugin_Activation.php:1954
+#: inc/classes/TGM_Plugin_Activation.php:1963
+msgid "Show Details"
+msgstr ""
+
+#: inc/classes/TGM_Plugin_Activation.php:1954
+#: inc/classes/TGM_Plugin_Activation.php:1963
+msgid "Hide Details"
+msgstr ""
+
+#: inc/classes/TGM_Plugin_Activation.php:1955
+msgid "All installations and activations have been completed."
+msgstr ""
+
+#: inc/classes/TGM_Plugin_Activation.php:1956
+#, php-format
+msgid "Installing and Activating Plugin %1$s (%2$d/%3$d)"
+msgstr ""
+
+#: inc/classes/TGM_Plugin_Activation.php:1960
+msgid ""
+"The installation process is starting. This process may take a while on some "
+"hosts, so please be patient."
+msgstr ""
+
+#: inc/classes/TGM_Plugin_Activation.php:1961
+#, php-format
+msgid "An error occurred while installing %1$s: <strong>%2$s</strong>."
+msgstr ""
+
+#: inc/classes/TGM_Plugin_Activation.php:1962
+#, php-format
+msgid "The installation of %1$s failed."
+msgstr ""
+
+#: inc/classes/TGM_Plugin_Activation.php:1963
+#, php-format
+msgid "%1$s installed successfully."
+msgstr ""
+
+#: inc/classes/TGM_Plugin_Activation.php:1964
+msgid "All installations have been completed."
+msgstr ""
+
+#: inc/classes/TGM_Plugin_Activation.php:1965
+#, php-format
+msgid "Installing Plugin %1$s (%2$d/%3$d)"
+msgstr ""
+
+#: inc/init.php:154
+msgid "Primary Menu"
+msgstr ""
+
+#: inc/init.php:155
+msgid "Top Menu"
+msgstr ""
+
+#: inc/init.php:156
+msgid "Top Menu 2"
+msgstr ""
+
+#: inc/init.php:158
+msgid "Footer Menu"
+msgstr ""
+
+#: inc/init.php:176
+#, php-format
+msgid "The free %s is required for this theme to function properly."
+msgstr ""
+
+#: inc/init.php:176
+msgid "AppPresser Plugin"
+msgstr ""
+
+#: inc/init.php:304
+msgid "You appear to be offline, please try again when you are online."
+msgstr ""
+
+#: no-results.php:13
+msgid "Nothing Found"
+msgstr ""
+
+#: no-results.php:19
+#, php-format
+msgid ""
+"Ready to publish your first post? <a href=\"%1$s\">Get started here</a>."
+msgstr ""
+
+#: no-results.php:23
+msgid ""
+"Sorry, but nothing matched your search terms. Please try again with some "
+"different keywords."
+msgstr ""
+
+#: no-results.php:27
+msgid ""
+"It seems we can&rsquo;t find what you&rsquo;re looking for. Perhaps "
+"searching can help."
+msgstr ""
+
+#: searchform.php:14
+msgctxt "submit button"
+msgid "Search"
+msgstr ""
