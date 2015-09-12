@@ -3,9 +3,6 @@
 .sass-cache/
 .codekit-config.json
 .config.codekit
-files/wp-content/themes/esco/assets/scss/.sass-cache/*
-files/wp-content/themes/esco/config.codekit
-/wp-content/themes/esco/config.codekit
 
 
 # wpengine #
@@ -19,108 +16,51 @@ files/wp-content/themes/esco/config.codekit
 Thumbs.db
 
 # wordpress specific
-wp-config.php
-wp-content/uploads/*
-wp-content/blogs.dir/*
-wp-content/upgrade/*
-wp-content/backup-db/*
-wp-content/advanced-cache.php
-wp-content/wp-cache-config.php
-wp-content/cache/*
-wp-content/cache/supercache/*
-wp-content/mu-plugins/*
-wp-content/plugins/backupbuddy/*
-wp-content/plugins/akismet/*
-wp-content/plugins/contact-form-7/*
-wp-content/plugins/gravityforms/*
-wp-content/plugins/hyperdb/*
-wp-content/themes/hustle/*
-wp-content/themes/twentytwelve/*
-wp-content/themes/twentythirteen/*
-wp-content/themes/twentyfourteen/*
-wp-content/themes/twentyfifteen/*
-wp-content/themes/storefront/*
-wp-content/plugins/wordpress-seo/*
-wp-content/plugins/wordpress-popup/*
-wp-content/plugins/woothemes-updater/*
-wp-content/plugins/wooshippinginfo/*
-wp-content/plugins/woocommerce/*
-wp-content/plugins/woocommerce-subscriptions/*
-wp-content/plugins/woocommerce-gravityforms-product-addons/*
-wp-content/plugins/what-template-file-am-i-viewing/*
-wp-content/plugins/tmm-dashboard-customizations-master/*
-wp-content/plugins/testimonials-by-woothemes/*
-wp-content/plugins/search-and-replace/*
-wp-content/plugins/remove-wpengine-stuff-master/*
-wp-content/plugins/regenerate-thumbnails/*
-wp-content/plugins/gravityformsmailchimp/*
-wp-content/plugins/features-by-woothemes/*
-wp-content/plugins/duplicate-post/*
-wp-content/plugins/all-in-one-favicon/*
-wp-content/plugins/advanced-custom-fields-pro/*
-wp-content/plugins/advanced-custom-fields/*
-wp-content/plugins/acf-*
-wp-content/plugins/enable-media-replace/*
-wp-content/plugins/fusion-core/*
-wp-content/plugins/revslider/*
-wp-content/plugins/jetpack/*
-wp-content/plugins/maintenance-mode/*
-wp-content/themes/Avada/*
-wp-content/plugins/phpinfo/*
-wp-content/plugins/meteor-slides/*
-wp-content/plugins/jquery-rotate/*
-wp-content/plugins/import-users-from-csv/*
-wp-content/plugins/image-widget/*
-wp-content/plugins/google-analyticator/*
-wp-content/plugins/editorial-calendar/*
-wp-content/plugins/easy-fancybox/*
-wp-content/plugins/audit-trail/*
-wp-content/plugins/really-simple-captcha/*
-wp-content/plugins/royalslider/*
-wp-content/plugins/typekit-fonts-for-wordpress/*
-wp-content/plugins/user-switching/*
-wp-content/plugins/username-changer/*
-wp-content/plugins/wp-changes-tracker/*
-wp-content/plugins/wp-password-generator/*
-wp-content/themes/twentyeleven/*
-wp-content/plugins/woocommerce-gateway-stripe/*
-wp-content/plugins/wp-migrate-db-pro-media-files/*
-wp-content/plugins/wp-migrate-db-pro/*
-wp-content/plugins/display-widgets/*
-wp-content/plugins/simple-custom-post-order/*
-wp-content/plugins/page-comments-off-please/*
-wp-content/plugins/woocommerce-google-trusted-stores-integration-master/*
-wp-content/plugins/types/*
-wp-content/plugins/vaultpress/*
-wp-content/plugins/responsive-video-embeds/*
-wp-content/plugins/wp-email-template/*
-wp-content/plugins/w3-total-cache/*
-wp-content/plugins/verve-meta-boxes/*
-wp-content/plugins/subscribe2/*
-wp-content/plugins/subscribe-to-comments-reloaded/*
-wp-content/plugins/share-this/*
-wp-content/plugins/search-everything/*
-wp-content/plugins/rich-text-tags/*
-wp-content/plugins/recent-posts-for-custom-post-types/*
-wp-content/plugins/peters-login-redirect/*
-wp-content/plugins/json-rest-api/*
-wp-content/plugins/json-api/*
-wp-content/plugins/iwp-client/*
-wp-content/plugins/hello.php
-wp-content/plugins/googleanalytics/*
-wp-content/plugins/flowplayer-tooltips/*
-wp-content/plugins/facetwp/*
-wp-content/plugins/custom-taxonomies-menu-widget/*
-wp-content/plugins/custom-field-template/*
-wp-content/plugins/configure-smtp/*
-wp-content/plugins/breadcrumb-trail/*
-wp-content/plugins/audio-player/*
-wp-content/plugins/ajaxy-search-form/*
-wp-content/plugins/taxonomy-images/*
-wp-content/plugins/wp-db-backup/*
-wc-logs/*
-landing/importbuddy.php
-landing/importbuddy.php
+# This is a template .gitignore file for git-managed WordPress projects.
+#
+# Fact: you don't want WordPress core files, or your server-specific
+# configuration files etc., in your project's repository. You just don't.
+#
+# Solution: stick this file up your repository root (which it assumes is
+# also the WordPress root directory) and add exceptions for any plugins,
+# themes, and other directories that should be under version control.
+#
+# See the comments below for more info on how to add exceptions for your
+# content. Or see git's documentation for more info on .gitignore files:
+# http://kernel.org/pub/software/scm/git/docs/gitignore.html
+
+# Ignore everything in the root except the "wp-content" directory.
+/*
+!.gitignore
+!README.md
+!.scrutinizer.yml
+!apigen.neon
+!wp-content/
+
+# Ignore everything in the "wp-content" directory, except the "plugins", "mu-plugins",
+# and "themes" directories.
+wp-content/*
+# !wp-content/mu-plugins/
+# !wp-content/plugins/
+# !wp-content/themes/
+
+# Ignore everything in the "mu-plugins" directory, except the mu-plugins you
+# specify (see the commented-out examples for hints on how to do this.)
+# !wp-content/mu-plugins/my-plugin.php
+# wp-content/mu-plugins/*
+
+# Ignore everything in the "plugins" directory, except the plugins you
+# specify (see the commented-out examples for hints on how to do this.)
+wp-content/plugins/*
+!wp-content/plugins/cryns_music_taxonomies_and_custom_post.php
+!wp-content/plugins/mighty-accordion/*
+
+
+# Ignore everything in the "themes" directory, except the themes you
+# specify (see the commented-out example for a hint on how to do this.)
+wp-content/themes/*
+!wp-content/themes/cryns-family-music-archives/*
+!wp-content/themes/cryns-music-twentytwelve-child/*
 
 
 # wpengine specific
