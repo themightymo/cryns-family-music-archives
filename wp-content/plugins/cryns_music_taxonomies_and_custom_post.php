@@ -302,9 +302,16 @@ function add_mp3_to_single_audio_posts ( $content ) {
     // Returns the content.
 	return $content;
 }
-add_filter( 'the_content', 'add_mp3_to_single_audio_posts', 20 );
 
-add_filter( 'the_excerpt', 'add_mp3_to_single_audio_posts', 20 );
+// Hide this stuff unless we are in the AppPresser app.  Via http://apppresser.com/docs/resources/community_snippets/
+if ( !AppPresser::is_app() && !is_admin() ) {
+	
+	add_filter( 'the_content', 'add_mp3_to_single_audio_posts', 20 );
+	
+	add_filter( 'the_excerpt', 'add_mp3_to_single_audio_posts', 20 );
+	
+}
+
 
 // Add total audio posts to footer
 function display_audio_post_count () {
