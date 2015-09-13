@@ -29,3 +29,6 @@ p {
 audio {
 	visibility: visible !important;
 }
+body .multi-column-taxonomy-list ul {
+	width: 100%;
+}
