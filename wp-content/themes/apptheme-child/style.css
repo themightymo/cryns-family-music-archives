@@ -32,3 +32,6 @@ audio {
 body .multi-column-taxonomy-list ul {
 	width: 100%;
 }
+.item-text p {
+	max-height: 1.6em;
+}
