@@ -6,7 +6,7 @@
 
 <div id="post-<?php the_ID(); ?>" class="post">
 
-	<a class="" href="<?php the_permalink(); ?>">
+	<a class="<?php echo apply_filters('appp_transition_left', $classname ); ?>" href="<?php the_permalink(); ?>">
 		<div class="card">
 		    <div class="card-header"><?php the_title(); ?></div>
 		    <div class="card-content">

@@ -1,6 +1,11 @@
 (function(window, document, $, undefined){
 	'use strict';
 
+	if(parent) {
+		// Message our frame so we know when to run scripts
+		parent.postMessage( 'site_loaded', '*');
+	}
+
 	// Initiate our object and vars
 	var app = {
 		// make sure localize_script is called (or bail)
@@ -36,7 +41,7 @@
 		app.$.ajaxModal   = $('#ajaxModal');
 		app.$.modalInside = $('.modal-inside');
 		app.$.ioModal     = $('.io-modal');
-	}
+	};
 
 	app.init = function() {
 
@@ -47,7 +52,7 @@
 		if ( ! app.appp )
 			return;
 
-		app.logGroup( 'apppresser.init()' );
+		// app.logGroup( 'apppresser.init()' );
 
 		app.log( 'window.appp', app.appp );
 		app.log( 'window.apppwoo', app.woo );
@@ -59,14 +64,33 @@
 			app.setCurrentNav();
 		}, 1000);
 
-		// load with a fresh pushstate
-		window.history.replaceState({}, '', window.location.href);
+		// Only add pushstate logic if "Disable dynamic page loading" is not enabled
+		if( appp.can_ajax ) {
+			// load with a fresh pushstate
+			window.history.replaceState({}, '', window.location.href);
 
-		app.history.unshift({
-            url: window.location.href
-        });
-        if( !localStorage['urlHistory'] )
-        localStorage['urlHistory'] = JSON.stringify( app.history ) ;
+			// place newurl on top of url history array if moving forward in navigation,
+			// but only if it's not already the first element already there
+			if( app.history.length === 0 || ( app.history.length && app.history[0].url != window.location.href ) ) {
+				app.history.unshift({
+		            url: window.location.href
+		        });
+			}
+
+	        if( !sessionStorage.urlHistory )
+	        sessionStorage.urlHistory = JSON.stringify( app.history ) ;
+
+		} else {
+
+			// Dynamic page loading is disabled so we need to manually add back() to the button
+
+			$('.pull-left .back').on('click', function() { window.history.back(); });
+			
+			// hide the back arrow if there is no history
+			if( window.history.length == 1) {
+				$('.pull-left .back').hide();
+			}
+		}
 
 		// Load spinner
 		app.$.body.append('<div class="ajax-spinner"><div class="spinner"></div></div>');
@@ -187,7 +211,7 @@
 
 				app.backLoad = true;
 
-				var prevUrl = JSON.parse( localStorage['urlHistory'] );
+				var prevUrl = JSON.parse( sessionStorage.urlHistory );
 
 				if( prevUrl.length <= 1 ) return;
 
@@ -195,10 +219,10 @@
 				prevUrl.shift();
 
 				setTimeout( function() {
-					app.loadAjaxContent( prevUrl[0]['url'], false, event );
+					app.loadAjaxContent( prevUrl[0].url, false, event );
 				}, 0);
 
-				localStorage['urlHistory'] = JSON.stringify( prevUrl ) ;
+				sessionStorage.urlHistory = JSON.stringify( prevUrl ) ;
 
 			})
 			.on( 'click', '.menu-back', function(event) {
@@ -266,7 +290,7 @@
 					return obj;
 				}, {});
 				
-				if( '' === data['log'] || '' === data['pwd'] ) {
+				if( '' === data.log || '' === data.pwd ) {
 					event.preventDefault();
 				}
 			});
@@ -315,7 +339,7 @@
 
 		}
 
-	}
+	}; // init
 
 	app.ioModal = (function(){
 		var UpClasses   = 'slide-in-up-add ng-animate slide-in-up slide-in-up-add-active';
@@ -339,7 +363,7 @@
 				// iOS scroll fix
 				setTimeout( function() { app.$.ioModal.removeClass( downClasses ); }, 150 );
 			}
-		}
+		};
 	})();
 
 	app.setCurrentNav = function() {
@@ -356,15 +380,15 @@
 				$parent = $parent.parents( '.sub-menu' );
 			}
 		}
-	}
+	};
 
 	app.scriptLoader = function( $scripts ) {
-		'use strict';
+		
 
 		$scripts = $scripts || $( 'script[src]' );
 		var addedscripts = {}, filename, src, count = 0, counted = ( 'length' in app.scriptsLoaded );
 
-		app.scriptsLoaded['length'] = counted ? app.scriptsLoaded['length'] : 0;
+		app.scriptsLoaded.length = counted ? app.scriptsLoaded.length : 0;
 
 		$scripts.each(function () {
 			var $self = $(this);
@@ -379,7 +403,7 @@
 			if ( filename in app.scriptsLoaded )
 				return true;
 
-			app.scriptsLoaded['length']++;
+			app.scriptsLoaded.length++;
 			count++;
 			app.scriptsLoaded[filename] = src;
 			addedscripts[filename] = src;
@@ -402,16 +426,16 @@
 
 		return addedscripts;
 
-	}
+	};
 
 	app.styleLoader = function( $styles ) {
-		'use strict';
+		
 
 		$styles   = $styles || $( 'link[type="text/css"]' );
 
 		var addedStyles = {}, filename, src, count = 0, counted = ( 'length' in app.stylesLoaded );
 
-		app.stylesLoaded['length'] = counted ? app.stylesLoaded['length'] : 0;
+		app.stylesLoaded.length = counted ? app.stylesLoaded.length : 0;
 
 		$styles.each(function () {
 			var $self = $(this);
@@ -426,7 +450,7 @@
 			if ( filename in app.stylesLoaded )
 				return true;
 
-			app.stylesLoaded['length']++;
+			app.stylesLoaded.length++;
 			count++;
 			app.stylesLoaded[filename] = src;
 			addedStyles[filename] = src;
@@ -449,10 +473,10 @@
 
 		return addedStyles;
 
-	}
+	};
 
 	app.loadAjaxContent = function( href, $selector, event) {
-		'use strict';
+		
 
 		// var for passed event target
 		if(event) {
@@ -493,8 +517,12 @@
 		app.$.spinner.show();
 		
 		setTimeout(function() {
-			//app.$.spinner.hide();
+			app.$.spinner.hide();
 		}, 60000);
+	
+		// For native transitions
+		var nativeTrans  = (typeof event === 'undefined') ? 0 : event.currentTarget.className.indexOf('transition-left');
+		var dirRight     = (typeof event === 'undefined') ? 0 : event.currentTarget.className.indexOf('transition-right');
 
 		// Do our ajax
 		var status = $.ajax({
@@ -504,42 +532,53 @@
 			cache: false
 		}).done(function( responseText ) {
 
-		//console.log(responseText);
+			if( parent && nativeTrans >= 0 ) {
+				// Message our frame so we know when to run transition
+				parent.postMessage( 'native_transition_left', '*');
+			} else if( parent && dirRight >= 0 ) {
+				// This one goes right (for back button)
+				parent.postMessage( 'native_transition_right', '*');
+			}
+			
+			// Need to delay this for native transition timing
+			// setTimeout(function() {
 
-			var html       = $("<div>").append( $.parseHTML( responseText, document, true ) );
-			var $main      = html.find( '#main' );
-			var newtitles    = {
-				'title'    : html.find( 'title' ),
-				'navtitle' : html.find( '.site-title-wrap h1' )
-			};
-			var newclasses = $main.attr( 'class' ).replace( 'site-main', '' );
-			var content    = $main.children().unwrap();
-			var appp_header_right = html.find( '#top-menu3' );
-			var appp_pull_left = html.find( '.pull-left' );
-			var appp_modal = html.find( '.io-modal' );
-			var appp_activity_modal = html.find( '#activity-post-form' );
-			// Get scripts on new page and filter out any that have been loaded on the page already
-			var scripts    = app.scriptLoader( html.find( 'script[src]' ) );
-			var styles     = app.styleLoader( html.find( 'link[type="text/css"]' ) );
-			// @TODO figure out how to re-load localized data
-			// app.loadL10n( html );
-			// Replace existing page body classes with new
-			app.$.body.attr( 'class', newclasses );
-			app.$.main.attr( 'class', newclasses );
-			// Replace existing page <title> with new
-			titles.title.text( newtitles.title.text() );
-			// Replace existing page nav title with new
-			titles.navtitle.html( newtitles.navtitle.html() );
+				var html       = $("<div>").append( $.parseHTML( responseText, document, true ) );
+				var $main      = html.find( '#main' );
+				var newtitles    = {
+					'title'    : html.find( 'title' ),
+					'navtitle' : html.find( '.site-title-wrap h1' )
+				};
+				var newclasses = $main.attr( 'class' ).replace( 'site-main', '' );
+				var content    = $main.children().unwrap();
+				var appp_header_right = html.find( '#top-menu3' );
+				var appp_pull_left = html.find( '.pull-left' );
+				var appp_modal = html.find( '.io-modal' );
+				var appp_activity_modal = html.find( '#activity-post-form' );
+				// Get scripts on new page and filter out any that have been loaded on the page already
+				var scripts    = app.scriptLoader( html.find( 'script[src]' ) );
+				var styles     = app.styleLoader( html.find( 'link[type="text/css"]' ) );
+				// @TODO figure out how to re-load localized data
+				// app.loadL10n( html );
+				// Replace existing page body classes with new
+				app.$.body.attr( 'class', newclasses );
+				app.$.main.attr( 'class', newclasses );
+				// Replace existing page <title> with new
+				titles.title.text( newtitles.title.text() );
+				// Replace existing page nav title with new
+				titles.navtitle.html( newtitles.navtitle.html() );
 
-			// Replace existing page content with new
-			$( '#top-menu3' ).replaceWith( appp_header_right );
-			$( '.pull-left' ).replaceWith( appp_pull_left );
-			$( '#activity-post-form' ).replaceWith( appp_activity_modal );
+				// Replace existing page content with new
+				$( '#top-menu3' ).replaceWith( appp_header_right );
+				$( '.pull-left' ).replaceWith( appp_pull_left );
+				$( '#activity-post-form' ).replaceWith( appp_activity_modal );
 
-			$selector.html( content );
+				$selector.html( content );
 
-			// Change url to reflect new page
-			app.change_url( href );
+				// Change url to reflect new page
+				app.change_url( href );
+
+			// }, 60);
 
 			app.timeout = setTimeout(function (){
 				// Loop through our new scripts
@@ -586,8 +625,16 @@
 			$(document).trigger( 'load_ajax_content_done', $, $selector, href );
 			app.$.body.trigger( 'post-load', $, $selector, href );
 
+			if(parent) {
+				// Message our frame so we know when to run scripts
+				parent.postMessage( 'load_ajax_content_done', '*');
+			}
+
 
 		}).complete( function( jqXHR, status ) {
+
+			var href;
+
 			// jqXHR.requestURL = href;
 			// app.log( 'selector load was performed.' );
 
@@ -603,7 +650,7 @@
 
 			// add current_page_item class the clicked tab or drawer item
 			if ( $(that).parents().hasClass('footer-menu') ) {
-				var href = $( that ).attr('href');
+				href = $( that ).attr('href');
 				$( '.footer-menu li' ).removeClass('current_page_item');
 				$( that ).parent().addClass('current_page_item');
 				$( '#site-navigation ul.menu li' ).removeClass('current_page_item');
@@ -612,7 +659,7 @@
 			}
 
 			if ( $(that).parents().hasClass('menu') ) {
-				var href = $( that ).attr('href');
+				href = $( that ).attr('href');
 				$( '#site-navigation ul.menu li' ).removeClass('current_page_item');
 				$( that ).parent().addClass('current_page_item');
 				$( '.footer-menu li' ).removeClass('current_page_item');
@@ -625,37 +672,41 @@
 		app.xhr.push( status );
 		app.doingAjax = false;
 
-	}
+	};
 
 	app.canAjax = function( $element ) {
 		return ( apppresser.appp.can_ajax && ! $element.is('.menu-back, .external, .no-ajax, .menu .no-ajax > a, .nav-divider, .modal-toggle, .modal-toggle a') || $element.is('.back')  );
-	}
+	};
 
 	app.canModal = function( $element ) {
 		return ( apppresser.appp.can_ajax && ! $element.is('a.no-modal, .no-modal a') );
-	}
+	};
 
 	app.change_url = function( newurl ) {
-		'use strict';
+		
 		newurl = newurl || apppresser.backhref;
 
 		// Change url to reflect new page
 		window.history.pushState({},'', newurl);
 
-		var prevUrl = JSON.parse(localStorage['urlHistory']);
+		var prevUrl = JSON.parse(sessionStorage.urlHistory);
 
 		if( !app.backLoad ) {
-			//place newurl on top of url history array if moving forward in navigation
-			prevUrl.unshift({
-	            url: newurl
-	        });
+			// place newurl on top of url history array if moving forward in navigation,
+			// but only if it's not already the first element already there
+			if( prevUrl.length === 0 || ( prevUrl.length && prevUrl[0].url != window.location.href ) ) {
+				// adds new url to the beginning of the array
+				prevUrl.unshift({
+		            url: newurl
+		        });
+			}
         }
         //save adjusted url history array to local storage incase browser gets refreshed
-        localStorage['urlHistory'] = JSON.stringify( prevUrl ) ;
+        sessionStorage.urlHistory = JSON.stringify( prevUrl ) ;
 
         app.backLoad = false;
 
-	}
+	};
 
 	app.loadL10n = function( html ) {
 		var inlineScripts = html.find( "script[type='text/javascript']" ).text();
@@ -664,10 +715,10 @@
 		var matches = inlineScripts.match(pattern);
 		var script = matches[1];
 		eval( script );
-	}
+	};
 
 	app.loadScript = function(url, arg1, arg2) {
-		'use strict';
+		
 		var cache = false, callback = null;
 		// arg1 and arg2 can be interchangable as either the callback function or the cache bool
 		if ($.isFunction(arg1)){
@@ -685,7 +736,7 @@
 			cache: cache,
 			success: callback
 		});
-	}
+	};
 
 	app.loadCSS = function( href ) {
 
@@ -698,32 +749,32 @@
 			href: href
 		});
 
-	}
+	};
 
 	app.untrailingslashit = function(str) {
 		if ( str.substr(-1) == '/' ) {
 			return str.substr(0, str.length - 1);
 		}
 		return str;
-	}
+	};
 
 	/**
 	 * Safely log things if query var is set
 	 * @since  1.0.0
 	 */
 	app.log = function() {
-		'use strict';
+		
 		if ( this.appp.debug && console && typeof console.log === 'function' ) {
 			console.log.apply(console, arguments);
 		}
-	}
+	};
 
 	/**
 	 * Group logged items
 	 * @since  1.0.0
 	 */
 	app.logGroup = function( groupName, expanded ) {
-		'use strict';
+		
 
 		if ( this.appp.debug && console && typeof console.group === 'function' ) {
 			if ( groupName === true ) {
@@ -740,7 +791,7 @@
 					console.groupCollapsed( groupName );
 			}
 		}
-	}
+	};
 
 	/*
 	 * Handles ajax modal new password request
@@ -763,7 +814,7 @@
 	  		action: 'app-lost-password',
 	  		email: $('#lost_email').val(),
 	  		nonce: $('#app_new_password').val()
-	  	}
+	  	};
 
 	  	console.dir(data);
 
@@ -786,7 +837,7 @@
 
 		return reset;
 
-	}
+	};
 
 	/*
 	 * Handles ajax modal change password request
@@ -840,7 +891,7 @@
 
 		return validation;
 
-	}
+	};
 
 	/*
 	 * Ajax password reset events
@@ -856,8 +907,17 @@
 	 * Add comment to page after submitted with ajax
 	 */
 	app.appendComment = function( author, comment ) {
-		$('.comment-list').append( '<li class="comment" id="ajax-comment"> <article class="comment-body"> <footer class="comment-meta"> <div class="comment-author vcard"> <cite class="fn">' + author + '</cite> <span class="says">says:</span></div><!-- .comment-author --> <div class="comment-metadata"></div><!-- .comment-metadata --> <p class="comment-awaiting-moderation">Your comment is awaiting moderation.</p> </footer><!-- .comment-meta --> <div class="comment-content"> <p>' + comment + '</p> </div><!-- .comment-content --> </article><!-- .comment-body --> </li>' );
-	}
+
+		var el;
+
+		if( $('.comment-list') ) {
+			el = $('.comment-list');
+		} else {
+			el = $('#comments');
+		}
+		console.log('Append ', el);
+		el.append( '<li class="comment" id="ajax-comment"> <article class="comment-body"> <footer class="comment-meta"> <div class="comment-author vcard"> <cite class="fn">' + author + '</cite> <span class="says">says:</span></div><!-- .comment-author --> <div class="comment-metadata"></div><!-- .comment-metadata --> <p class="comment-awaiting-moderation">Your comment is awaiting moderation.</p> </footer><!-- .comment-meta --> <div class="comment-content"> <p>' + comment + '</p> </div><!-- .comment-content --> </article><!-- .comment-body --> </li>' );
+	};
 	
 	// do not submit comment if no value
 	$( 'body' ).on( 'click', '#respond #submit', function() {
@@ -875,7 +935,7 @@
 		var $rating = $( this ).closest( '#respond' ).find( '#rating' ),
 		rating  = $rating.val();
 
-		if ( $rating.size() > 0 && ! rating && wc_single_product_params.review_rating_required === 'yes' && ! comment === '' ) {
+		if ( $rating.size() > 0 && ! rating && wc_single_product_params.review_rating_required === 'yes' && comment !== '' ) {
 			alert( wc_single_product_params.i18n_required_rating_text );
 			return false;
 		}
@@ -914,16 +974,17 @@
 		var comment = $('.ajax-comment-form-comment #comment').val();
 		var comment_parent = $('#ajax-comment-parent').val();
 		var logged_in = $('body').hasClass('logged-in');
+		var commentData;
 
 		if(logged_in) {
 
 			$('.ajax-comment-form-author, .ajax-comment-form-email, .ajax-comment-form-url').hide();
 
-			var commentData = {
+			commentData = {
 				comment_post_ID: $('#commentform #comment_post_ID').val(),
 				comment: comment,
 				comment_parent: comment_parent,
-			}
+			};
 
 		} else {
 
@@ -933,14 +994,14 @@
 				return false;
 			}
 
-			var commentData = {
+			commentData = {
 				author: comment_author,
 				email: comment_email,
 				url: $('.ajax-comment-form-url #url').val(),
 				comment_post_ID: $('#commentform #comment_post_ID').val(),
 				comment: comment,
 				comment_parent: comment_parent,
-			}
+			};
 		}
 
 		//Add a status message
@@ -958,7 +1019,7 @@
 				statusdiv.html('<p class="ajax-error" >You might have left one of the fields blank, or be posting too quickly</p>');
 			},
 			success: function(data, textStatus){
-				console.log( data );
+				// console.log( data );
 				if(textStatus=="success") {
 					statusdiv.html('<p class="ajax-success" >Thanks for your comment. We appreciate your response.</p>');
 

@@ -8,7 +8,7 @@
 
  	<div class="item-content">
 
-		<a class="item-link" href="<?php the_permalink(); ?>">
+		<a class="item-link <?php echo apply_filters('appp_transition_left', $classname ); ?>" href="<?php the_permalink(); ?>">
 		
 			<div class="item-media">
 			

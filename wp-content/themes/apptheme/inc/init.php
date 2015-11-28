@@ -427,17 +427,18 @@ function appp_remove_hook( $tag, $function_to_remove, $priority = 10 ) {
 
 
 /**
- * app_add_product_back_button function.
  *
- * adds back button to toolbar
+ * Adds back button to toolbar
  *
  * @access public
  * @return void
  */
-function app_add_product_back_button() {
+function appp_back_button() {
+
+	$classname = '';
 
 	if ( !is_home() && !is_front_page() ) {
-		echo '<a href="#" class="back nav-left-btn"><i class="fa fa-chevron-left fa-lg"></i></a>';
+		echo '<a href="#" class="back nav-left-btn ' . apply_filters('appp_transition_right', $classname ) . '"><i class="fa fa-chevron-left fa-lg"></i></a>';
 	}
 }
-add_action( 'appp_header_left', 'app_add_product_back_button' );
+add_action( 'appp_header_left', 'appp_back_button' );

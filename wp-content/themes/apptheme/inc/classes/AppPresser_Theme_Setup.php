@@ -1,5 +1,5 @@
 <?php
-// Allows child-thems to override this class
+// Allows child-themes to override this class
 if ( ! class_exists( 'AppPresser_Theme_Setup' ) ) {
 	class AppPresser_Theme_Setup {
 
@@ -21,7 +21,7 @@ if ( ! class_exists( 'AppPresser_Theme_Setup' ) ) {
 		/**
 		 * The current version of this theme
 		 */
-		const VERSION    = '2.0.1';
+		const VERSION    = '2.1.0';
 	
 	}
 }

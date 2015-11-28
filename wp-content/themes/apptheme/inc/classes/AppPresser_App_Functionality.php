@@ -111,7 +111,7 @@ class AppPresser_App_Functionality {
 					}
 
 					appp_login_modal_after();
-					
+
 					if ( !is_user_logged_in() ) {
 						echo '<p><a href="#app-lost-password" class="password-reset-btn io-modal-open">Lost Password?</a></p>';
 					}
@@ -134,11 +134,11 @@ class AppPresser_App_Functionality {
 			<div class="io-modal-content">
 
 				<h4><?php _e( 'Leave a comment', 'apppresser'); ?></h4>
-			
+
 				<div id="comment-status" ></div>
 
 				<p class="ajax-comment-form-author"><label for="author">Name <span class="required">*</span></label> <input id="author" name="author" type="text" size="30" aria-required="true"></p>
-				
+
 				<p class="ajax-comment-form-email"><label for="email">Email <span class="required">*</span></label> <input id="email" name="email" type="text" size="30" aria-describedby="email-notes" aria-required="true"></p>
 
 				<p class="ajax-comment-form-url"><label for="url">Website</label> <input id="url" name="url" type="text" value="" size="30"></p>
@@ -190,12 +190,12 @@ class AppPresser_App_Functionality {
 		<?php
 		}
 	}
-	
+
 	public function get_error_param() {
-		
-		if ( 'login_failed' == $_GET['errors'] )
+
+		if ( isset( $_GET['errors'] ) && $_GET['errors'] == 'login_failed' )
 			return 'Login Failed! Please try again.';
-		
+
 		return '';
 	}
 

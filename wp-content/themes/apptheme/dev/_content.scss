@@ -859,3 +859,9 @@ h1.site-title.page-title {
 .single .wp-post-image {
 	margin: 0 0 15px 0;
 }
+
+/* BuddyPress */
+
+#buddypress ul.item-list li img.avatar {
+	max-width: 50px;
+}

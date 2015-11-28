@@ -10,12 +10,7 @@
 
 	<div class="entry-content">
 		<?php the_content(); ?>
-		<?php
-			wp_link_pages( array(
-				'before' => '<div class="page-links">' . __( 'Pages:', 'apptheme' ),
-				'after'  => '</div>',
-			) );
-		?>
+		<?php get_template_part( 'content', 'below_page' ); ?>
 	</div><!-- .entry-content -->
 	<?php edit_post_link( __( 'Edit', 'apptheme' ), '<footer class="entry-meta"><span class="edit-link">', '</span></footer>' ); ?>
 </article><!-- #post-## -->

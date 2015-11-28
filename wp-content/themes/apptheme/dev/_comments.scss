@@ -102,7 +102,6 @@ li.pingback {
 }
 .comment-body {
 	padding: 10px 0;
-	background: #fff;
 	border-bottom: 1px solid #eee;
 }
 li.pingback .comment-body {
@@ -163,21 +162,26 @@ div.comment-content p {
 footer.comment-meta {
 	margin-bottom: 0;
 	padding-bottom: 5px;
+	overflow: hidden;
 }
 
 .appp-below-post {
-	background-color: #fafafa;
+	background-color: rgba(255,255,255,.5);
 	border-top: 1px solid #eee;
 	border-bottom: 1px solid #eee;
 	margin: 0 -10px;
 }
 
 .appp-below-post .btn {
+	padding: 0;
+}
+
+.appp-below-post .btn a {
 	padding: 13px 0;
+	display: block;
 }
 
 .appp-below-post .btn, .appp-below-post a, .appp-below-post a:visited {
-	color: #777;
 	background-color: transparent;
 }
 

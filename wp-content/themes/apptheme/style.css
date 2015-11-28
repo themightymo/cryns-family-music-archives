@@ -3,7 +3,7 @@ Theme Name: AppTheme
 Author: AppPresser Team
 Author URI: http://apppresser.com
 Description: A starter theme for WordPress application development.
-Version: 2.0.1
+Version: 2.1.0
 License: GNU General Public License
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Tags: flexible-width, custom-background, custom-colors, custom-header, flexible-header, featured-image-header, featured-images, light, white, full-width-template, theme-options, threaded-comments, translation-ready, one-column, two-columns, left-sidebar, right-sidebar
@@ -4420,6 +4420,10 @@ h1.site-title.page-title {
 .single .wp-post-image {
   margin: 0 0 15px 0; }
 
+/* BuddyPress */
+#buddypress ul.item-list li img.avatar {
+  max-width: 50px; }
+
 /* =Comments
 ----------------------------------------------- */
 #comments {
@@ -4512,7 +4516,6 @@ li.pingback {
 
 .comment-body {
   padding: 10px 0;
-  background: #fff;
   border-bottom: 1px solid #eee; }
 
 li.pingback .comment-body {
@@ -4564,19 +4567,23 @@ div.comment-content p {
 
 footer.comment-meta {
   margin-bottom: 0;
-  padding-bottom: 5px; }
+  padding-bottom: 5px;
+  overflow: hidden; }
 
 .appp-below-post {
-  background-color: #fafafa;
+  background-color: rgba(255, 255, 255, 0.5);
   border-top: 1px solid #eee;
   border-bottom: 1px solid #eee;
   margin: 0 -10px; }
 
 .appp-below-post .btn {
-  padding: 13px 0; }
+  padding: 0; }
+
+.appp-below-post .btn a {
+  padding: 13px 0;
+  display: block; }
 
 .appp-below-post .btn, .appp-below-post a, .appp-below-post a:visited {
-  color: #777;
   background-color: transparent; }
 
 @media (max-width: 300px) {
@@ -4743,8 +4750,13 @@ footer.comment-meta {
 .io-modal .io-modal-content {
   height: 100%;
   padding: 10px;
-  overflow: hidden;
+  overflow: auto;
   -webkit-overflow-scrolling: touch; }
+
+#commentModal {
+  height: 100%; }
+  #commentModal .io-modal .io-modal-content {
+    overflow: auto; }
 
 /*!
  *  Font Awesome 4.0.0

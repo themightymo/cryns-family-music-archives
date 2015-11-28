@@ -53,6 +53,15 @@
   height: 100%;
   padding: 10px;
   // overflow-y: scroll; /* has to be scroll, not auto */
-  overflow: hidden; // fix for camera button overlay
+  overflow: auto; // fix for camera button overlay
   -webkit-overflow-scrolling: touch;
   }
+
+#commentModal {
+  height: 100%;
+
+  .io-modal .io-modal-content { 
+    overflow: auto; 
+  }
+
+}

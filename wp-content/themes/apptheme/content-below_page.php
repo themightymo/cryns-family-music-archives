@@ -9,14 +9,6 @@
 	<div class="btn-group btn-group-justified" role="group" aria-label="Justified button group">
 		<?php
 
-		// Display next/previous links
-		$previous = ( is_attachment() ) ? get_post( $post->post_parent ) : get_adjacent_post( false, '', true );
-		$next = get_adjacent_post( false, '', false );
-
-		if ( $previous ) {
-			previous_post_link( '<div class="btn btn-default previous-link">%link</div>', '<i class="fa fa-long-arrow-left"></i> Previous' );
-		} 
-
 		// Display comment modal button if comments are open
 		if ( comments_open() ) {
 			echo '<div class="btn btn-default"><a href="#commentModal" class="io-modal-open appp-comment-btn"><i class="fa fa-comment"></i> Comment</a></div>';
@@ -27,12 +19,6 @@
 			?>
 			<div class="btn btn-default"><a onclick="window.plugins.socialsharing.share( <?php echo "'" .get_the_title() . "'"; ?>, null, null, <?php echo "'" . get_permalink() . "'"; ?> )"><i class="fa fa-share"></i> Share</a></div>
 		<?php } ?>
-
-		<?php 
-
-		if ( $next ) {
-			next_post_link( '<div class="btn btn-default next-link">%link</div>', 'Next <i class="fa fa-long-arrow-right"></i>' ); 
-		} ?>
 
     </div>
 

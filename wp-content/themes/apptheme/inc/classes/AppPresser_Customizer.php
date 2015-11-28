@@ -33,7 +33,9 @@ class AppPresser_Customizer {
 	 * @param WP_Customize_Manager $wp_customize Theme Customizer object.
 	 */
 	public function register( $wp_customize ) {
-	
+
+		$wp_customize->remove_section("static_front_page");
+
 		/**
 		 * Add Settings
 		 */
@@ -268,7 +270,6 @@ class AppPresser_Customizer {
 		return $formatted;
 	}
 }
-
 
 function appp_customizer_live_preview() {
 
