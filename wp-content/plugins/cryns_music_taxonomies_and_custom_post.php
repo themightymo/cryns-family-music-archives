@@ -305,7 +305,6 @@ function add_mp3_to_single_audio_posts ( $content ) {
 	    }
 	    
 	    $content .= $myHTML;
-	    $content .= 'toby was here';
 	    
     }
     // Returns the content.
