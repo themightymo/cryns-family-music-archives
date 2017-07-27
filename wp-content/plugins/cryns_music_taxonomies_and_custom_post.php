@@ -294,7 +294,7 @@ add_filter( 'jetpack_relatedposts_filter_headline', 'jetpackme_related_posts_hea
 	Add mp3 player to single post view
 */
 function add_mp3_to_single_audio_posts ( $content ) {
-    if ( is_singular( 'cryns_audio_file' )  ) {
+    if ( is_singular( 'cryns_audio_file' ) && has_post_format( 'audio' ) ) {
 	   
 		global $post;
 	    $mp3 = wp_get_attachment_url( get_post_meta($post->ID, 'Audio File', true) );
