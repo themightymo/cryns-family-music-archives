@@ -290,6 +290,21 @@ return $headline;
 }
 add_filter( 'jetpack_relatedposts_filter_headline', 'jetpackme_related_posts_headline' );
 
+/*
+	Display the html5 audio player for the current mp3.
+*/
+function return_audio_player() {
+	return '<audio class="wp-audio-shortcode" id="audio-2383-1" preload="none" style="width: 100%;" controls="controls"><source type="audio/mpeg" src="' . wp_get_attachment_url( get_post_meta($post->ID, 'Audio File', true) ) . '"></audio>';
+}
+function echo_audio_player() {
+	echo '<audio class="wp-audio-shortcode" id="audio-2383-1" preload="none" style="width: 100%;" controls="controls"><source type="audio/mpeg" src="' . wp_get_attachment_url( get_post_meta($post->ID, 'Audio File', true) ) . '"></audio>';
+}
+/*
+	Display band name, release year, album, etc.
+*/
+function return_audio_meta() {
+	return '<span class="audio-meta"><a href="' . wp_get_attachment_url( get_post_meta($post->ID, 'Audio File', true) ) . '" target="_blank">Download MP3 File</a>, ' . get_the_term_list ( $post->ID, 'cryns_artist', "Artist: " ) . get_the_term_list( get_the_ID(), 'cryns_written_by', ", Written By: ", ', ' ) . get_the_term_list( get_the_ID(), 'cryns_track_number', ", Track Number: " ) . get_the_term_list( get_the_ID(), 'cryns_release_year', ", Release Year: " ) . get_the_term_list( get_the_ID(), 'cryns_musicians', ", Musicians: ", ', ' ) . get_the_term_list( get_the_ID(), 'cryns_engineer', ", Engineer(s): ", ', ' ) . get_the_term_list( get_the_ID(), 'cryns_producer', ", Producer(s): ", ', ' ) . get_the_term_list( get_the_ID(), 'cryns_genre', ", Genre(s): ", ', ' ) . get_the_term_list( get_the_ID(), 'cryns_album_title', ", Album Title: " ) . get_the_term_list( get_the_ID(), 'cryns_artist', ", Artist: " ) . '</span>';
+}
 /* 
 	Add mp3 player to single post view
 */
@@ -297,11 +312,8 @@ function add_mp3_to_single_audio_posts ( $content ) {
     if ( is_singular( 'cryns_audio_file' ) && has_post_format( 'audio' ) ) {
 	   
 		global $post;
-	    $mp3 = wp_get_attachment_url( get_post_meta($post->ID, 'Audio File', true) );
-	    $myHTML .= '<audio class="wp-audio-shortcode" id="audio-2383-1" preload="none" style="width: 100%;" controls="controls"><source type="audio/mpeg" src="' . $mp3 . '"></audio>';
-	    $myHTML .= '<span class="audio-meta"><a href="' . $mp3 . '" target="_blank">Download MP3 File</a>, ' . get_the_term_list ( $post->ID, 'cryns_artist', "Artist: " ) . get_the_term_list( get_the_ID(), 'cryns_written_by', ", Written By: ", ', ' ) . get_the_term_list( get_the_ID(), 'cryns_track_number', ", Track Number: " ) . get_the_term_list( get_the_ID(), 'cryns_release_year', ", Release Year: " ) . get_the_term_list( get_the_ID(), 'cryns_musicians', ", Musicians: ", ', ' ) . get_the_term_list( get_the_ID(), 'cryns_engineer', ", Engineer(s): ", ', ' ) . get_the_term_list( get_the_ID(), 'cryns_producer', ", Producer(s): ", ', ' ) . get_the_term_list( get_the_ID(), 'cryns_genre', ", Genre(s): ", ', ' ) . get_the_term_list( get_the_ID(), 'cryns_album_title', ", Album Title: " ) . get_the_term_list( get_the_ID(), 'cryns_artist', ", Artist: " ) . '</span>';
-	    
-	    $content .= $myHTML;
+	    $content .= return_audio_player();
+	    $content .= return_audio_meta();
 	    
     }
     
@@ -309,19 +321,14 @@ function add_mp3_to_single_audio_posts ( $content ) {
 	return $content;
 }
 
-
-	
 add_filter( 'the_content', 'add_mp3_to_single_audio_posts', 20 );
-
-add_filter( 'the_excerpt', 'add_mp3_to_single_audio_posts', 20 );
-	
 
 
 
 // Add total audio posts to footer
 function display_audio_post_count () {
 	$count_posts = wp_count_posts( 'cryns_audio_file' )->publish;
-	echo '<div style="color:#fff; text-align:center;">Total Songs Posted: ' . $count_posts . '</div>';
+	echo '<div style="font-size:small;text-align:center;">Total Songs Posted: ' . $count_posts . '</div>';
 }
 add_action('wp_footer', 'display_audio_post_count'); 
 
