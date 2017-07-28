@@ -412,5 +412,20 @@ add_action( 'loop_end', 'maybe_output_before_taxonomy_loop' );
 function maybe_output_before_taxonomy_loop(){
 	if (is_tax()) {
 		cryns_audio_playlist();
+		
+		// Display the artist image
+		$queried_object = get_queried_object();
+		$taxonomy = $queried_object->taxonomy;
+		$term_id = $queried_object->term_id;
+		$terms = get_field( 'artist_image', $taxonomy.'_'.$term_id);
+		
+		if( $terms ) {
+			
+			echo '<img src="'. $terms['url'] .'" />';
+		    
+		} else {
+		    //do nothing
+		}
+   
 	}
 }
