@@ -294,15 +294,18 @@ add_filter( 'jetpack_relatedposts_filter_headline', 'jetpackme_related_posts_hea
 	Display the html5 audio player for the current mp3.
 */
 function return_audio_player() {
+	global $post;
 	return '<audio class="wp-audio-shortcode" id="audio-2383-1" preload="none" style="width: 100%;" controls="controls"><source type="audio/mpeg" src="' . wp_get_attachment_url( get_post_meta($post->ID, 'Audio File', true) ) . '"></audio>';
 }
 function echo_audio_player() {
+	global $post;
 	echo '<audio class="wp-audio-shortcode" id="audio-2383-1" preload="none" style="width: 100%;" controls="controls"><source type="audio/mpeg" src="' . wp_get_attachment_url( get_post_meta($post->ID, 'Audio File', true) ) . '"></audio>';
 }
 /*
 	Display band name, release year, album, etc.
 */
 function return_audio_meta() {
+	global $post;
 	return '<span class="audio-meta"><a href="' . wp_get_attachment_url( get_post_meta($post->ID, 'Audio File', true) ) . '" target="_blank">Download MP3 File</a>, ' . get_the_term_list ( $post->ID, 'cryns_artist', "Artist: " ) . get_the_term_list( get_the_ID(), 'cryns_written_by', ", Written By: ", ', ' ) . get_the_term_list( get_the_ID(), 'cryns_track_number', ", Track Number: " ) . get_the_term_list( get_the_ID(), 'cryns_release_year', ", Release Year: " ) . get_the_term_list( get_the_ID(), 'cryns_musicians', ", Musicians: ", ', ' ) . get_the_term_list( get_the_ID(), 'cryns_engineer', ", Engineer(s): ", ', ' ) . get_the_term_list( get_the_ID(), 'cryns_producer', ", Producer(s): ", ', ' ) . get_the_term_list( get_the_ID(), 'cryns_genre', ", Genre(s): ", ', ' ) . get_the_term_list( get_the_ID(), 'cryns_album_title', ", Album Title: " ) . get_the_term_list( get_the_ID(), 'cryns_artist', ", Artist: " ) . '</span>';
 }
 /* 
@@ -311,7 +314,7 @@ function return_audio_meta() {
 function add_mp3_to_single_audio_posts ( $content ) {
     if ( is_singular( 'cryns_audio_file' ) && has_post_format( 'audio' ) ) {
 	   
-		global $post;
+		
 	    $content .= return_audio_player();
 	    $content .= return_audio_meta();
 	    
