@@ -3,6 +3,11 @@ A plugin that generates mp3 playlists on archive pages and single posts for the 
 
 * The plugin works out of the box on every WordPress theme.
 
+![Single audio post view using default Twenty Seventeen WordPress theme](http://music.cryns.com/wp-content/uploads/2017/08/single.png)
+
+![Archive/Taxonomy view using default Twenty Seventeen WordPress theme](http://music.cryns.com/wp-content/uploads/2017/08/archive-playlist.png)
+
+
 ## Roadmap:
 1.  Create custom field UI for Audio File field.
 
