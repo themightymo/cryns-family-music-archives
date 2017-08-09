@@ -351,6 +351,23 @@ function cryns_audio_playlist() {
 	
 	$myposts = get_posts( $args );
 	
+	/* 
+		BEGIN SORT BY TRACK NUMBER
+	*/
+	$mypostsSorted = array();
+	
+	foreach ( $myposts as $post ) : setup_postdata( $post ); 
+		$postID = $post->ID;
+		$track_number = get_field( 'track_number' );
+		//Sort the posts by track_number
+		$mypostsSorted['postID'] = $postID;
+		
+	endforeach; 
+	
+	var_dump($mypostsSorted);
+	/* 
+		END SORT BY TRACK NUMBER
+	*/
 	
 	foreach ( $myposts as $post ) : setup_postdata( $post ); 
 		// Get the audio file's id, and store it in a variable
