@@ -341,9 +341,9 @@ function cryns_audio_playlist() {
 			)
 		),
 		
-		//'meta_key'			=> 'track_number', //order by track number field (this works but it doesn't show the ones without a track number set...
-		//'orderby'			=> 'meta_value_num',
-		//'order'				=> 'DESC'
+		'meta_key' => 'track_number', //order by track number field (this works but it doesn't show the ones without a track number set...
+		'orderby' => 'meta_value_num',
+		'order' => 'ASC'
 	);
 	
 	//This is the array that will store all the audio file ids
@@ -351,27 +351,7 @@ function cryns_audio_playlist() {
 	
 	$myposts = get_posts( $args );
 	
-	/* 
-		BEGIN SORT BY TRACK NUMBER
-	*/
-	
-	$mypostsSorted = array(
-	    'postID'=>NULL,
-	    'track_number'=>NULL
-    );
-	
-	foreach ( $myposts as $post ) : setup_postdata( $post ); 
 		
-		$mypostsSorted['postID']= $post->ID;
-		$mypostsSorted['track_number']= get_field( 'track_number' , $post->ID );
-		
-	endforeach; 
-	
-	//var_dump($mypostsSorted);
-	/* 
-		END SORT BY TRACK NUMBER
-	*/
-	
 	foreach ( $myposts as $post ) : setup_postdata( $post ); 
 		// Get the audio file's id, and store it in a variable
 		$audioID = get_post_meta ( $post->ID,'Audio File',true );
