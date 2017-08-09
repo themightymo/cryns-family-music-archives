@@ -241,32 +241,6 @@ function create_cryns_audio_files_taxonomies()
     'rewrite' => array( 'slug' => 'release-year' ),
   ));
   
-  // Add new taxonomy, NOT hierarchical (like tags)
-  $labels = array(
-    'name' => _x( 'Track Number', 'taxonomy general name' ),
-    'singular_name' => _x( 'Track Number', 'taxonomy singular name' ),
-    'search_items' =>  __( 'Search Track Numbers' ),
-    'popular_items' => __( 'Popular Track Numbers' ),
-    'all_items' => __( 'All Track Numbers' ),
-    'parent_item' => null,
-    'parent_item_colon' => null,
-    'edit_item' => __( 'Edit Track Number' ), 
-    'update_item' => __( 'Update Track Number' ),
-    'add_new_item' => __( 'Add New Track Number' ),
-    'new_item_name' => __( 'New Track Number' ),
-    'separate_items_with_commas' => __( 'Ex: 01 or 02 or 13' ),
-    'add_or_remove_items' => __( 'Add or remove Track Numbers' ),
-    'choose_from_most_used' => __( 'Choose from the most used Track Numbers' ),
-    'menu_name' => __( 'Track Number' ),
-  ); 
-
-  register_taxonomy('cryns_track_number','cryns_audio_file',array(
-    'hierarchical' => false,
-    'labels' => $labels,
-    'show_ui' => true,
-    'query_var' => true,
-    'rewrite' => array( 'slug' => 'track-number' ),
-  ));
 }
 
 /**
@@ -306,7 +280,7 @@ function echo_audio_player() {
 */
 function return_audio_meta() {
 	global $post;
-	return '<span class="audio-meta"><a href="' . wp_get_attachment_url( get_post_meta($post->ID, 'Audio File', true) ) . '" target="_blank">Download MP3 File</a>, ' . get_the_term_list ( $post->ID, 'cryns_artist', "Artist: " ) . get_the_term_list( get_the_ID(), 'cryns_written_by', ", Written By: ", ', ' ) . get_the_term_list( get_the_ID(), 'cryns_track_number', ", Track Number: " ) . get_the_term_list( get_the_ID(), 'cryns_release_year', ", Release Year: " ) . get_the_term_list( get_the_ID(), 'cryns_musicians', ", Musicians: ", ', ' ) . get_the_term_list( get_the_ID(), 'cryns_engineer', ", Engineer(s): ", ', ' ) . get_the_term_list( get_the_ID(), 'cryns_producer', ", Producer(s): ", ', ' ) . get_the_term_list( get_the_ID(), 'cryns_genre', ", Genre(s): ", ', ' ) . get_the_term_list( get_the_ID(), 'cryns_album_title', ', Album Title: ', ', ' ) . get_the_term_list( get_the_ID(), 'cryns_artist', ", Artist: " ) . '</span>';
+	return '<span class="audio-meta"><a href="' . wp_get_attachment_url( get_post_meta($post->ID, 'Audio File', true) ) . '" target="_blank">Download MP3 File</a>, ' . get_the_term_list ( $post->ID, 'cryns_artist', "Artist: " ) . get_the_term_list( get_the_ID(), 'cryns_written_by', ", Written By: ", ', ' ) . ", Track Number: " . get_field('track_number') . get_the_term_list( get_the_ID(), 'cryns_release_year', ", Release Year: " ) . get_the_term_list( get_the_ID(), 'cryns_musicians', ", Musicians: ", ', ' ) . get_the_term_list( get_the_ID(), 'cryns_engineer', ", Engineer(s): ", ', ' ) . get_the_term_list( get_the_ID(), 'cryns_producer', ", Producer(s): ", ', ' ) . get_the_term_list( get_the_ID(), 'cryns_genre', ", Genre(s): ", ', ' ) . get_the_term_list( get_the_ID(), 'cryns_album_title', ', Album Title: ', ', ' ) . get_the_term_list( get_the_ID(), 'cryns_artist', ", Artist: " ) . '</span>';
 }
 /* 
 	Add mp3 player to single post view
@@ -365,13 +339,18 @@ function cryns_audio_playlist() {
 				'field' => 'id',
 				'terms' => $queried_object->term_id, // Where term_id of Term 1 is "1".
 			)
-		)
+		),
+		
+		//'meta_key'			=> 'track_number', //order by track number field
+		'orderby'			=> 'meta_value_num',
+		'order'				=> 'ASC'
 	);
 	
 	//This is the array that will store all the audio file ids
 	$audioIDs = array();
 	
 	$myposts = get_posts( $args );
+	
 	
 	foreach ( $myposts as $post ) : setup_postdata( $post ); 
 		// Get the audio file's id, and store it in a variable
