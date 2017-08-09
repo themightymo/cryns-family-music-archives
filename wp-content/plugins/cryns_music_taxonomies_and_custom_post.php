@@ -341,9 +341,9 @@ function cryns_audio_playlist() {
 			)
 		),
 		
-		//'meta_key'			=> 'track_number', //order by track number field
-		'orderby'			=> 'meta_value_num',
-		'order'				=> 'ASC'
+		//'meta_key'			=> 'track_number', //order by track number field (this works but it doesn't show the ones without a track number set...
+		//'orderby'			=> 'meta_value_num',
+		//'order'				=> 'DESC'
 	);
 	
 	//This is the array that will store all the audio file ids
@@ -367,7 +367,7 @@ function cryns_audio_playlist() {
 		
 	endforeach; 
 	
-	var_dump($mypostsSorted);
+	//var_dump($mypostsSorted);
 	/* 
 		END SORT BY TRACK NUMBER
 	*/
