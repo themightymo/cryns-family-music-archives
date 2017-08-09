@@ -354,13 +354,16 @@ function cryns_audio_playlist() {
 	/* 
 		BEGIN SORT BY TRACK NUMBER
 	*/
-	$mypostsSorted = array();
+	
+	$mypostsSorted = array(
+	    'postID'=>NULL,
+	    'track_number'=>NULL
+    );
 	
 	foreach ( $myposts as $post ) : setup_postdata( $post ); 
-		$postID = $post->ID;
-		$track_number = get_field( 'track_number' );
-		//Sort the posts by track_number
-		$mypostsSorted['postID'] = $postID;
+		
+		$mypostsSorted['postID']= $post->ID;
+		$mypostsSorted['track_number']= get_field( 'track_number' , $post->ID );
 		
 	endforeach; 
 	
