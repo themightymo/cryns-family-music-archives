@@ -390,7 +390,7 @@ add_filter( 'json_prepare_post', function ($data, $post, $context) {
 /* 
 	Display music playlist player on archive pages.
 */
-add_action( 'loop_end', 'output_before_taxonomy_loop' );
+add_action( 'loop_start', 'output_before_taxonomy_loop' );
 function output_before_taxonomy_loop(){
 	if (is_tax()) {
 		cryns_audio_playlist();
