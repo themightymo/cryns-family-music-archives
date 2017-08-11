@@ -411,3 +411,8 @@ function output_before_taxonomy_loop(){
    
 	}
 }
+
+function footer_credits () {
+    echo '<div style="font-size:small;text-align:center;margin-bottom:1em;">Music by the <a href="https://github.com/themightymo/cryns-family-music-archives" target="_blank">Cryns Family Music Archives</a> Plugin</div>';
+}
+add_action( 'wp_footer', 'footer_credits' );
