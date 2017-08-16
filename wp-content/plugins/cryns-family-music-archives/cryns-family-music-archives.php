@@ -417,7 +417,9 @@ function footer_credits () {
 }
 add_action( 'wp_footer', 'footer_credits' );
 
-// Include custom media player styles
+/* 
+	Include custom media player styles
+*/
 function media_player_styles () {
     wp_register_style('media-player-styles', plugins_url('/media-player-style.css', __FILE__));
     wp_enqueue_style ( 'media-player-styles' );
