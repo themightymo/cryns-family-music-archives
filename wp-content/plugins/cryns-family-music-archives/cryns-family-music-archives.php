@@ -1,6 +1,6 @@
 <?php 
 /*
-Plugin Name: Cryns Music Taxonomies and Custom Post Type
+Plugin Name: Cryns Family Music Archives
 Plugin URI: http://www.themightymo.com/
 Description: Creates the "Audio File" custom post type and all audio file custom taxonomies.  It also adds audio file meta data to the front end (filters the_content).  This plugin depends on the "Custom Field Template" plugin.
 Version: 0.3
@@ -41,6 +41,7 @@ function codex_custom_init()
     'hierarchical' => false,
     'menu_position' => 3,
 	'slug' => 'music-file',
+	'menu_icon' => 'dashicons-format-audio',
     'supports' => array('title','editor','custom-fields','author','excerpt','comments')
   ); 
   register_post_type('cryns_audio_file',$args);
@@ -416,3 +417,12 @@ function footer_credits () {
     echo '<div style="font-size:small;text-align:center;margin-bottom:1em;">Music by the <a href="https://github.com/themightymo/cryns-family-music-archives" target="_blank">Cryns Family Music Archives</a> Plugin</div>';
 }
 add_action( 'wp_footer', 'footer_credits' );
+
+/* 
+	Include custom media player styles
+*/
+function media_player_styles () {
+    wp_register_style('media-player-styles', plugins_url('/media-player-style.css', __FILE__), '', time());
+    wp_enqueue_style ( 'media-player-styles' );
+}
+add_action('wp_enqueue_scripts', 'media_player_styles');
