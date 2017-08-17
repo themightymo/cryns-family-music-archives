@@ -41,6 +41,7 @@ function codex_custom_init()
     'hierarchical' => false,
     'menu_position' => 3,
 	'slug' => 'music-file',
+	'menu_icon' => 'dashicons-format-audio',
     'supports' => array('title','editor','custom-fields','author','excerpt','comments')
   ); 
   register_post_type('cryns_audio_file',$args);
