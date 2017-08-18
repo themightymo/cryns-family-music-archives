@@ -21,6 +21,3 @@ function add_mighty_scripts() {
 		wp_enqueue_script('accordion-script', array( 'jquery', 'mighty-jquery-ui-core' ) );
 	}
 }
-
-
-?>
