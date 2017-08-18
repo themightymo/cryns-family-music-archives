@@ -47,6 +47,7 @@ Thumbs.db
 wp-content/plugins/*
 !wp-content/plugins/cryns_music_taxonomies_and_custom_post.php
 !wp-content/plugins/mighty-accordion/*
+!wp-content/plugins/cryns-family-music-archives/*
 
 
 # Ignore everything in the "themes" directory, except the themes you
