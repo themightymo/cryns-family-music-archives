@@ -26,7 +26,6 @@ function codex_custom_init()
     'not_found_in_trash' => __('No Audio Files found in Trash'), 
     'parent_item_colon' => '',
     'menu_name' => 'Audio Files'
-
   );
   $args = array(
     'labels' => $labels,
@@ -41,6 +40,7 @@ function codex_custom_init()
     'hierarchical' => false,
     'menu_position' => 3,
 	'slug' => 'music-file',
+	'show_in_rest' => true,
 	'menu_icon' => 'dashicons-format-audio',
     'supports' => array('title','editor','custom-fields','author','excerpt','comments')
   ); 
