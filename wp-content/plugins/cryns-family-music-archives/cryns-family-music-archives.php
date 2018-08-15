@@ -270,11 +270,19 @@ add_filter( 'jetpack_relatedposts_filter_headline', 'jetpackme_related_posts_hea
 */
 function return_audio_player() {
 	global $post;
-	return '<audio class="wp-audio-shortcode" id="audio-2383-1" preload="none" style="width: 100%;" controls="controls"><source type="audio/mpeg" src="' . wp_get_attachment_url( get_post_meta($post->ID, 'Audio File', true) ) . '"></audio>';
+	if ( get_post_meta($post->ID, 'Audio File', true) ) {
+		return '<audio class="wp-audio-shortcode" id="audio-2383-1" preload="none" style="width: 100%;" controls="controls"><source type="audio/mpeg" src="' . wp_get_attachment_url( get_post_meta($post->ID, 'Audio File', true) ) . '"></audio>';
+	} else {
+		echo "There's no single mp3 for this one.";
+	}
 }
 function echo_audio_player() {
 	global $post;
-	echo '<audio class="wp-audio-shortcode" id="audio-2383-1" preload="none" style="width: 100%;" controls="controls"><source type="audio/mpeg" src="' . wp_get_attachment_url( get_post_meta($post->ID, 'Audio File', true) ) . '"></audio>';
+	if ( get_post_meta($post->ID, 'Audio File', true) ) {
+		echo '<audio class="wp-audio-shortcode" id="audio-2383-1" preload="none" style="width: 100%;" controls="controls"><source type="audio/mpeg" src="' . wp_get_attachment_url( get_post_meta($post->ID, 'Audio File', true) ) . '"></audio>';
+	} else {
+		echo "There's no single mp3 for this one.";
+	}
 }
 /*
 	Display band name, release year, album, etc.
