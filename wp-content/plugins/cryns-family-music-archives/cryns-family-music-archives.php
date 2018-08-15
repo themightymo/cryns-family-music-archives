@@ -273,7 +273,7 @@ function return_audio_player() {
 	if ( get_post_meta($post->ID, 'Audio File', true) ) {
 		return '<audio class="wp-audio-shortcode" id="audio-2383-1" preload="none" style="width: 100%;" controls="controls"><source type="audio/mpeg" src="' . wp_get_attachment_url( get_post_meta($post->ID, 'Audio File', true) ) . '"></audio>';
 	} else {
-		echo "There's no single mp3 for this one.";
+		return "There's no single mp3 for this one.";
 	}
 }
 function echo_audio_player() {
