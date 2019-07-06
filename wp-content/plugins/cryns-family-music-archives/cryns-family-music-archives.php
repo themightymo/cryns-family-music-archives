@@ -47,6 +47,9 @@ function codex_custom_init()
   register_post_type('cryns_audio_file',$args);
 }
 
+//ACF hides custom fields meta box.  This filter displays them again.  Via https://wordpress.stackexchange.com/questions/277388/how-to-fix-missing-custom-fields-after-upgrading-to-wordpress-4-8-1
+add_filter('acf/settings/remove_wp_meta_box', '__return_false');
+
 //hook into the init action and call create_cryns_audio_files_taxonomies when it fires
 add_action( 'init', 'create_cryns_audio_files_taxonomies', 0 );
 
@@ -272,6 +275,8 @@ function return_audio_player() {
 	global $post;
 	if ( get_post_meta($post->ID, 'Audio File', true) ) {
 		return '<audio class="wp-audio-shortcode" id="audio-2383-1" preload="none" style="width: 100%;" controls="controls"><source type="audio/mpeg" src="' . wp_get_attachment_url( get_post_meta($post->ID, 'Audio File', true) ) . '"></audio>';
+	} else if ( get_field('audio_file') ) {
+		return '<audio class="wp-audio-shortcode" id="audio-2383-1" preload="none" style="width: 100%;" controls="controls"><source type="audio/mpeg" src="' . get_field ( 'audio_file' ) . '"></audio>';
 	} else {
 		return "There's no single mp3 for this one.";
 	}
