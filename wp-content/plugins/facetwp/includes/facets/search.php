@@ -1,6 +1,6 @@
 <?php
 
-class FacetWP_Facet_Search
+class FacetWP_Facet_Search extends FacetWP_Facet
 {
 
     function __construct() {
@@ -15,9 +15,13 @@ class FacetWP_Facet_Search
 
         $output = '';
         $value = (array) $params['selected_values'];
-        $value = empty( $value ) ? '' : $value[0];
-        $placeholder = isset( $params['facet']['placeholder'] ) ? $params['facet']['placeholder'] : __( 'Enter keywords', 'fwp' );
-        $output .= '<input type="search" class="facetwp-search" value="' . esc_attr( $value ) . '" placeholder="' . esc_attr( $placeholder ) . '" />';
+        $value = empty( $value ) ? '' : stripslashes( $value[0] );
+        $placeholder = isset( $params['facet']['placeholder'] ) ? $params['facet']['placeholder'] : __( 'Enter keywords', 'fwp-front' );
+        $placeholder = facetwp_i18n( $placeholder );
+        $output .= '<span class="facetwp-search-wrap">';
+        $output .= '<i class="facetwp-btn"></i>';
+        $output .= '<input type="text" class="facetwp-search" value="' . esc_attr( $value ) . '" placeholder="' . esc_attr( $placeholder ) . '" />';
+        $output .= '</span>';
         return $output;
     }
 
@@ -36,95 +40,17 @@ class FacetWP_Facet_Search
         }
 
         // Default WP search
-        if ( empty( $facet['search_engine'] ) ) {
-            $search_args = array(
-                's' => $selected_values,
-                'posts_per_page' => 200,
-                'fields' => 'ids',
-            );
+        $search_args = [
+            's' => $selected_values,
+            'posts_per_page' => 200,
+            'fields' => 'ids',
+        ];
 
-            $search_args = apply_filters( 'facetwp_search_query_args', $search_args, $params );
+        $search_args = apply_filters( 'facetwp_search_query_args', $search_args, $params );
 
-            $query = new WP_Query( $search_args );
+        $query = new WP_Query( $search_args );
 
-            return (array) $query->posts;
-        }
-        // SearchWP
-        else {
-            // Return only post IDs and set pagination to 200
-            add_filter( 'searchwp_load_posts', '__return_false' );
-            add_filter( 'searchwp_posts_per_page', array( $this, 'searchwp_posts_per_page' ) );
-
-            // Perform the search
-            $searchwp = SearchWP::instance();
-            $results = $searchwp->search( $facet['search_engine'], $selected_values, 1 );
-
-            // Revert filters
-            remove_filter( 'searchwp_load_posts', '__return_false' );
-            remove_filter( 'searchwp_posts_per_page', array( $this, 'searchwp_posts_per_page' ) );
-
-            return (array) $results;
-        }
-    }
-
-
-    /**
-     * Pagination callback for SearchWP
-     */
-    function searchwp_posts_per_page() {
-        return 200;
-    }
-
-
-    /**
-     * Output any admin scripts
-     */
-    function admin_scripts() {
-?>
-<script>
-(function($) {
-    wp.hooks.addAction('facetwp/load/search', function($this, obj) {
-        $this.find('.facet-search-engine').val(obj.search_engine);
-        $this.find('.facet-placeholder').val(obj.placeholder);
-    });
-
-    wp.hooks.addFilter('facetwp/save/search', function($this, obj) {
-        obj['search_engine'] = $this.find('.facet-search-engine').val();
-        obj['placeholder'] = $this.find('.facet-placeholder').val();
-        return obj;
-    });
-
-    wp.hooks.addAction('facetwp/change/search', function($this) {
-        $this.closest('.facetwp-facet').find('.name-source').hide();
-    });
-})(jQuery);
-</script>
-<?php
-    }
-
-
-    /**
-     * Output any front-end scripts
-     */
-    function front_scripts() {
-?>
-<script>
-(function($) {
-    wp.hooks.addAction('facetwp/refresh/search', function($this, facet_name) {
-        var val = $this.find('.facetwp-search').val() || '';
-        FWP.facets[facet_name] = val;
-    });
-
-    wp.hooks.addAction('facetwp/ready', function() {
-        $(document).on('keyup', '.facetwp-facet .facetwp-search', function(e) {
-            if (13 == e.keyCode) {
-                FWP.autoload();
-            }
-        });
-    });
-})(jQuery);
-</script>
-<?php
+        return (array) $query->posts;
     }
 
 
@@ -132,29 +58,47 @@ class FacetWP_Facet_Search
      * Output admin settings HTML
      */
     function settings_html() {
-        $engines = array();
-        if ( is_plugin_active( 'searchwp/searchwp.php' ) ) {
-            $settings = get_option( SEARCHWP_PREFIX . 'settings' );
-            $engines = $settings['engines'];
-        }
-
+        $engines = apply_filters( 'facetwp_facet_search_engines', [] );
 ?>
-        <tr class="facetwp-conditional type-search">
-            <td><?php _e('Search engine', 'fwp'); ?>:</td>
-            <td>
+        <div class="facetwp-row">
+            <div><?php _e('Search engine', 'fwp'); ?>:</div>
+            <div>
                 <select class="facet-search-engine">
                     <option value=""><?php _e( 'WP Default', 'fwp' ); ?></option>
-                    <?php foreach ( $engines as $key => $attr ) : ?>
-                    <?php $label = isset( $attr['searchwp_engine_label'] ) ? $attr['searchwp_engine_label'] : __( 'Default', 'fwp' ); ?>
-                    <option value="<?php echo $key; ?>">SearchWP - <?php echo $label; ?></option>
+                    <?php foreach ( $engines as $key => $label ) : ?>
+                    <option value="<?php echo $key; ?>"><?php echo $label; ?></option>
                     <?php endforeach; ?>
                 </select>
-            </td>
-        </tr>
-        <tr class="facetwp-conditional type-search">
-            <td><?php _e('Placeholder text', 'fwp'); ?>:</td>
-            <td><input type="text" class="facet-placeholder" value="" /></td>
-        </tr>
+            </div>
+        </div>
+        <div class="facetwp-row">
+            <div><?php _e( 'Placeholder text', 'fwp' ); ?>:</div>
+            <div><input type="text" class="facet-placeholder" /></div>
+        </div>
+        <div class="facetwp-row">
+            <div>
+                <?php _e('Auto refresh', 'fwp'); ?>:
+                <div class="facetwp-tooltip">
+                    <span class="icon-question">?</span>
+                    <div class="facetwp-tooltip-content"><?php _e( 'Automatically refresh the results while typing?', 'fwp' ); ?></div>
+                </div>
+            </div>
+            <div>
+                <label class="facetwp-switch">
+                    <input type="checkbox" class="facet-auto-refresh" true-value="yes" false-value="no" />
+                    <span class="facetwp-slider"></span>
+                </label>
+            </div>
+        </div>
 <?php
+    }
+
+
+    /**
+     * (Front-end) Attach settings to the AJAX response
+     */
+    function settings_js( $params ) {
+        $auto_refresh = empty( $params['facet']['auto_refresh'] ) ? 'no' : $params['facet']['auto_refresh'];
+        return [ 'auto_refresh' => $auto_refresh ];
     }
 }

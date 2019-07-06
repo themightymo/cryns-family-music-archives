@@ -1,13 +1,12 @@
 <?php
 /*
 Plugin Name: FacetWP
-Plugin URI: https://facetwp.com/
-Description: Faceted Search and Filtering for WordPress
-Version: 1.9.3
-Author: Matt Gibbs
+Description: Advanced Filtering for WordPress
+Version: 3.3.9
+Author: FacetWP, LLC
 Author URI: https://facetwp.com/
 
-Copyright 2014 Matt Gibbs
+Copyright 2019 FacetWP, LLC
 
 This program is free software; you can redistribute it and/or
 modify it under the terms of the GNU General Public License
@@ -33,174 +32,52 @@ class FacetWP
     public $helper;
     public $indexer;
     public $display;
-    public $vendor;
     private static $instance;
 
 
     function __construct() {
 
+        // php check
+        if ( version_compare( phpversion(), '5.4', '<' ) ) {
+            add_action( 'admin_notices', array( $this, 'upgrade_notice' ) );
+            return;
+        }
+
         // setup variables
-        define( 'FACETWP_VERSION', '1.9.3' );
+        define( 'FACETWP_VERSION', '3.3.9' );
         define( 'FACETWP_DIR', dirname( __FILE__ ) );
-        define( 'FACETWP_URL', plugins_url( 'facetwp' ) );
+        define( 'FACETWP_URL', plugins_url( '', __FILE__ ) );
+        define( 'FACETWP_BASENAME', plugin_basename( __FILE__ ) );
 
-        // automatic updates
-        include( FACETWP_DIR . '/includes/class-updater.php' );
-        $this->updater = new FacetWP_Updater( $this );
-
-        add_action( 'init', array( $this, 'init' ) );
+        // get the gears turning
+        include( FACETWP_DIR . '/includes/class-init.php' );
     }
 
 
     /**
-     * Initialize the singleton
+     * Singleton
      */
     public static function instance() {
         if ( ! isset( self::$instance ) ) {
-            self::$instance = new FacetWP;
+            self::$instance = new self;
         }
         return self::$instance;
     }
 
 
     /**
-     * Prevent cloning
+     * Require PHP 5.4+
      */
-    function __clone() {}
-
-
-    /**
-     * Prevent unserializing
-     */
-    function __wakeup() {}
-
-
-    /**
-     * Initialize classes and WP hooks
-     */
-    function init() {
-
-        // i18n
-        $this->load_textdomain();
-
-        // classes
-        foreach ( array( 'helper', 'ajax', 'facet', 'indexer', 'display', 'upgrade' ) as $f ) {
-            include( FACETWP_DIR . "/includes/class-{$f}.php" );
-        }
-
-        new FacetWP_Upgrade();
-        $this->helper       = new FacetWP_Helper();
-        $this->facet        = new FacetWP_Facet();
-        $this->indexer      = new FacetWP_Indexer();
-        $this->display      = new FacetWP_Display();
-        $this->ajax         = new FacetWP_Ajax();
-
-        // integrations
-        include( FACETWP_DIR . '/includes/integrations/searchwp.php' );
-
-        // include global functions
-        include( FACETWP_DIR . '/includes/functions.php' );
-
-        // hooks
-        add_action( 'admin_menu', array( $this, 'admin_menu' ) );
-        add_action( 'wp_enqueue_scripts', array( $this, 'front_scripts' ) );
-        add_action( 'admin_enqueue_scripts', array( $this, 'admin_scripts' ) );
-        add_filter( 'plugin_row_meta', array( $this, 'plugin_row_meta' ), 10, 2 );
-    }
-
-
-    /**
-     * i18n support
-     */
-    function load_textdomain() {
-        $locale = apply_filters( 'plugin_locale', get_locale(), 'fwp' );
-        $mofile = WP_LANG_DIR . '/facetwp/fwp-' . $locale . '.mo';
-
-        if ( file_exists( $mofile ) ) {
-            load_textdomain( 'fwp', $mofile );
-        }
-        else {
-            load_plugin_textdomain( 'fwp', false, dirname( plugin_basename( __FILE__ ) ) . '/languages/' );
-        }
-    }
-
-
-    /**
-     * Register the FacetWP settings page
-     */
-    function admin_menu() {
-        add_options_page( 'FacetWP', 'FacetWP', 'manage_options', 'facetwp', array( $this, 'settings_page' ) );
-    }
-
-
-    /**
-     * Enqueue jQuery
-     */
-    function front_scripts() {
-        wp_enqueue_script( 'jquery' );
-    }
-
-
-    /**
-     * Enqueue admin tooltips
-     */
-    function admin_scripts( $hook ) {
-        if ( 'settings_page_facetwp' == $hook ) {
-            wp_enqueue_script( 'jquery-powertip', FACETWP_URL . '/assets/js/jquery-powertip/jquery.powertip.min.js', array( 'jquery' ), '1.2.0' );
-        }
-    }
-
-
-    /**
-     * Route to the correct edit screen
-     */
-    function settings_page() {
-        include( FACETWP_DIR . '/templates/page-settings.php' );
-    }
-
-
-    /**
-     * Add license renew notifications to WP's plugin listing
-     */
-    function plugin_row_meta( $plugin_meta, $plugin_file ) {
-        if ( 'facetwp/index.php' == $plugin_file ) {
-            $show_expiration = true;
-            $activation = get_option( 'facetwp_activation' );
-            $message = '<a class="fwp-renew" href="options-general.php?page=facetwp">' . __( 'Activate license', 'fwp' ) . '</a>';
-            if ( ! empty( $activation ) ) {
-                $activation = json_decode( $activation );
-                if ( 'success' == $activation->status ) {
-                    $expires = strtotime( $activation->expiration );
-                    if ( 0 < $expires - strtotime( '+2 months' ) ) {
-                        $show_expiration = false;
-                    }
-                    elseif ( $expires > time() ) {
-                        $expires = floor( ( $expires - time() ) / 86400 ) . ' ' . __( 'days left', 'fwp' );
-                    }
-                    else {
-                        $expires = __( 'expired', 'fwp' );
-                    }
-                    $message = '<a class="fwp-renew" href="https://facetwp.com/documentation/installation/#renewal" target="_blank">' . __( 'Renew license', 'fwp' ) . "</a> ($expires)";
-                }
-            }
-
-            if ( $show_expiration ) {
-                array_pop( $plugin_meta );
-                $message .= '<style>.fwp-renew:before { color:#d54e21; content:"\f112"; font-family:dashicons; font-size:16px; margin:0 5px 0 0; vertical-align:top; }</style>';
-                $plugin_meta[] = $message;
-            }
-        }
-        return $plugin_meta;
+    function upgrade_notice() {
+        $message = __( 'FacetWP requires PHP %s or above. Please contact your host and request a PHP upgrade.', 'fwp' );
+        echo '<div class="error"><p>' . sprintf( $message, '5.4' ) . '</p></div>';
     }
 }
 
-$facetwp = FWP();
 
-
-/**
- * Allow direct access to FacetWP classes
- * For example, use FWP()->helper to access FacetWP_Helper
- */
 function FWP() {
     return FacetWP::instance();
 }
+
+
+FWP();
