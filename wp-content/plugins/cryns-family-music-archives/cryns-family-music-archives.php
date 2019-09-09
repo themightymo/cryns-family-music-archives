@@ -77,6 +77,7 @@ function create_cryns_audio_files_taxonomies()
     'show_ui' => true,
     'query_var' => true,
     'rewrite' => array( 'slug' => 'artist' ),
+	'show_in_rest' => true,
   ));
   
   // Add new taxonomy, make it hierarchical (like categories)
@@ -100,6 +101,8 @@ function create_cryns_audio_files_taxonomies()
     'show_ui' => true,
     'query_var' => true,
     'rewrite' => array( 'slug' => 'album-title' ),
+	  'show_in_rest' => true,
+	  
   ));
   
   // Add new taxonomy, make it hierarchical (like categories)
@@ -123,6 +126,7 @@ function create_cryns_audio_files_taxonomies()
     'show_ui' => true,
     'query_var' => true,
     'rewrite' => array( 'slug' => 'written-by' ),
+	  'show_in_rest' => true,
   ));
   
   // Add new taxonomy, make it hierarchical (like categories)
@@ -146,6 +150,7 @@ function create_cryns_audio_files_taxonomies()
     'show_ui' => true,
     'query_var' => true,
     'rewrite' => array( 'slug' => 'producer' ),
+	  'show_in_rest' => true,
   ));
   
   // Add new taxonomy, make it hierarchical (like categories)
@@ -169,6 +174,7 @@ function create_cryns_audio_files_taxonomies()
     'show_ui' => true,
     'query_var' => true,
     'rewrite' => array( 'slug' => 'engineer' ),
+	  'show_in_rest' => true,
   ));
     
   // Add new taxonomy, make it hierarchical (like categories)
@@ -192,6 +198,7 @@ function create_cryns_audio_files_taxonomies()
     'show_ui' => true,
     'query_var' => true,
     'rewrite' => array( 'slug' => 'genre' ),
+	  'show_in_rest' => true,
   ));
   
   // Add new taxonomy, make it hierarchical (like categories)
@@ -215,6 +222,7 @@ function create_cryns_audio_files_taxonomies()
     'show_ui' => true,
     'query_var' => true,
     'rewrite' => array( 'slug' => 'musicians' ),
+	  'show_in_rest' => true,
   ));
   
 
@@ -243,6 +251,7 @@ function create_cryns_audio_files_taxonomies()
     'show_ui' => true,
     'query_var' => true,
     'rewrite' => array( 'slug' => 'release-year' ),
+	  'show_in_rest' => true,
   ));
   
 }
