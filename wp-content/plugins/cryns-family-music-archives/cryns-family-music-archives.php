@@ -3,7 +3,7 @@
 Plugin Name: Cryns Family Music Archives
 Plugin URI: http://www.tobycryns.com/
 Description: Creates the "Audio File" custom post type and all audio file custom taxonomies.  It also adds audio file meta data to the front end (filters the_content).  This plugin depends on the "Custom Field Template" plugin.
-Version: 0.6.1
+Version: 0.6.2
 Author: Toby Cryns
 Author URI: http://www.tobycryns.com
 License: This plugin is owned by Toby Cryns.
@@ -317,15 +317,14 @@ function return_audio_meta() {
 	Add mp3 player to single post view
 */
 function add_mp3_to_single_audio_posts ( $content ) {
-    if ( is_singular( 'cryns_audio_file' ) && has_post_format( 'audio' ) ) {
+    if ( is_singular( 'cryns_audio_file' ) && has_post_format( 'audio' ) ) { //If we're on a single Audio post, and it's using the "audio" post format, then display the player + the audio file meta
 		
 	    $content .= return_audio_player();
 	    $content .= return_audio_meta();
 	    
-    } else if ( is_post_type_archive( 'cryns_audio_file' ) ) {
+    } else if ( is_archive() && 'cryns_audio_file' == get_post_type() && has_post_format( 'audio' ) ) { //If we're on an archive page, only display the player - hide the audio meta.
 		
 	    $content .= return_audio_player();
-	    $content .= return_audio_meta();
 	         
     }
     
