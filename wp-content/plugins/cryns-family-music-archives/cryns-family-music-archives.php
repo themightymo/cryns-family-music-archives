@@ -1,11 +1,11 @@
 <?php 
 /*
 Plugin Name: Cryns Family Music Archives
-Plugin URI: http://www.themightymo.com/
+Plugin URI: http://www.tobycryns.com/
 Description: Creates the "Audio File" custom post type and all audio file custom taxonomies.  It also adds audio file meta data to the front end (filters the_content).  This plugin depends on the "Custom Field Template" plugin.
-Version: 0.6
+Version: 0.6.1
 Author: Toby Cryns
-Author URI: http://www.themightymo.com
+Author URI: http://www.tobycryns.com
 License: This plugin is owned by Toby Cryns.
 */
 
@@ -311,18 +311,22 @@ function return_audio_meta() {
 		$audioFileCustomFieldName = 'Audio File';
 	}
 	
-	return '<span class="audio-meta"><a href="' . wp_get_attachment_url( get_post_meta($post->ID, $audioFileCustomFieldName, true) ) . '" target="_blank">Download MP3 File</a>, ' . get_the_term_list ( $post->ID, 'cryns_artist', "Artist: " ) . get_the_term_list( get_the_ID(), 'cryns_written_by', ", Written By: ", ', ' ) . ", Track Number: " . get_field('track_number') . get_the_term_list( get_the_ID(), 'cryns_release_year', ", Release Year: " ) . get_the_term_list( get_the_ID(), 'cryns_musicians', ", Musicians: ", ', ' ) . get_the_term_list( get_the_ID(), 'cryns_engineer', ", Engineer(s): ", ', ' ) . get_the_term_list( get_the_ID(), 'cryns_producer', ", Producer(s): ", ', ' ) . get_the_term_list( get_the_ID(), 'cryns_genre', ", Genre(s): ", ', ' ) . get_the_term_list( get_the_ID(), 'cryns_album_title', ', Album Title: ', ', ' ) . get_the_term_list( get_the_ID(), 'cryns_artist', ", Artist: " ) . '</span>';
+	return '<div class="audio-meta"><a href="' . wp_get_attachment_url( get_post_meta($post->ID, $audioFileCustomFieldName, true) ) . '" target="_blank">Download MP3 File</a>, ' . get_the_term_list ( $post->ID, 'cryns_artist', "Artist: " ) . get_the_term_list( get_the_ID(), 'cryns_written_by', ", Written By: ", ', ' ) . ", Track Number: " . get_field('track_number') . get_the_term_list( get_the_ID(), 'cryns_release_year', ", Release Year: " ) . get_the_term_list( get_the_ID(), 'cryns_musicians', ", Musicians: ", ', ' ) . get_the_term_list( get_the_ID(), 'cryns_engineer', ", Engineer(s): ", ', ' ) . get_the_term_list( get_the_ID(), 'cryns_producer', ", Producer(s): ", ', ' ) . get_the_term_list( get_the_ID(), 'cryns_genre', ", Genre(s): ", ', ' ) . get_the_term_list( get_the_ID(), 'cryns_album_title', ', Album Title: ', ', ' ) . get_the_term_list( get_the_ID(), 'cryns_artist', ", Artist: " ) . '</div>';
 }
 /* 
 	Add mp3 player to single post view
 */
 function add_mp3_to_single_audio_posts ( $content ) {
     if ( is_singular( 'cryns_audio_file' ) && has_post_format( 'audio' ) ) {
-	   
 		
 	    $content .= return_audio_player();
 	    $content .= return_audio_meta();
 	    
+    } else if ( is_post_type_archive( 'cryns_audio_file' ) ) {
+		
+	    $content .= return_audio_player();
+	    $content .= return_audio_meta();
+	         
     }
     
     // Returns the content.
