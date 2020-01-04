@@ -5,6 +5,7 @@ A plugin that generates mp3 playlists on archive pages and single posts for the 
 * It creates an Audio File custom post type.
 * It adds support for the Audio File Post Format
 * It adds taxonomies for Band Name, Album Title, etc.
+* It utilizes the "audio_file" custom field.  You'll want to use ACF or similar to create this field on your Audio File post types.
 
 ![Single audio post view using default Twenty Seventeen WordPress theme](http://music.cryns.com/wp-content/uploads/2017/08/single.png)
 
