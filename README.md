@@ -7,9 +7,9 @@ A plugin that generates mp3 playlists on archive pages and single posts for the 
 * It adds taxonomies for Band Name, Album Title, etc.
 * It utilizes the "audio_file" custom field.  You'll want to use ACF or similar to create this field on your Audio File post types.
 
-![Single audio post view using default Twenty Seventeen WordPress theme](http://music.cryns.com/wp-content/uploads/2017/08/single.png)
+![Single audio post view using default Twenty Seventeen WordPress theme](https://music-cryns-com.s3.amazonaws.com/wp-content/uploads/2017/08/single.png)
 
-![Archive/Taxonomy view using default Twenty Seventeen WordPress theme](http://music.cryns.com/wp-content/uploads/2017/08/archive-playlist.png)
+![Archive/Taxonomy view using default Twenty Seventeen WordPress theme](https://music-cryns-com.s3.amazonaws.com/wp-content/uploads/2017/08/archive-playlist.png)
 
 
 ## Roadmap:
