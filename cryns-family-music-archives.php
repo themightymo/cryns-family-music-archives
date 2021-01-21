@@ -314,7 +314,7 @@ function return_audio_meta() {
 		$audioFileCustomFieldName = 'Audio File';
 	}
 	
-	return '<div class="audio-meta"><a href="' . wp_get_attachment_url( get_post_meta($post->ID, $audioFileCustomFieldName, true) ) . '" target="_blank">Download MP3 File</a>, ' . get_the_term_list ( $post->ID, 'cryns_artist', 'Artist: ', ', ' ) . get_the_term_list( get_the_ID(), 'cryns_written_by', ", Written By: ", ', ' ) . ", Track Number: " . get_field('track_number') . get_the_term_list( get_the_ID(), 'cryns_release_year', ", Release Year: " ) . get_the_term_list( get_the_ID(), 'cryns_musicians', ", Musicians: ", ', ' ) . get_the_term_list( get_the_ID(), 'cryns_engineer', ", Engineer(s): ", ', ' ) . get_the_term_list( get_the_ID(), 'cryns_producer', ", Producer(s): ", ', ' ) . get_the_term_list( get_the_ID(), 'cryns_genre', ", Genre(s): ", ', ' ) . get_the_term_list( get_the_ID(), 'cryns_album_title', ', Album Title: ', ', ' ) . get_the_term_list( get_the_ID(), 'cryns_artist', ", Artist: " ) . '</div>';
+	return '<div class="audio-meta"><a href="' . wp_get_attachment_url( get_post_meta($post->ID, $audioFileCustomFieldName, true) ) . '" target="_blank">Download MP3 File</a>, ' . get_the_term_list ( $post->ID, 'cryns_artist', 'Artist: ', ', ' ) . get_the_term_list( get_the_ID(), 'cryns_written_by', ", Written By: ", ', ' ) . ", Track Number: " . get_field('track_number') . get_the_term_list( get_the_ID(), 'cryns_release_year', ", Release Year: " ) . get_the_term_list( get_the_ID(), 'cryns_musicians', ", Musicians: ", ', ' ) . get_the_term_list( get_the_ID(), 'cryns_engineer', ", Engineer(s): ", ', ' ) . get_the_term_list( get_the_ID(), 'cryns_producer', ", Producer(s): ", ', ' ) . get_the_term_list( get_the_ID(), 'cryns_genre', ", Genre(s): ", ', ' ) . get_the_term_list( get_the_ID(), 'cryns_album_title', ', Album Title: ', ', ' ) . '</div>';
 }
 /* 
 	Add mp3 player to single post view
@@ -358,6 +358,7 @@ function my_post_types($types) {
 add_filter('s2_post_types', 'my_post_types');
 
 
+
 /* Displays a playlist in your template.  To be used in archive.php or equivalent.  
  * cryns_audio_playlist();
  */
@@ -375,12 +376,11 @@ function cryns_audio_playlist() {
 				'taxonomy' => $queried_object->taxonomy,
 				'field' => 'id',
 				'terms' => $queried_object->term_id, // Where term_id of Term 1 is "1".
+				'operator' => 'IN'
 			)
 		),
-		
-		'meta_key' => 'track_number', //order by track number field (this works but it doesn't show the ones without a track number set...
-		'orderby' => 'meta_value_num',
-		'order' => 'ASC'
+		'orderby' => 'date',
+		'order' => 'DESC'
 	);
 	
 	//This is the array that will store all the audio file ids
@@ -390,11 +390,18 @@ function cryns_audio_playlist() {
 	
 		
 	foreach ( $myposts as $post ) : setup_postdata( $post ); 
-		// Get the audio file's id, and store it in a variable
-		$audioID = get_post_meta ( $post->ID,'Audio File',true );
+		// Get the audio file's id, and store it in a variable (the old Custom Field Template format was "Audio File", the new ACF format is "audio_file").
+		if (get_post_meta ( $post->ID,'audio_file',true )) {
+			$audioID = get_post_meta ( $post->ID,'audio_file',true );
+		} else if (get_post_meta ( $post->ID,'Audio File',true )) {
+			$audioID = get_post_meta ( $post->ID,'Audio File',true );
+		}
+		
+		
 		// Add the audio file's id to the $audioIDs variable (array format)
 		array_push($audioIDs,$audioID);
 	endforeach; 
+	
 	
 	// Since the $audioIDs array is not in the correct format, we put the files in a comma-separated list and store that list in the $audioList variable
 	foreach ( $audioIDs as $audioID ) {
