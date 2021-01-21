@@ -339,7 +339,7 @@ add_filter( 'the_content', 'add_mp3_to_single_audio_posts', 20 );
 // Add total audio posts to footer
 function display_audio_post_count () {
 	$count_posts = wp_count_posts( 'cryns_audio_file' )->publish;
-	echo '<div style="font-size:small;text-align:center;">Total Songs Posted: ' . $count_posts . '</div>';
+	echo '<div class="cfma-footer-meta">Total Songs Posted: ' . $count_posts . '</div>';
 }
 add_action('wp_footer', 'display_audio_post_count'); 
 
@@ -447,7 +447,7 @@ function output_before_taxonomy_loop(){
 }
 
 function footer_credits () {
-    echo '<div style="font-size:small;text-align:center;margin-bottom:1em;">Sweet ass musical search and display functionality on this site by the <a href="https://github.com/themightymo/cryns-family-music-archives" target="_blank">Cryns Family Music Archives</a> Plugin</div>';
+    echo '<div class="cfma-footer-meta">Sweet ass musical search and display functionality on this site by the <a href="https://github.com/themightymo/cryns-family-music-archives" target="_blank">Cryns Family Music Archives</a> Plugin</div>';
 }
 add_action( 'wp_footer', 'footer_credits' );
 
