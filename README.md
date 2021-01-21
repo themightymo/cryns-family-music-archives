@@ -9,7 +9,7 @@ A plugin that generates mp3 playlists on archive pages and single posts for the 
 
 ![Archive/Taxonomy view using default Twenty Seventeen WordPress theme](https://music-cryns-com.s3.amazonaws.com/wp-content/uploads/2017/08/archive-playlist.png)
 
-I've included the Advanced Custom Fields (ACF) import file in this repository so you'll be rocking with all the Audio File post types taxonomies + taxonomy images (e.g. album covers).
+I've included the Advanced Custom Fields (ACF) import file in this repository, which includes the Track Number, Audio File, + Artist Image
 
 
 ## Roadmap:
