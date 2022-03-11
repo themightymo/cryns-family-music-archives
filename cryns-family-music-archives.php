@@ -3,7 +3,7 @@
 Plugin Name: Cryns Family Music Archives
 Plugin URI: http://www.tobycryns.com/
 Description: Creates the "Audio File" custom post type and all audio file custom taxonomies.  It also adds audio file meta data to the front end (filters the_content).  This plugin depends on the "Custom Field Template" plugin.
-Version: 0.6.4
+Version: 0.6.5
 Author: Toby Cryns
 Author URI: http://www.tobycryns.com
 License: This plugin is owned by Toby Cryns.
@@ -366,12 +366,15 @@ function cryns_audio_playlist() {
 	$queried_object = get_queried_object();
 	$paged = (get_query_var('paged')) ? get_query_var('paged') : 1; //Needed for pagination on archive pages
 	$args = array(
-		'post_type' => 'cryns_audio_file',
-		'post_status' => 'publish',
-		'numberposts' => 0,
-		'paged' => $paged,
-		'nopaging' => false,
-		'tax_query' => array(
+		'post_type' 	=> 'cryns_audio_file',
+		'post_status' 	=> 'publish',
+		'numberposts' 	=> 0,
+		'paged' 		=> $paged,
+		'nopaging' 		=> false,
+		'meta_key' 		=> 'track_number',
+		'orderby'		=> 'meta_value',
+		'order'			=> 'ASC',
+		'tax_query' 	=> array(
 		    array(
 				'taxonomy' => $queried_object->taxonomy,
 				'field' => 'id',
@@ -379,8 +382,6 @@ function cryns_audio_playlist() {
 				'operator' => 'IN'
 			)
 		),
-		'orderby' => 'date',
-		'order' => 'DESC'
 	);
 	
 	//This is the array that will store all the audio file ids
