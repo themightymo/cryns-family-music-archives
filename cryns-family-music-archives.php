@@ -388,14 +388,19 @@ function cryns_audio_playlist() {
 	$audioIDs = array();
 	
 	$myposts = get_posts( $args );
+	echo get_post_meta ( $post->ID,'audio_file',true );
 	
 		
 	foreach ( $myposts as $post ) : setup_postdata( $post ); 
+		
 		// Get the audio file's id, and store it in a variable (the old Custom Field Template format was "Audio File", the new ACF format is "audio_file").
 		if (get_post_meta ( $post->ID,'audio_file',true )) {
 			$audioID = get_post_meta ( $post->ID,'audio_file',true );
 		} else if (get_post_meta ( $post->ID,'Audio File',true )) {
-			$audioID = get_post_meta ( $post->ID,'Audio File',true );
+			//For some reason I had to comment out the following line of code in order to make it not error out...
+			//$audioID = get_post_meta ( $post->ID,'Audio File',true );
+		} else {
+			//do nothing
 		}
 		
 		
@@ -449,7 +454,7 @@ function output_before_taxonomy_loop(){
 		if( $terms ) {
 			
 			echo '<img src="'. $terms['url'] .'" />';
-		    
+
 		} else {
 		    //do nothing
 		}
