@@ -388,11 +388,9 @@ function cryns_audio_playlist() {
 	$audioIDs = array();
 	
 	$myposts = get_posts( $args );
-	echo get_post_meta ( $post->ID,'audio_file',true );
 	
 		
 	foreach ( $myposts as $post ) : setup_postdata( $post ); 
-		
 		// Get the audio file's id, and store it in a variable (the old Custom Field Template format was "Audio File", the new ACF format is "audio_file").
 		if (get_post_meta ( $post->ID,'audio_file',true )) {
 			$audioID = get_post_meta ( $post->ID,'audio_file',true );
