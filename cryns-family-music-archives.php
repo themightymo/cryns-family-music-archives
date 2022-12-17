@@ -307,6 +307,7 @@ function echo_audio_player() {
 function return_audio_meta() {
 	global $post;
 	
+	
 	//If the new ACF field name exists, then display that audio file, else display the old audio file.
 	if ( get_post_meta($post->ID, 'audio_file', true) ) { 
 		$audioFileCustomFieldName = 'audio_file';
@@ -314,7 +315,35 @@ function return_audio_meta() {
 		$audioFileCustomFieldName = 'Audio File';
 	}
 	
-	return '<div class="audio-meta"><a href="' . wp_get_attachment_url( get_post_meta($post->ID, $audioFileCustomFieldName, true) ) . '" target="_blank">Download MP3 File</a>, ' . get_the_term_list ( $post->ID, 'cryns_artist', 'Artist: ', ', ' ) . get_the_term_list( get_the_ID(), 'cryns_written_by', ", Written By: ", ', ' ) . ", Track Number: " . get_field('track_number') . get_the_term_list( get_the_ID(), 'cryns_release_year', ", Release Year: " ) . get_the_term_list( get_the_ID(), 'cryns_musicians', ", Musicians: ", ', ' ) . get_the_term_list( get_the_ID(), 'cryns_engineer', ", Engineer(s): ", ', ' ) . get_the_term_list( get_the_ID(), 'cryns_producer', ", Producer(s): ", ', ' ) . get_the_term_list( get_the_ID(), 'cryns_genre', ", Genre(s): ", ', ' ) . get_the_term_list( get_the_ID(), 'cryns_album_title', ', Album Title: ', ', ' ) . '</div>';
+	function return_taxonomy_info ( $tax, $label ) {
+		
+		$terms = get_the_terms( $post->ID, $tax );
+		if ( ! empty( $terms ) ) {
+			$term_list = '';
+			foreach ( $terms as $term ) {
+				$term_list .= '<a href="' . get_term_link( $term ) . '">' . $term->name . '</a>, ';
+				
+			}
+			$term_list = rtrim( $term_list, ', ' );
+			return $label . $term_list;
+		}
+		
+	}
+
+	
+	return 
+		'<div class="audio-meta">
+			<a href="' . wp_get_attachment_url( get_post_meta($post->ID, $audioFileCustomFieldName, true) ) . '" target="_blank">Download MP3 File</a>' . 
+			return_taxonomy_info ('cryns_artist', ' | Artist(s): ') . 
+			return_taxonomy_info ('cryns_written_by', ' | Written By: ') . 
+			"| Track Number: " . get_field('track_number') . 
+			get_the_term_list( get_the_ID(), 'cryns_release_year', ", Release Year: " ) . 
+			return_taxonomy_info ('cryns_musicians', ' | Musicians: ') . 
+			return_taxonomy_info ('cryns_engineer', ' | Engineer(s): ') . 
+			return_taxonomy_info ('cryns_producer', ' | Producer(s): ') . 
+			return_taxonomy_info ('cryns_genre', ' | Genre(s): ') . 
+			return_taxonomy_info ('cryns_album_title', ' | Album Title ') . 
+		'</div>';
 }
 /* 
 	Add mp3 player to single post view
