@@ -3,7 +3,7 @@
 Plugin Name: Cryns Family Music Archives
 Plugin URI: http://www.tobycryns.com/
 Description: Creates the "Audio File" custom post type and all audio file custom taxonomies.  It also adds audio file meta data to the front end (filters the_content).  This plugin depends on the "Custom Field Template" plugin.
-Version: 0.6.5
+Version: 0.6.6
 Author: Toby Cryns
 Author URI: http://www.tobycryns.com
 License: This plugin is owned by Toby Cryns.
@@ -40,6 +40,7 @@ function codex_custom_init()
     'hierarchical' => false,
     'menu_position' => 3,
 	'slug' => 'music-file',
+	'show_admin_column' => true,
 	'show_in_rest' => true,
 	'menu_icon' => 'dashicons-format-audio',
     'supports' => array('title','editor','custom-fields','author','excerpt','comments')
@@ -99,6 +100,7 @@ function create_cryns_audio_files_taxonomies()
     'hierarchical' => true,
     'labels' => $labels,
     'show_ui' => true,
+    'show_admin_column' => true,
     'query_var' => true,
     'rewrite' => array( 'slug' => 'album-title' ),
 	  'show_in_rest' => true,
