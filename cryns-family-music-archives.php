@@ -1,9 +1,9 @@
 <?php 
 /*
 Plugin Name: Cryns Family Music Archives
-Plugin URI: http://www.tobycryns.com/
+Plugin URI: https://www.tobycryns.com/
 Description: Creates the "Audio File" custom post type and all audio file custom taxonomies.  It also adds audio file meta data to the front end (filters the_content).  This plugin depends on the "Custom Field Template" plugin.
-Version: 0.6.6
+Version: 0.6.7
 Author: Toby Cryns
 Author URI: http://www.tobycryns.com
 License: This plugin is owned by Toby Cryns.
@@ -284,10 +284,10 @@ add_filter( 'jetpack_relatedposts_filter_headline', 'jetpackme_related_posts_hea
 */
 function return_audio_player() {
 	global $post;
-	if ( get_post_meta($post->ID, 'Audio File', true) ) {
-		return '<audio class="wp-audio-shortcode" id="audio-2383-1" preload="none" style="width: 100%;" controls="controls"><source type="audio/mpeg" src="' . wp_get_attachment_url( get_post_meta($post->ID, 'Audio File', true) ) . '"></audio>';
-	} else if ( get_field('audio_file') ) {
-		return '<audio class="wp-audio-shortcode" id="audio-2383-1" preload="none" style="width: 100%;" controls="controls"><source type="audio/mpeg" src="' . wp_get_attachment_url( get_field ( 'audio_file' ) ) . '"></audio>';
+	if ( get_field('audio_file') ) {
+    return '<audio class="wp-audio-shortcode" id="" preload="none" style="width: 100%;" controls="controls"><source type="audio/mpeg" src="' . wp_get_attachment_url( get_field ( 'audio_file' ) ) . '"></audio>';
+	} else if ( get_post_meta($post->ID, 'Audio File', true) ) {
+    return '<audio class="wp-audio-shortcode" id="" preload="none" style="width: 100%;" controls="controls"><source type="audio/mpeg" src="' . wp_get_attachment_url( get_post_meta($post->ID, 'Audio File', true) ) . '"></audio>';
 	} else {
 		return "There's no single mp3 for this one.";
 	}
