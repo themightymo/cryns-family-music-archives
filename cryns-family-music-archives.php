@@ -3,7 +3,7 @@
 Plugin Name: Cryns Family Music Archives
 Plugin URI: https://www.tobycryns.com/
 Description: Creates the "Audio File" custom post type and all audio file custom taxonomies.  It also adds audio file meta data to the front end (filters the_content).  This plugin depends on the "Custom Field Template" plugin.
-Version: 0.6.7
+Version: 0.7
 Author: Toby Cryns
 Author URI: http://www.tobycryns.com
 License: This plugin is owned by Toby Cryns.
@@ -394,59 +394,39 @@ add_filter('s2_post_types', 'my_post_types');
  * cryns_audio_playlist();
  */
 function cryns_audio_playlist() {
-	$queried_object = get_queried_object();
-	$paged = (get_query_var('paged')) ? get_query_var('paged') : 1; //Needed for pagination on archive pages
-	$args = array(
-		'post_type' 	=> 'cryns_audio_file',
-		'post_status' 	=> 'publish',
-		'numberposts' 	=> 0,
-		'paged' 		=> $paged,
-		'nopaging' 		=> false,
-		'meta_key' 		=> 'track_number',
-		'orderby'		=> 'meta_value',
-		'order'			=> 'ASC',
-		'tax_query' 	=> array(
-		    array(
-				'taxonomy' => $queried_object->taxonomy,
-				'field' => 'id',
-				'terms' => $queried_object->term_id, // Where term_id of Term 1 is "1".
-				'operator' => 'IN'
-			)
-		),
-	);
-	
-	//This is the array that will store all the audio file ids
-	$audioIDs = array();
-	
-	$myposts = get_posts( $args );
-	
-		
-	foreach ( $myposts as $post ) : setup_postdata( $post ); 
-		// Get the audio file's id, and store it in a variable (the old Custom Field Template format was "Audio File", the new ACF format is "audio_file").
-		if (get_post_meta ( $post->ID,'audio_file',true )) {
-			$audioID = get_post_meta ( $post->ID,'audio_file',true );
-		} else if (get_post_meta ( $post->ID,'Audio File',true )) {
-			//For some reason I had to comment out the following line of code in order to make it not error out...
-			//$audioID = get_post_meta ( $post->ID,'Audio File',true );
-		} else {
-			//do nothing
-		}
-		
-		
-		// Add the audio file's id to the $audioIDs variable (array format)
-		array_push($audioIDs,$audioID);
-	endforeach; 
-	
-	
-	// Since the $audioIDs array is not in the correct format, we put the files in a comma-separated list and store that list in the $audioList variable
-	foreach ( $audioIDs as $audioID ) {
-		$audioList .= $audioID . ',';
-	}
-	
-	// Display the playlist!
-	echo do_shortcode ('[playlist ids="' . $audioList . '"]');
-	/* Restore original Post Data */
-	wp_reset_postdata();
+    global $wp_query;
+    $queried_object = get_queried_object();
+
+    // This is the array that will store all the audio file ids
+    $audioIDs = array();
+
+    // Loop through the current query posts
+    foreach ( $wp_query->posts as $post ) {
+        setup_postdata( $post );
+
+        // Get the audio file's id, and store it in a variable (the old Custom Field Template format was "Audio File", the new ACF format is "audio_file").
+        if ( get_post_meta( $post->ID, 'audio_file', true ) ) {
+            $audioID = get_post_meta( $post->ID, 'audio_file', true );
+        } else if ( get_post_meta( $post->ID, 'Audio File', true ) ) {
+            $audioID = get_post_meta( $post->ID, 'Audio File', true );
+        } else {
+            $audioID = '';
+        }
+
+        // Add the audio file's id to the $audioIDs variable (array format)
+        if ( $audioID ) {
+            array_push( $audioIDs, $audioID );
+        }
+    }
+
+    // Since the $audioIDs array is not in the correct format, we put the files in a comma-separated list and store that list in the $audioList variable
+    $audioList = implode( ',', $audioIDs );
+
+    // Display the playlist!
+    echo do_shortcode( '[playlist ids="' . $audioList . '"]' );
+
+    /* Restore original Post Data */
+    wp_reset_postdata();
 }
 
 /* 
@@ -469,26 +449,26 @@ add_filter( 'json_prepare_post', function ($data, $post, $context) {
 /* 
 	Display music playlist player on archive pages.
 */
-add_action( 'loop_start', 'output_before_taxonomy_loop' );
+add_shortcode('cryns_audio_playlist', 'output_before_taxonomy_loop'); 
 function output_before_taxonomy_loop(){
-	if (is_tax()) {
-		cryns_audio_playlist();
-		
-		// Display the artist image
-		$queried_object = get_queried_object();
-		$taxonomy = $queried_object->taxonomy;
-		$term_id = $queried_object->term_id;
-		$terms = get_field( 'artist_image', $taxonomy.'_'.$term_id);
-		
-		if( $terms ) {
-			
-			echo '<img src="'. $terms['url'] .'" />';
+  if (is_tax()) {
+    cryns_audio_playlist();
+    
+    // Display the artist image
+    $queried_object = get_queried_object();
+    $taxonomy = $queried_object->taxonomy;
+    $term_id = $queried_object->term_id;
+    $terms = get_field( 'artist_image', $taxonomy.'_'.$term_id);
+    
+    if( $terms ) {
+      
+      echo '<img src="'. $terms['url'] .'" />';
 
-		} else {
-		    //do nothing
-		}
+    } else {
+      //do nothing
+    }
    
-	}
+  }
 }
 
 function footer_credits () {
