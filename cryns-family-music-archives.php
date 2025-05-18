@@ -10,8 +10,8 @@ License: This plugin is owned by Toby Cryns.
 */
 
 // Create the "Audio File" custom post type
-add_action('init', 'codex_custom_init');
-function codex_custom_init() 
+
+function register_cryns_audio_file_cpt() 
 {
   $labels = array(
     'name' => _x('Audio File', 'post type general name'),
@@ -39,14 +39,47 @@ function codex_custom_init()
     'has_archive' => true, 
     'hierarchical' => false,
     'menu_position' => 3,
-	'slug' => 'music-file',
-	'show_admin_column' => true,
-	'show_in_rest' => true,
-	'menu_icon' => 'dashicons-format-audio',
-    'supports' => array('title','editor','custom-fields','author','excerpt','comments')
+    'slug' => 'music-file',
+    'show_admin_column' => true,
+    'show_in_rest' => true, // <-- enables REST API access
+    'rest_controller_class' => 'WP_REST_Posts_Controller', // optional
+    'menu_icon' => 'dashicons-format-audio',
+    'supports' => ['title','editor','custom-fields','author','excerpt','comments']
   ); 
   register_post_type('cryns_audio_file',$args);
 }
+add_action('init', 'register_cryns_audio_file_cpt');
+
+
+
+
+
+add_action('rest_api_init', function () {
+  register_rest_field('cryns_audio_file', 'audio_file', [
+      'get_callback' => function ($post_arr) {
+          $file_id = get_field('audio_file', $post_arr['id']);
+          if (!$file_id) {
+              return null;
+          }
+
+          return [
+              'id'       => $file_id,
+              'url'      => wp_get_attachment_url($file_id),
+              'title'    => get_the_title($file_id),
+              'mime'     => get_post_mime_type($file_id),
+              'filename' => basename(get_attached_file($file_id)),
+          ];
+      },
+      'schema' => null,
+  ]);
+});
+
+
+
+
+// Expose all ACF endpoints
+add_filter('acf/rest_api/field_settings/show_in_rest', '__return_true');
+
 
 //ACF hides custom fields meta box.  This filter displays them again.  Via https://wordpress.stackexchange.com/questions/277388/how-to-fix-missing-custom-fields-after-upgrading-to-wordpress-4-8-1
 add_filter('acf/settings/remove_wp_meta_box', '__return_false');
@@ -484,3 +517,84 @@ function media_player_styles () {
     wp_enqueue_style ( 'media-player-styles' );
 }
 add_action('wp_enqueue_scripts', 'media_player_styles');
+
+
+
+
+
+
+
+
+
+
+// via https://chatgpt.com/c/6827547b-e844-800e-92ad-94dac48a935a
+add_action('rest_api_init', function () {
+  register_rest_route('custom/v1', '/search-audio/', [
+      'methods' => 'GET',
+      'callback' => 'search_audio_files_with_acf',
+      'permission_callback' => '__return_true',
+      'args' => [
+          's' => [
+              'required' => true,
+              'sanitize_callback' => 'sanitize_text_field',
+          ],
+      ],
+  ]);
+});
+
+
+//via https://chatgpt.com/c/6827547b-e844-800e-92ad-94dac48a935a
+function search_audio_files_with_acf($request) {
+  $search = $request->get_param('s');
+
+  $all_posts = get_posts([
+      'post_type' => ['cryns_audio_file', 'attachment'],
+      'post_status' => ['publish', 'inherit'],
+      'posts_per_page' => -1,
+  ]);
+
+  $results = [];
+  $seen_ids = [];
+
+  foreach ($all_posts as $post) {
+      $title = get_the_title($post->ID);
+
+      // Match if "duluth" appears in title (case-insensitive)
+      if (stripos($title, $search) !== false) {
+          $results[] = [
+              'id'    => $post->ID,
+              'type'  => get_post_type($post->ID),
+              'title' => $title,
+              'link'  => get_permalink($post->ID),
+          ];
+          $seen_ids[] = $post->ID;
+      }
+  }
+
+  // (Optional) Also search in the ACF audio_file field if needed
+  $post_ids = get_posts([
+      'post_type' => 'cryns_audio_file',
+      'post_status' => 'publish',
+      'posts_per_page' => -1,
+      'fields' => 'ids',
+  ]);
+
+  foreach ($post_ids as $post_id) {
+      if (in_array($post_id, $seen_ids)) continue;
+
+      $audio_file = get_field('audio_file', $post_id);
+      if (is_string($audio_file) && stripos($audio_file, $search) !== false) {
+          $results[] = [
+              'id' => $post_id,
+              'type' => 'cryns_audio_file',
+              'title' => get_the_title($post_id),
+              'link' => get_permalink($post_id),
+              'audio_file' => $audio_file,
+          ];
+      }
+  }
+
+  return rest_ensure_response($results);
+}
+
+
