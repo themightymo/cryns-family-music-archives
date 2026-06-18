@@ -105,6 +105,37 @@ GET /wp-json/custom/v1/search-audio/?s={query}
 ]
 ```
 
+### Mixed-feed endpoint
+
+```
+GET /wp-json/custom/v1/mixed-feed
+```
+
+- No authentication required.
+- Returns `cryns_audio_file` **and** regular `post` posts, merged and ordered by date DESC.
+- When `cryns_artist` or `cryns_album_title` filters are active, only `cryns_audio_file` posts are returned (regular posts have no taxonomy to filter against).
+- Supports comma-separated term IDs for multi-select: `cryns_artist=12,34&cryns_album_title=56`.
+- Pagination via `per_page` (default 20) and `page` (default 1); totals returned in `X-WP-Total` and `X-WP-TotalPages` headers.
+- Each item in the response array:
+
+```json
+{
+  "id": 4332,
+  "type": "cryns_audio_file",
+  "title": { "rendered": "The Cage – Toby and Nathaniel – Jan. 2022" },
+  "link": "http://musiccryns.local/songs/the-cage/",
+  "audio_file": {
+    "id": 4333,
+    "url": "https://example.com/wp-content/uploads/song.mp3",
+    "mime": "audio/mpeg"
+  }
+}
+```
+
+`audio_file` is `null` for regular `post` items.
+
+This endpoint is the data source for `[cfma_song_filter]`.
+
 ### Legacy endpoint (WP REST v1, likely unused)
 
 The `json_prepare_post` filter adds `myextradata.mp3URL` to old-style API responses. This predates the `register_rest_field` approach and can be ignored for new development.
@@ -254,21 +285,33 @@ These have been replaced by the `[cfma_song_filter]` shortcode (see below).
 
 Registered in the main plugin file. Replaces all FacetWP homepage functionality.
 
-**What it renders:**
-- Artist dropdown (populated server-side via `get_terms('cryns_artist')`)
-- Album Title dropdown (populated server-side via `get_terms('cryns_album_title')`)
-- Active-filter chips with × dismiss buttons
-- "Total Results: N" count
-- Song list: title link + inline `<audio>` player, fetched via REST API
-- Numbered pagination
+**What it renders (Amazon-style sidebar layout):**
+- Left sidebar (`cfma-sidebar`) containing:
+  - Artist checkbox list (scrollable, multi-select, populated server-side via `get_terms('cryns_artist')`, sorted by count DESC)
+  - A type-to-filter text input above the artist list that hides non-matching checkboxes instantly (no fetch)
+  - Album Title checkbox list (same pattern)
+  - A type-to-filter text input above the album list
+- Main content area (`cfma-main`) containing:
+  - Active-filter chips with × dismiss buttons
+  - "Total Results: N" count
+  - Song/post list with colored post type badges, title links, and inline `<audio>` players
+  - Numbered pagination (up to 10 visible page buttons)
 
 **How it works:**
-- PHP shortcode renders the dropdowns and skeleton HTML
-- `js/song-filter.js` (vanilla JS, no jQuery) drives all filtering/pagination via `fetch()` against the standard WP REST endpoint:
-  `GET /wp-json/wp/v2/cryns_audio_file?_fields=id,title,link,audio_file&per_page=20&orderby=date&order=desc`
-- Taxonomy filter params: `cryns_artist={term_id}` and `cryns_album_title={term_id}`
+- PHP shortcode renders the sidebar checkboxes and skeleton HTML
+- `js/song-filter.js` is inlined via `wp_add_inline_script` (registered with no `src` to bypass SiteGround's JS combiner)
+- JS is vanilla (no jQuery); `cfmaFilter` global provides `feedUrl` and `perPage`
+- All filtering/pagination fetches via the custom mixed-feed endpoint:
+  `GET /wp-json/custom/v1/mixed-feed?per_page=20&page=1`
+- Multi-select: comma-separated term IDs — `cryns_artist=12,34` and `cryns_album_title=56`
+- URL state is synced via `history.replaceState` using query params `cfma_artist`, `cfma_album`, `cfma_page`
 - Response headers `X-WP-Total` and `X-WP-TotalPages` drive count + pagination
-- Styles are in `media-player-style.css`
+- Styles are in `media-player-style.css`; CSS version uses `filemtime()` to bust SiteGround cache
+
+**Post type badges:**
+Each result item shows a colored badge before the title:
+- `cfma-badge-audio` — "♩ Song" (green) for `cryns_audio_file` posts
+- `cfma-badge-post` — "📝 Post" (grey) for regular `post` posts
 
 ---
 

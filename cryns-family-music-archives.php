@@ -540,6 +540,22 @@ function cfma_song_filter_shortcode() {
         'number'     => 500,
     ] );
 
+    $musicians = get_terms( [
+        'taxonomy'   => 'cryns_musicians',
+        'hide_empty' => true,
+        'orderby'    => 'count',
+        'order'      => 'DESC',
+        'number'     => 500,
+    ] );
+
+    $written_by = get_terms( [
+        'taxonomy'   => 'cryns_written_by',
+        'hide_empty' => true,
+        'orderby'    => 'count',
+        'order'      => 'DESC',
+        'number'     => 500,
+    ] );
+
     // Register with no src so SiteGround's JS combiner can't swallow the file.
     // The script content is inlined directly via wp_add_inline_script.
     wp_register_script( 'cfma-song-filter', false, [], false, true );
@@ -586,6 +602,30 @@ function cfma_song_filter_shortcode() {
                             <?php endforeach; ?>
                         </div>
                     </div>
+                    <div>
+                        <p class="cfma-filter-label">Musicians:</p>
+                        <input type="text" id="cfma-musicians-search" class="cfma-filter-search" placeholder="Search musicians…" autocomplete="off">
+                        <div id="cfma-musicians-checkboxes" class="cfma-checkbox-group">
+                            <?php foreach ( (array) $musicians as $term ) : ?>
+                            <label class="cfma-checkbox-label">
+                                <input type="checkbox" class="cfma-musicians-cb" value="<?php echo esc_attr( $term->term_id ); ?>">
+                                <?php echo esc_html( $term->name ); ?> (<?php echo esc_html( $term->count ); ?>)
+                            </label>
+                            <?php endforeach; ?>
+                        </div>
+                    </div>
+                    <div>
+                        <p class="cfma-filter-label">Written by:</p>
+                        <input type="text" id="cfma-written-by-search" class="cfma-filter-search" placeholder="Search songwriters…" autocomplete="off">
+                        <div id="cfma-written-by-checkboxes" class="cfma-checkbox-group">
+                            <?php foreach ( (array) $written_by as $term ) : ?>
+                            <label class="cfma-checkbox-label">
+                                <input type="checkbox" class="cfma-written-by-cb" value="<?php echo esc_attr( $term->term_id ); ?>">
+                                <?php echo esc_html( $term->name ); ?> (<?php echo esc_html( $term->count ); ?>)
+                            </label>
+                            <?php endforeach; ?>
+                        </div>
+                    </div>
                 </div>
             </aside>
 
@@ -626,22 +666,26 @@ add_action( 'rest_api_init', function () {
         'callback'            => 'cfma_mixed_feed_endpoint',
         'permission_callback' => '__return_true',
         'args'                => [
-            'per_page'          => [ 'default' => 20, 'sanitize_callback' => 'absint' ],
-            'page'              => [ 'default' => 1,  'sanitize_callback' => 'absint' ],
-            'cryns_artist'      => [ 'default' => '', 'sanitize_callback' => 'sanitize_text_field' ],
-            'cryns_album_title' => [ 'default' => '', 'sanitize_callback' => 'sanitize_text_field' ],
+            'per_page'           => [ 'default' => 20, 'sanitize_callback' => 'absint' ],
+            'page'               => [ 'default' => 1,  'sanitize_callback' => 'absint' ],
+            'cryns_artist'       => [ 'default' => '', 'sanitize_callback' => 'sanitize_text_field' ],
+            'cryns_album_title'  => [ 'default' => '', 'sanitize_callback' => 'sanitize_text_field' ],
+            'cryns_musicians'    => [ 'default' => '', 'sanitize_callback' => 'sanitize_text_field' ],
+            'cryns_written_by'   => [ 'default' => '', 'sanitize_callback' => 'sanitize_text_field' ],
         ],
     ] );
 } );
 
 function cfma_mixed_feed_endpoint( WP_REST_Request $request ) {
-    $per_page = max( 1, $request->get_param( 'per_page' ) );
-    $page     = max( 1, $request->get_param( 'page' ) );
-    $artist   = $request->get_param( 'cryns_artist' );
-    $album    = $request->get_param( 'cryns_album_title' );
+    $per_page   = max( 1, $request->get_param( 'per_page' ) );
+    $page       = max( 1, $request->get_param( 'page' ) );
+    $artist     = $request->get_param( 'cryns_artist' );
+    $album      = $request->get_param( 'cryns_album_title' );
+    $musicians  = $request->get_param( 'cryns_musicians' );
+    $written_by = $request->get_param( 'cryns_written_by' );
 
     $args = [
-        'post_type'      => $artist || $album ? [ 'cryns_audio_file' ] : [ 'cryns_audio_file', 'post' ],
+        'post_type'      => $artist || $album || $musicians || $written_by ? [ 'cryns_audio_file' ] : [ 'cryns_audio_file', 'post' ],
         'post_status'    => 'publish',
         'posts_per_page' => $per_page,
         'paged'          => $page,
@@ -661,6 +705,20 @@ function cfma_mixed_feed_endpoint( WP_REST_Request $request ) {
             'taxonomy' => 'cryns_album_title',
             'field'    => 'term_id',
             'terms'    => array_map( 'intval', explode( ',', $album ) ),
+        ];
+    }
+    if ( $musicians ) {
+        $args['tax_query'][] = [
+            'taxonomy' => 'cryns_musicians',
+            'field'    => 'term_id',
+            'terms'    => array_map( 'intval', explode( ',', $musicians ) ),
+        ];
+    }
+    if ( $written_by ) {
+        $args['tax_query'][] = [
+            'taxonomy' => 'cryns_written_by',
+            'field'    => 'term_id',
+            'terms'    => array_map( 'intval', explode( ',', $written_by ) ),
         ];
     }
 

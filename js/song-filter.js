@@ -4,29 +4,35 @@
     if (typeof cfmaFilter === 'undefined') return;
 
     const { feedUrl, perPage } = cfmaFilter;
-    let currentPage   = 1;
-    let currentArtist = '';
-    let currentAlbum  = '';
-    let totalPages    = 1;
-    let totalResults  = 0;
-    let isFetching    = false;
+    let currentPage       = 1;
+    let currentArtist     = '';
+    let currentAlbum      = '';
+    let currentMusicians  = '';
+    let currentWrittenBy  = '';
+    let totalPages        = 1;
+    let totalResults      = 0;
+    let isFetching        = false;
 
     // --- URL state ---
 
     function pushState() {
         const params = new URLSearchParams();
-        if (currentArtist) params.set('cfma_artist', currentArtist);
-        if (currentAlbum)  params.set('cfma_album', currentAlbum);
-        if (currentPage > 1) params.set('cfma_page', currentPage);
+        if (currentArtist)    params.set('cfma_artist',     currentArtist);
+        if (currentAlbum)     params.set('cfma_album',      currentAlbum);
+        if (currentMusicians) params.set('cfma_musicians',  currentMusicians);
+        if (currentWrittenBy) params.set('cfma_written_by', currentWrittenBy);
+        if (currentPage > 1)  params.set('cfma_page',       currentPage);
         const qs = params.toString();
         history.replaceState(null, '', qs ? '?' + qs : window.location.pathname);
     }
 
     function readState() {
         const params = new URLSearchParams(window.location.search);
-        currentArtist = params.get('cfma_artist') || '';
-        currentAlbum  = params.get('cfma_album')  || '';
-        currentPage   = parseInt(params.get('cfma_page') || '1', 10);
+        currentArtist    = params.get('cfma_artist')     || '';
+        currentAlbum     = params.get('cfma_album')      || '';
+        currentMusicians = params.get('cfma_musicians')  || '';
+        currentWrittenBy = params.get('cfma_written_by') || '';
+        currentPage      = parseInt(params.get('cfma_page') || '1', 10);
 
         var artistIds = currentArtist ? currentArtist.split(',') : [];
         document.querySelectorAll('.cfma-artist-cb').forEach(function (cb) {
@@ -37,6 +43,16 @@
         document.querySelectorAll('.cfma-album-cb').forEach(function (cb) {
             cb.checked = albumIds.indexOf(cb.value) !== -1;
         });
+
+        var musicianIds = currentMusicians ? currentMusicians.split(',') : [];
+        document.querySelectorAll('.cfma-musicians-cb').forEach(function (cb) {
+            cb.checked = musicianIds.indexOf(cb.value) !== -1;
+        });
+
+        var writtenByIds = currentWrittenBy ? currentWrittenBy.split(',') : [];
+        document.querySelectorAll('.cfma-written-by-cb').forEach(function (cb) {
+            cb.checked = writtenByIds.indexOf(cb.value) !== -1;
+        });
     }
 
     // --- REST API ---
@@ -46,8 +62,10 @@
             per_page: perPage,
             page:     page,
         });
-        if (currentArtist) params.set('cryns_artist', currentArtist);
-        if (currentAlbum)  params.set('cryns_album_title', currentAlbum);
+        if (currentArtist)    params.set('cryns_artist',      currentArtist);
+        if (currentAlbum)     params.set('cryns_album_title', currentAlbum);
+        if (currentMusicians) params.set('cryns_musicians',   currentMusicians);
+        if (currentWrittenBy) params.set('cryns_written_by',  currentWrittenBy);
         return feedUrl + '?' + params.toString();
     }
 
@@ -167,17 +185,38 @@
                 ' <button class="cfma-chip-clear" data-clear="album" aria-label="Remove album filter">&times;</button></span>'
             );
         }
+        if (currentMusicians) {
+            const labels = getCheckedLabels('.cfma-musicians-cb').map(escHtml).join(', ');
+            chips.push(
+                '<span class="cfma-chip">Musicians: ' + (labels || 'selected') +
+                ' <button class="cfma-chip-clear" data-clear="musicians" aria-label="Remove musicians filter">&times;</button></span>'
+            );
+        }
+        if (currentWrittenBy) {
+            const labels = getCheckedLabels('.cfma-written-by-cb').map(escHtml).join(', ');
+            chips.push(
+                '<span class="cfma-chip">Written by: ' + (labels || 'selected') +
+                ' <button class="cfma-chip-clear" data-clear="written_by" aria-label="Remove written by filter">&times;</button></span>'
+            );
+        }
 
         container.innerHTML = chips.join('');
 
         container.querySelectorAll('.cfma-chip-clear').forEach(function (btn) {
             btn.addEventListener('click', function () {
-                if (btn.dataset.clear === 'artist') {
+                const which = btn.dataset.clear;
+                if (which === 'artist') {
                     currentArtist = '';
                     document.querySelectorAll('.cfma-artist-cb').forEach(function (cb) { cb.checked = false; });
-                } else {
+                } else if (which === 'album') {
                     currentAlbum = '';
                     document.querySelectorAll('.cfma-album-cb').forEach(function (cb) { cb.checked = false; });
+                } else if (which === 'musicians') {
+                    currentMusicians = '';
+                    document.querySelectorAll('.cfma-musicians-cb').forEach(function (cb) { cb.checked = false; });
+                } else if (which === 'written_by') {
+                    currentWrittenBy = '';
+                    document.querySelectorAll('.cfma-written-by-cb').forEach(function (cb) { cb.checked = false; });
                 }
                 currentPage = 1;
                 fetchSongs();
@@ -243,8 +282,10 @@
 
         readState();
 
-        initCheckboxSearch('cfma-artist-search', 'cfma-artist-checkboxes');
-        initCheckboxSearch('cfma-album-search', 'cfma-album-checkboxes');
+        initCheckboxSearch('cfma-artist-search',     'cfma-artist-checkboxes');
+        initCheckboxSearch('cfma-album-search',      'cfma-album-checkboxes');
+        initCheckboxSearch('cfma-musicians-search',  'cfma-musicians-checkboxes');
+        initCheckboxSearch('cfma-written-by-search', 'cfma-written-by-checkboxes');
 
         document.querySelectorAll('.cfma-artist-cb').forEach(function (cb) {
             cb.addEventListener('change', function () {
@@ -258,6 +299,22 @@
             cb.addEventListener('change', function () {
                 currentAlbum = getCheckedValues('.cfma-album-cb');
                 currentPage  = 1;
+                fetchSongs();
+            });
+        });
+
+        document.querySelectorAll('.cfma-musicians-cb').forEach(function (cb) {
+            cb.addEventListener('change', function () {
+                currentMusicians = getCheckedValues('.cfma-musicians-cb');
+                currentPage      = 1;
+                fetchSongs();
+            });
+        });
+
+        document.querySelectorAll('.cfma-written-by-cb').forEach(function (cb) {
+            cb.addEventListener('change', function () {
+                currentWrittenBy = getCheckedValues('.cfma-written-by-cb');
+                currentPage      = 1;
                 fetchSongs();
             });
         });
