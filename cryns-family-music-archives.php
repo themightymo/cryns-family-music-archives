@@ -318,11 +318,25 @@ add_filter( 'jetpack_relatedposts_filter_headline', 'jetpackme_related_posts_hea
 function return_audio_player() {
 	global $post;
 	if ( get_field('audio_file') ) {
-    return '<audio class="wp-audio-shortcode" id="" preload="none" style="width: 100%;" controls="controls"><source type="audio/mpeg" src="' . wp_get_attachment_url( get_field ( 'audio_file' ) ) . '"></audio>';
+        return '<audio class="wp-audio-shortcode" id="" preload="none" style="width: 100%;" controls="controls"><source type="audio/mpeg" src="' . wp_get_attachment_url( get_field ( 'audio_file' ) ) . '"></audio>';
 	} else if ( get_post_meta($post->ID, 'Audio File', true) ) {
-    return '<audio class="wp-audio-shortcode" id="" preload="none" style="width: 100%;" controls="controls"><source type="audio/mpeg" src="' . wp_get_attachment_url( get_post_meta($post->ID, 'Audio File', true) ) . '"></audio>';
+        return '<audio class="wp-audio-shortcode" id="" preload="none" style="width: 100%;" controls="controls"><source type="audio/mpeg" src="' . wp_get_attachment_url( get_post_meta($post->ID, 'Audio File', true) ) . '"></audio>';
 	} else {
-		return "There's no single mp3 for this one.";
+        // No single ACF/legacy file — try attached audio files and render as a playlist.
+        $attachments = get_posts( [
+            'post_type'      => 'attachment',
+            'post_mime_type' => 'audio',
+            'post_parent'    => $post->ID,
+            'post_status'    => 'inherit',
+            'posts_per_page' => -1,
+            'orderby'        => 'menu_order title',
+            'order'          => 'ASC',
+        ] );
+        if ( $attachments ) {
+            $ids = implode( ',', wp_list_pluck( $attachments, 'ID' ) );
+            return do_shortcode( '[playlist ids="' . $ids . '"]' );
+        }
+        return "There's no single mp3 for this one.";
 	}
 }
 function echo_audio_player() {
