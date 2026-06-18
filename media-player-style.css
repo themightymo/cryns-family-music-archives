@@ -149,6 +149,33 @@
 .cfma-song-title {
     margin: 0 0 6px;
     font-size: 1.05em;
+    display: flex;
+    align-items: baseline;
+    gap: 6px;
+    flex-wrap: wrap;
+}
+
+.cfma-type-badge {
+    display: inline-block;
+    font-size: 0.65em;
+    font-weight: 600;
+    padding: 2px 7px;
+    border-radius: 10px;
+    white-space: nowrap;
+    vertical-align: middle;
+    flex-shrink: 0;
+}
+
+.cfma-badge-audio {
+    background: #e8f4e8;
+    color: #2a6e2a;
+    border: 1px solid #a8d4a8;
+}
+
+.cfma-badge-post {
+    background: #fef3e2;
+    color: #7a4f00;
+    border: 1px solid #f0c97a;
 }
 
 .cfma-song-title a {

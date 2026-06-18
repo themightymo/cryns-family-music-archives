@@ -3,7 +3,7 @@
 
     if (typeof cfmaFilter === 'undefined') return;
 
-    const { restUrl, perPage } = cfmaFilter;
+    const { feedUrl, perPage } = cfmaFilter;
     let currentPage   = 1;
     let currentArtist = '';
     let currentAlbum  = '';
@@ -45,13 +45,10 @@
         const params = new URLSearchParams({
             per_page: perPage,
             page:     page,
-            orderby:  'date',
-            order:    'desc',
-            _fields:  'id,title,link,audio_file',
         });
         if (currentArtist) params.set('cryns_artist', currentArtist);
         if (currentAlbum)  params.set('cryns_album_title', currentAlbum);
-        return restUrl + '?' + params.toString();
+        return feedUrl + '?' + params.toString();
     }
 
     // --- Rendering ---
@@ -72,9 +69,13 @@
         }
 
         const items = posts.map(function (post) {
-            const title = post.title ? post.title.rendered : '';
-            const link  = escHtml(post.link || '');
-            const audio = post.audio_file;
+            const title    = post.title ? post.title.rendered : '';
+            const link     = escHtml(post.link || '');
+            const isAudio  = post.type === 'cryns_audio_file';
+            const badgeCls = isAudio ? 'cfma-badge-audio' : 'cfma-badge-post';
+            const badgeTxt = isAudio ? '&#9835; Song' : '&#128221; Post';
+            const badge    = '<span class="cfma-type-badge ' + badgeCls + '">' + badgeTxt + '</span>';
+            const audio    = post.audio_file;
             let playerHtml = '';
             if (audio && audio.url) {
                 const mime = escHtml(audio.mime || 'audio/mpeg');
@@ -85,7 +86,7 @@
                     '</audio>';
             }
             return '<li class="cfma-song-item">' +
-                '<h2 class="cfma-song-title"><a href="' + link + '">' + title + '</a></h2>' +
+                '<h2 class="cfma-song-title">' + badge + ' <a href="' + link + '">' + title + '</a></h2>' +
                 playerHtml +
                 '</li>';
         });

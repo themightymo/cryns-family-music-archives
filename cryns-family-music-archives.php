@@ -544,12 +544,12 @@ function cfma_song_filter_shortcode() {
         'cfma-song-filter',
         plugins_url( '/js/song-filter.js', __FILE__ ),
         [],
-        '1.0.0',
+        '1.2.0',
         true
     );
 
     wp_localize_script( 'cfma-song-filter', 'cfmaFilter', [
-        'restUrl' => rest_url( 'wp/v2/cryns_audio_file' ),
+        'feedUrl' => rest_url( 'custom/v1/mixed-feed' ),
         'perPage' => 20,
     ] );
 
@@ -615,6 +615,85 @@ function cfma_song_filter_shortcode() {
 
 
 
+
+
+// Mixed feed: cryns_audio_file + post, ordered by date, with pagination.
+add_action( 'rest_api_init', function () {
+    register_rest_route( 'custom/v1', '/mixed-feed', [
+        'methods'             => 'GET',
+        'callback'            => 'cfma_mixed_feed_endpoint',
+        'permission_callback' => '__return_true',
+        'args'                => [
+            'per_page'          => [ 'default' => 20, 'sanitize_callback' => 'absint' ],
+            'page'              => [ 'default' => 1,  'sanitize_callback' => 'absint' ],
+            'cryns_artist'      => [ 'default' => '', 'sanitize_callback' => 'sanitize_text_field' ],
+            'cryns_album_title' => [ 'default' => '', 'sanitize_callback' => 'sanitize_text_field' ],
+        ],
+    ] );
+} );
+
+function cfma_mixed_feed_endpoint( WP_REST_Request $request ) {
+    $per_page = max( 1, $request->get_param( 'per_page' ) );
+    $page     = max( 1, $request->get_param( 'page' ) );
+    $artist   = $request->get_param( 'cryns_artist' );
+    $album    = $request->get_param( 'cryns_album_title' );
+
+    $args = [
+        'post_type'      => $artist || $album ? [ 'cryns_audio_file' ] : [ 'cryns_audio_file', 'post' ],
+        'post_status'    => 'publish',
+        'posts_per_page' => $per_page,
+        'paged'          => $page,
+        'orderby'        => 'date',
+        'order'          => 'DESC',
+    ];
+
+    if ( $artist ) {
+        $args['tax_query'][] = [
+            'taxonomy' => 'cryns_artist',
+            'field'    => 'term_id',
+            'terms'    => array_map( 'intval', explode( ',', $artist ) ),
+        ];
+    }
+    if ( $album ) {
+        $args['tax_query'][] = [
+            'taxonomy' => 'cryns_album_title',
+            'field'    => 'term_id',
+            'terms'    => array_map( 'intval', explode( ',', $album ) ),
+        ];
+    }
+
+    $query = new WP_Query( $args );
+    $items = [];
+
+    foreach ( $query->posts as $post ) {
+        $item = [
+            'id'         => $post->ID,
+            'type'       => $post->post_type,
+            'title'      => [ 'rendered' => get_the_title( $post->ID ) ],
+            'link'       => get_permalink( $post->ID ),
+            'audio_file' => null,
+        ];
+
+        if ( 'cryns_audio_file' === $post->post_type ) {
+            $file_id = get_field( 'audio_file', $post->ID ) ?: get_post_meta( $post->ID, 'Audio File', true );
+            if ( $file_id ) {
+                $item['audio_file'] = [
+                    'id'   => (int) $file_id,
+                    'url'  => wp_get_attachment_url( $file_id ),
+                    'mime' => get_post_mime_type( $file_id ) ?: 'audio/mpeg',
+                ];
+            }
+        }
+
+        $items[] = $item;
+    }
+
+    $response = new WP_REST_Response( $items, 200 );
+    $response->header( 'X-WP-Total',      $query->found_posts );
+    $response->header( 'X-WP-TotalPages', $query->max_num_pages ?: 1 );
+
+    return $response;
+}
 
 
 // via https://chatgpt.com/c/6827547b-e844-800e-92ad-94dac48a935a
