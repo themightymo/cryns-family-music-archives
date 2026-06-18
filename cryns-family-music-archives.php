@@ -750,6 +750,21 @@ function cfma_mixed_feed_endpoint( WP_REST_Request $request ) {
 
         if ( 'cryns_audio_file' === $post->post_type ) {
             $file_id = get_field( 'audio_file', $post->ID ) ?: get_post_meta( $post->ID, 'Audio File', true );
+            if ( ! $file_id ) {
+                // Fall back to the first attached audio file.
+                $attached = get_posts( [
+                    'post_type'      => 'attachment',
+                    'post_mime_type' => 'audio',
+                    'post_parent'    => $post->ID,
+                    'post_status'    => 'inherit',
+                    'posts_per_page' => 1,
+                    'orderby'        => 'menu_order title',
+                    'order'          => 'ASC',
+                ] );
+                if ( $attached ) {
+                    $file_id = $attached[0]->ID;
+                }
+            }
             if ( $file_id ) {
                 $item['audio_file'] = [
                     'id'   => (int) $file_id,
