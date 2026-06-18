@@ -93,9 +93,9 @@
             btn.addEventListener('click', function () {
                 currentPage = parseInt(btn.dataset.page, 10);
                 fetchSongs();
-                var wrap = document.getElementById('cfma-filter-wrap');
-                if (wrap) {
-                    window.scrollTo({ top: wrap.getBoundingClientRect().top + window.pageYOffset - 20, behavior: 'smooth' });
+                var results = document.getElementById('cfma-results');
+                if (results) {
+                    window.scrollTo({ top: results.getBoundingClientRect().top + window.pageYOffset - 20, behavior: 'smooth' });
                 }
             });
         });
