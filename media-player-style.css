@@ -186,6 +186,18 @@
     text-decoration: underline;
 }
 
+/* Playlist note */
+.cfma-playlist-note {
+    margin: 6px 0 0;
+    font-size: 0.85em;
+    color: #555;
+    font-style: italic;
+}
+
+.cfma-playlist-note a {
+    color: inherit;
+}
+
 /* State messages */
 .cfma-loading,
 .cfma-no-results,

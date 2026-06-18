@@ -103,9 +103,13 @@
                     '<source type="' + mime + '" src="' + src + '">' +
                     '</audio>';
             }
+            const playlistNote = post.has_playlist
+                ? '<p class="cfma-playlist-note">&#127911; This post has a full audio playlist &mdash; <a href="' + link + '">click to listen to all tracks</a>.</p>'
+                : '';
             return '<li class="cfma-song-item">' +
                 '<h2 class="cfma-song-title">' + badge + ' <a href="' + link + '">' + title + '</a></h2>' +
                 playerHtml +
+                playlistNote +
                 '</li>';
         });
 

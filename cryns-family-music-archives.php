@@ -524,7 +524,7 @@ add_action( 'wp_footer', 'footer_credits' );
 	Include custom media player styles
 */
 function media_player_styles () {
-    wp_register_style('media-player-styles', plugins_url('/media-player-style.css', __FILE__), '', '1.1.0');
+    wp_register_style('media-player-styles', plugins_url('/media-player-style.css', __FILE__), '', filemtime( plugin_dir_path( __FILE__ ) . 'media-player-style.css' ));
     wp_enqueue_style ( 'media-player-styles' );
 }
 add_action('wp_enqueue_scripts', 'media_player_styles');
@@ -741,11 +741,12 @@ function cfma_mixed_feed_endpoint( WP_REST_Request $request ) {
 
     foreach ( $query->posts as $post ) {
         $item = [
-            'id'         => $post->ID,
-            'type'       => $post->post_type,
-            'title'      => [ 'rendered' => get_the_title( $post->ID ) ],
-            'link'       => get_permalink( $post->ID ),
-            'audio_file' => null,
+            'id'          => $post->ID,
+            'type'        => $post->post_type,
+            'title'       => [ 'rendered' => get_the_title( $post->ID ) ],
+            'link'        => get_permalink( $post->ID ),
+            'audio_file'  => null,
+            'has_playlist' => false,
         ];
 
         if ( 'cryns_audio_file' === $post->post_type ) {
@@ -763,6 +764,7 @@ function cfma_mixed_feed_endpoint( WP_REST_Request $request ) {
                 ] );
                 if ( $attached ) {
                     $file_id = $attached[0]->ID;
+                    $item['has_playlist'] = true;
                 }
             }
             if ( $file_id ) {
