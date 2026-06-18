@@ -1,0 +1,170 @@
+/* ============================================================
+   Song Filter — [cfma_song_filter] shortcode
+   ============================================================ */
+
+#cfma-filter-wrap {
+    max-width: 900px;
+    margin: 0 auto;
+    font-family: inherit;
+}
+
+/* Controls row */
+.cfma-filter-controls {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    align-items: flex-end;
+    margin-bottom: 16px;
+}
+
+.cfma-filter-controls label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 4px;
+    font-size: 0.9em;
+}
+
+.cfma-filter-controls select {
+    display: block;
+    min-width: 200px;
+    padding: 6px 10px;
+    font-size: 1em;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background: #fff;
+    cursor: pointer;
+}
+
+/* Active-filter chips */
+#cfma-selections {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 12px;
+    min-height: 28px;
+}
+
+.cfma-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: #e8f0fe;
+    border: 1px solid #a8c0f8;
+    border-radius: 20px;
+    padding: 3px 10px 3px 12px;
+    font-size: 0.85em;
+    color: #1a1a1a;
+}
+
+.cfma-chip-clear {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 1.1em;
+    line-height: 1;
+    color: #555;
+    padding: 0;
+}
+
+.cfma-chip-clear:hover {
+    color: #c00;
+}
+
+/* Results meta bar */
+.cfma-results-meta {
+    margin-bottom: 12px;
+    font-size: 0.9em;
+    color: #555;
+}
+
+.cfma-count-wrap {
+    margin-left: 12px;
+    font-weight: 600;
+    color: #222;
+}
+
+/* Song list */
+.cfma-song-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.cfma-song-item {
+    border-bottom: 1px solid #eee;
+    padding: 12px 0;
+}
+
+.cfma-song-item:last-child {
+    border-bottom: none;
+}
+
+.cfma-song-title {
+    margin: 0 0 6px;
+    font-size: 1.05em;
+}
+
+.cfma-song-title a {
+    text-decoration: none;
+}
+
+.cfma-song-title a:hover {
+    text-decoration: underline;
+}
+
+/* State messages */
+.cfma-loading,
+.cfma-no-results,
+.cfma-error {
+    padding: 20px 0;
+    color: #666;
+    font-style: italic;
+}
+
+/* Pagination */
+.cfma-pagination {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-top: 24px;
+    align-items: center;
+}
+
+.cfma-page-btn {
+    padding: 5px 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background: #fff;
+    cursor: pointer;
+    font-size: 0.9em;
+    color: #333;
+    transition: background 0.15s;
+}
+
+.cfma-page-btn:hover {
+    background: #f0f0f0;
+}
+
+.cfma-page-current {
+    background: #333;
+    color: #fff;
+    border-color: #333;
+    font-weight: bold;
+    cursor: default;
+}
+
+.cfma-page-prev,
+.cfma-page-next {
+    font-weight: 600;
+}
+
+@media (max-width: 600px) {
+    .cfma-filter-controls {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .cfma-filter-controls select {
+        width: 100%;
+    }
+}

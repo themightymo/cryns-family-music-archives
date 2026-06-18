@@ -506,14 +506,97 @@ function footer_credits () {
 }
 add_action( 'wp_footer', 'footer_credits' );
 
-/* 
+/*
 	Include custom media player styles
 */
 function media_player_styles () {
-    wp_register_style('media-player-styles', plugins_url('/media-player-style.css', __FILE__), '', time());
+    wp_register_style('media-player-styles', plugins_url('/media-player-style.css', __FILE__), '', '1.0.0');
     wp_enqueue_style ( 'media-player-styles' );
 }
 add_action('wp_enqueue_scripts', 'media_player_styles');
+
+
+/*
+ * [cfma_song_filter] shortcode
+ * Renders artist + album dropdowns and an AJAX-driven song list.
+ * Replaces the FacetWP filter/template block that was on the homepage.
+ */
+add_shortcode( 'cfma_song_filter', 'cfma_song_filter_shortcode' );
+
+function cfma_song_filter_shortcode() {
+    $artists = get_terms( [
+        'taxonomy'   => 'cryns_artist',
+        'hide_empty' => true,
+        'orderby'    => 'count',
+        'order'      => 'DESC',
+        'number'     => 500,
+    ] );
+
+    $albums = get_terms( [
+        'taxonomy'   => 'cryns_album_title',
+        'hide_empty' => true,
+        'orderby'    => 'count',
+        'order'      => 'DESC',
+        'number'     => 500,
+    ] );
+
+    wp_enqueue_script(
+        'cfma-song-filter',
+        plugins_url( '/js/song-filter.js', __FILE__ ),
+        [],
+        '1.0.0',
+        true
+    );
+
+    wp_localize_script( 'cfma-song-filter', 'cfmaFilter', [
+        'restUrl' => rest_url( 'wp/v2/cryns_audio_file' ),
+        'perPage' => 20,
+    ] );
+
+    ob_start();
+    ?>
+    <div id="cfma-filter-wrap">
+        <div class="cfma-filter-controls">
+            <div>
+                <label for="cfma-artist-select">Select an Artist:</label>
+                <select id="cfma-artist-select" name="cfma_artist">
+                    <option value="">Any Artist</option>
+                    <?php foreach ( (array) $artists as $term ) : ?>
+                    <option value="<?php echo esc_attr( $term->term_id ); ?>">
+                        <?php echo esc_html( $term->name ); ?> (<?php echo esc_html( $term->count ); ?>)
+                    </option>
+                    <?php endforeach; ?>
+                </select>
+            </div>
+            <div>
+                <label for="cfma-album-select">Select an Album:</label>
+                <select id="cfma-album-select" name="cfma_album">
+                    <option value="">Any Album</option>
+                    <?php foreach ( (array) $albums as $term ) : ?>
+                    <option value="<?php echo esc_attr( $term->term_id ); ?>">
+                        <?php echo esc_html( $term->name ); ?> (<?php echo esc_html( $term->count ); ?>)
+                    </option>
+                    <?php endforeach; ?>
+                </select>
+            </div>
+        </div>
+
+        <div id="cfma-selections"></div>
+
+        <div class="cfma-results-meta">
+            RESULTS (By default, the most recent songs are displayed):
+            <span class="cfma-count-wrap">Total Results: <strong id="cfma-count">&mdash;</strong></span>
+        </div>
+
+        <div id="cfma-results">
+            <p class="cfma-loading">Loading songs&hellip;</p>
+        </div>
+
+        <div id="cfma-pagination"></div>
+    </div>
+    <?php
+    return ob_get_clean();
+}
 
 
 

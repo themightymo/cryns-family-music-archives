@@ -199,6 +199,113 @@ Two actions on `wp_footer`:
 
 ---
 
+## Site Infrastructure
+
+### Local Development Environment
+- **Tool:** Local by Flywheel (Local.app)
+- **MySQL socket:** `/Users/mighty1/Library/Application Support/Local/run/DzXqBLu20/mysql/mysqld.sock`
+- **MySQL binary:** `/Users/mighty1/Library/Application Support/Local/lightning-services/mysql-8.0.16+6/bin/darwin/bin/mysql`
+- **DB name / user / pass:** `local` / `root` / `root`
+- **WP-CLI status:** broken (Fatal error in DocParser.php — do not use)
+- Use the MySQL binary + socket directly for any DB queries.
+
+Example DB query pattern:
+```bash
+MYSQL="/Users/mighty1/Library/Application Support/Local/lightning-services/mysql-8.0.16+6/bin/darwin/bin/mysql"
+SOCK="/Users/mighty1/Library/Application Support/Local/run/DzXqBLu20/mysql/mysqld.sock"
+"$MYSQL" -u root -proot -S "$SOCK" local -e "SELECT ..."
+```
+
+---
+
+## Homepage
+
+- **Page ID:** 1697 (set as `page_on_front` in `wp_options`)
+- **Page builder:** Beaver Builder (`_fl_builder_data` postmeta, PHP-serialized)
+- **Theme:** BB Theme (`bb-theme`) — no `front-page.php` template; page content drives the layout
+- **BB cache files** for page 1697 are in `wp-content/uploads/bb-plugin/cache/1697-layout*`
+
+### Homepage layout (two rows)
+
+**Row 1** — full-width, one column:
+- `rich-text` module (node `6009117d589be`): houses the song filter UI — currently `[cfma_song_filter]` shortcode
+- `sidebar` module (node `600911c6c48dc`): renders widget area `blog-sidebar`
+
+**Row 2** — two columns:
+- `heading` module (node `357uswlct8ea`): "Recently Added:"
+- `post-grid` module (node `xlzjema2rkw4`): 3 most-recent standard *posts* (not audio files), FacetWP disabled
+- `widget` module (node `j5xchf8eu3zm`): Ajax Search Lite widget (`AJAXY_SF_WIDGET`)
+
+---
+
+## FacetWP (being removed)
+
+Three plugins installed: `facetwp`, `facetwp-beaver-builder`, `facetwp-relevanssi`.
+FacetWP settings are stored in `wp_options` as `facetwp_settings` (JSON).
+The two configured facets were:
+- `artist` — dropdown, source `tax/cryns_artist`, ordered by count
+- `album_title` — dropdown, source `tax/cryns_album_title`, ordered by count
+
+These have been replaced by the `[cfma_song_filter]` shortcode (see below).
+
+---
+
+## `[cfma_song_filter]` Shortcode
+
+Registered in the main plugin file. Replaces all FacetWP homepage functionality.
+
+**What it renders:**
+- Artist dropdown (populated server-side via `get_terms('cryns_artist')`)
+- Album Title dropdown (populated server-side via `get_terms('cryns_album_title')`)
+- Active-filter chips with × dismiss buttons
+- "Total Results: N" count
+- Song list: title link + inline `<audio>` player, fetched via REST API
+- Numbered pagination
+
+**How it works:**
+- PHP shortcode renders the dropdowns and skeleton HTML
+- `js/song-filter.js` (vanilla JS, no jQuery) drives all filtering/pagination via `fetch()` against the standard WP REST endpoint:
+  `GET /wp-json/wp/v2/cryns_audio_file?_fields=id,title,link,audio_file&per_page=20&orderby=date&order=desc`
+- Taxonomy filter params: `cryns_artist={term_id}` and `cryns_album_title={term_id}`
+- Response headers `X-WP-Total` and `X-WP-TotalPages` drive count + pagination
+- Styles are in `media-player-style.css`
+
+---
+
+## Installed Plugins of Note
+
+| Plugin dir | Purpose |
+|---|---|
+| `facetwp` | Filterable archive UI — **being removed** |
+| `facetwp-beaver-builder` | FacetWP modules for BB — **being removed** |
+| `facetwp-relevanssi` | FacetWP + Relevanssi integration — **being removed** |
+| `bb-plugin` | Beaver Builder page builder |
+| `bb-theme-builder` | Beaver Builder Themer (archive/singular layouts) |
+| `advanced-custom-fields-pro` | ACF Pro — required |
+| `relevanssi` | Search enhancement |
+| `ajax-search-lite` | Ajax Search Lite widget (`AJAXY_SF_WIDGET`) — on homepage row 2 |
+
+---
+
+## Reading Beaver Builder Layout Data
+
+BB stores layout as a PHP-serialized object graph in `_fl_builder_data` (published) and `_fl_builder_draft` (draft/editing) postmeta. To inspect it:
+
+```bash
+"$MYSQL" ... -e "SELECT meta_value FROM wp_postmeta WHERE post_id=1697 AND meta_key='_fl_builder_data';" > /tmp/bb.txt
+php -r "
+\$raw = file_get_contents('/tmp/bb.txt');
+\$lines = explode(PHP_EOL, \$raw, 2);
+\$data = @unserialize(\$lines[1]);
+foreach (\$data as \$id => \$node) {
+    if (\$node->type === 'module') echo \$id . ' ' . \$node->settings->type . PHP_EOL;
+}"
+```
+
+To update a module's text field, write a PHP CLI script that bootstraps WordPress (`require wp-load.php`), calls `get_post_meta`, unserializes, modifies, re-serializes, and calls `update_post_meta`. Then delete the BB cache files for the page.
+
+---
+
 ## Common Query Patterns
 
 **All songs by a specific artist (PHP):**
