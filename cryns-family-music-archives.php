@@ -350,34 +350,31 @@ function return_audio_meta() {
 		$audioFileCustomFieldName = 'Audio File';
 	}
 	
-	function return_taxonomy_info ( $tax, $label ) {
-		
+	$return_taxonomy_info = function ( $tax, $label ) use ( $post ) {
 		$terms = get_the_terms( $post->ID, $tax );
 		if ( ! empty( $terms ) ) {
 			$term_list = '';
 			foreach ( $terms as $term ) {
 				$term_list .= '<a href="' . get_term_link( $term ) . '">' . $term->name . '</a>, ';
-				
 			}
 			$term_list = rtrim( $term_list, ', ' );
 			return $label . $term_list;
 		}
-		
-	}
+	};
 
 	
 	return 
 		'<div class="audio-meta">
 			<a href="' . wp_get_attachment_url( get_post_meta($post->ID, $audioFileCustomFieldName, true) ) . '" target="_blank">Download MP3 File</a>' . 
-			return_taxonomy_info ('cryns_artist', ' | Artist(s): ') . 
-			return_taxonomy_info ('cryns_written_by', ' | Written By: ') . 
+			$return_taxonomy_info ('cryns_artist', ' | Artist(s): ') .
+			$return_taxonomy_info ('cryns_written_by', ' | Written By: ') .
 			"| Track Number: " . get_field('track_number') . 
 			get_the_term_list( get_the_ID(), 'cryns_release_year', ", Release Year: " ) . 
-			return_taxonomy_info ('cryns_musicians', ' | Musicians: ') . 
-			return_taxonomy_info ('cryns_engineer', ' | Engineer(s): ') . 
-			return_taxonomy_info ('cryns_producer', ' | Producer(s): ') . 
-			return_taxonomy_info ('cryns_genre', ' | Genre(s): ') . 
-			return_taxonomy_info ('cryns_album_title', ' | Album Title ') . 
+			$return_taxonomy_info ('cryns_musicians', ' | Musicians: ') .
+			$return_taxonomy_info ('cryns_engineer', ' | Engineer(s): ') .
+			$return_taxonomy_info ('cryns_producer', ' | Producer(s): ') .
+			$return_taxonomy_info ('cryns_genre', ' | Genre(s): ') .
+			$return_taxonomy_info ('cryns_album_title', ' | Album Title ') .
 		'</div>';
 }
 /* 
