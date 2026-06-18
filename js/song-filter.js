@@ -11,6 +11,31 @@
     let totalResults  = 0;
     let isFetching    = false;
 
+    // --- URL state ---
+
+    function pushState() {
+        const params = new URLSearchParams();
+        if (currentArtist) params.set('cfma_artist', currentArtist);
+        if (currentAlbum)  params.set('cfma_album', currentAlbum);
+        if (currentPage > 1) params.set('cfma_page', currentPage);
+        const qs = params.toString();
+        history.replaceState(null, '', qs ? '?' + qs : window.location.pathname);
+    }
+
+    function readState() {
+        const params = new URLSearchParams(window.location.search);
+        currentArtist = params.get('cfma_artist') || '';
+        currentAlbum  = params.get('cfma_album')  || '';
+        currentPage   = parseInt(params.get('cfma_page') || '1', 10);
+
+        var artistSel = document.getElementById('cfma-artist-select');
+        var albumSel  = document.getElementById('cfma-album-select');
+        if (artistSel) artistSel.value = currentArtist;
+        if (albumSel)  albumSel.value  = currentAlbum;
+    }
+
+    // --- REST API ---
+
     function buildUrl(page) {
         const params = new URLSearchParams({
             per_page: perPage,
@@ -23,6 +48,8 @@
         if (currentAlbum)  params.set('cryns_album_title', currentAlbum);
         return restUrl + '?' + params.toString();
     }
+
+    // --- Rendering ---
 
     function escHtml(str) {
         return String(str)
@@ -92,11 +119,7 @@
         container.querySelectorAll('.cfma-page-btn').forEach(function (btn) {
             btn.addEventListener('click', function () {
                 currentPage = parseInt(btn.dataset.page, 10);
-                fetchSongs();
-                var results = document.getElementById('cfma-results');
-                if (results) {
-                    window.scrollTo({ top: results.getBoundingClientRect().top + window.pageYOffset - 20, behavior: 'smooth' });
-                }
+                fetchSongs({ scrollToResults: true });
             });
         });
     }
@@ -143,13 +166,18 @@
         });
     }
 
-    function fetchSongs() {
+    // --- Fetch ---
+
+    function fetchSongs(opts) {
         if (isFetching) return;
         isFetching = true;
+        opts = opts || {};
 
         const resultsEl = document.getElementById('cfma-results');
         const countEl   = document.getElementById('cfma-count');
         resultsEl.innerHTML = '<p class="cfma-loading">Loading…</p>';
+
+        pushState();
 
         fetch(buildUrl(currentPage))
             .then(function (res) {
@@ -162,6 +190,9 @@
                 renderResults(posts);
                 renderPagination();
                 renderSelections();
+                if (opts.scrollToResults) {
+                    resultsEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
             })
             .catch(function () {
                 resultsEl.innerHTML = '<p class="cfma-error">Error loading songs. Please try again.</p>';
@@ -171,11 +202,15 @@
             });
     }
 
+    // --- Init ---
+
     document.addEventListener('DOMContentLoaded', function () {
         var artistSel = document.getElementById('cfma-artist-select');
         var albumSel  = document.getElementById('cfma-album-select');
 
         if (!artistSel) return;
+
+        readState();
 
         artistSel.addEventListener('change', function () {
             currentArtist = artistSel.value;
