@@ -28,10 +28,15 @@
         currentAlbum  = params.get('cfma_album')  || '';
         currentPage   = parseInt(params.get('cfma_page') || '1', 10);
 
-        var artistSel = document.getElementById('cfma-artist-select');
-        var albumSel  = document.getElementById('cfma-album-select');
-        if (artistSel) artistSel.value = currentArtist;
-        if (albumSel)  albumSel.value  = currentAlbum;
+        var artistIds = currentArtist ? currentArtist.split(',') : [];
+        document.querySelectorAll('.cfma-artist-cb').forEach(function (cb) {
+            cb.checked = artistIds.indexOf(cb.value) !== -1;
+        });
+
+        var albumIds = currentAlbum ? currentAlbum.split(',') : [];
+        document.querySelectorAll('.cfma-album-cb').forEach(function (cb) {
+            cb.checked = albumIds.indexOf(cb.value) !== -1;
+        });
     }
 
     // --- REST API ---
@@ -124,10 +129,23 @@
         });
     }
 
-    function getSelectLabel(selectId) {
-        var sel = document.getElementById(selectId);
-        if (!sel || !sel.value) return '';
-        return sel.options[sel.selectedIndex].text;
+    function getCheckedValues(selector) {
+        var vals = [];
+        document.querySelectorAll(selector + ':checked').forEach(function (cb) {
+            vals.push(cb.value);
+        });
+        return vals.join(',');
+    }
+
+    function getCheckedLabels(selector) {
+        var labels = [];
+        document.querySelectorAll(selector + ':checked').forEach(function (cb) {
+            var lbl = cb.closest('label');
+            if (lbl) {
+                labels.push(lbl.textContent.trim().replace(/\s*\(\d+\)\s*$/, ''));
+            }
+        });
+        return labels;
     }
 
     function renderSelections() {
@@ -135,16 +153,16 @@
         const chips = [];
 
         if (currentArtist) {
-            const label = escHtml(getSelectLabel('cfma-artist-select'));
+            const labels = getCheckedLabels('.cfma-artist-cb').map(escHtml).join(', ');
             chips.push(
-                '<span class="cfma-chip">Artist: ' + label +
+                '<span class="cfma-chip">Artist: ' + (labels || 'selected') +
                 ' <button class="cfma-chip-clear" data-clear="artist" aria-label="Remove artist filter">&times;</button></span>'
             );
         }
         if (currentAlbum) {
-            const label = escHtml(getSelectLabel('cfma-album-select'));
+            const labels = getCheckedLabels('.cfma-album-cb').map(escHtml).join(', ');
             chips.push(
-                '<span class="cfma-chip">Album: ' + label +
+                '<span class="cfma-chip">Album: ' + (labels || 'selected') +
                 ' <button class="cfma-chip-clear" data-clear="album" aria-label="Remove album filter">&times;</button></span>'
             );
         }
@@ -155,10 +173,10 @@
             btn.addEventListener('click', function () {
                 if (btn.dataset.clear === 'artist') {
                     currentArtist = '';
-                    document.getElementById('cfma-artist-select').value = '';
+                    document.querySelectorAll('.cfma-artist-cb').forEach(function (cb) { cb.checked = false; });
                 } else {
                     currentAlbum = '';
-                    document.getElementById('cfma-album-select').value = '';
+                    document.querySelectorAll('.cfma-album-cb').forEach(function (cb) { cb.checked = false; });
                 }
                 currentPage = 1;
                 fetchSongs();
@@ -202,26 +220,45 @@
             });
     }
 
+    // --- Checkbox search filter ---
+
+    function initCheckboxSearch(inputId, groupId) {
+        var input = document.getElementById(inputId);
+        var group = document.getElementById(groupId);
+        if (!input || !group) return;
+        input.addEventListener('input', function () {
+            var query = input.value.toLowerCase().trim();
+            group.querySelectorAll('.cfma-checkbox-label').forEach(function (label) {
+                var match = !query || label.textContent.toLowerCase().indexOf(query) !== -1;
+                label.style.display = match ? '' : 'none';
+            });
+        });
+    }
+
     // --- Init ---
 
     document.addEventListener('DOMContentLoaded', function () {
-        var artistSel = document.getElementById('cfma-artist-select');
-        var albumSel  = document.getElementById('cfma-album-select');
-
-        if (!artistSel) return;
+        if (!document.querySelector('.cfma-artist-cb')) return;
 
         readState();
 
-        artistSel.addEventListener('change', function () {
-            currentArtist = artistSel.value;
-            currentPage   = 1;
-            fetchSongs();
+        initCheckboxSearch('cfma-artist-search', 'cfma-artist-checkboxes');
+        initCheckboxSearch('cfma-album-search', 'cfma-album-checkboxes');
+
+        document.querySelectorAll('.cfma-artist-cb').forEach(function (cb) {
+            cb.addEventListener('change', function () {
+                currentArtist = getCheckedValues('.cfma-artist-cb');
+                currentPage   = 1;
+                fetchSongs();
+            });
         });
 
-        albumSel.addEventListener('change', function () {
-            currentAlbum = albumSel.value;
-            currentPage  = 1;
-            fetchSongs();
+        document.querySelectorAll('.cfma-album-cb').forEach(function (cb) {
+            cb.addEventListener('change', function () {
+                currentAlbum = getCheckedValues('.cfma-album-cb');
+                currentPage  = 1;
+                fetchSongs();
+            });
         });
 
         fetchSongs();

@@ -3,36 +3,83 @@
    ============================================================ */
 
 #cfma-filter-wrap {
-    max-width: 900px;
+    max-width: 1100px;
     margin: 0 auto;
     font-family: inherit;
 }
 
-/* Controls row */
+/* Two-column layout: sidebar filters + main results */
+.cfma-layout {
+    display: flex;
+    gap: 28px;
+    align-items: flex-start;
+}
+
+.cfma-sidebar {
+    flex: 0 0 220px;
+    min-width: 0;
+}
+
+.cfma-main {
+    flex: 1;
+    min-width: 0;
+}
+
+/* Filter controls stacked vertically in sidebar */
 .cfma-filter-controls {
     display: flex;
-    flex-wrap: wrap;
-    gap: 16px;
-    align-items: flex-end;
-    margin-bottom: 16px;
+    flex-direction: column;
+    gap: 20px;
 }
 
-.cfma-filter-controls label {
-    display: block;
+.cfma-filter-label {
     font-weight: 600;
+    font-size: 0.9em;
+    margin: 0 0 4px;
+}
+
+.cfma-filter-search {
+    display: block;
+    width: 100%;
+    padding: 5px 8px;
     margin-bottom: 4px;
     font-size: 0.9em;
-}
-
-.cfma-filter-controls select {
-    display: block;
-    min-width: 200px;
-    padding: 6px 10px;
-    font-size: 1em;
     border: 1px solid #ccc;
     border-radius: 4px;
     background: #fff;
+    box-sizing: border-box;
+}
+
+.cfma-filter-search:focus {
+    outline: none;
+    border-color: #888;
+}
+
+.cfma-checkbox-group {
+    width: 100%;
+    max-height: 200px;
+    overflow-y: auto;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding: 6px 10px;
+    background: #fff;
+    box-sizing: border-box;
+}
+
+.cfma-checkbox-label {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 3px 0;
+    font-size: 0.9em;
+    font-weight: normal;
     cursor: pointer;
+}
+
+.cfma-checkbox-label input[type="checkbox"] {
+    margin: 0;
+    cursor: pointer;
+    flex-shrink: 0;
 }
 
 /* Active-filter chips */
@@ -158,13 +205,23 @@
     font-weight: 600;
 }
 
-@media (max-width: 600px) {
-    .cfma-filter-controls {
+@media (max-width: 700px) {
+    .cfma-layout {
         flex-direction: column;
-        gap: 10px;
     }
 
-    .cfma-filter-controls select {
+    .cfma-sidebar {
+        flex: none;
+        width: 100%;
+    }
+
+    .cfma-filter-controls {
+        flex-direction: row;
+        flex-wrap: wrap;
+        gap: 12px;
+    }
+
+    .cfma-checkbox-group {
         width: 100%;
     }
 }

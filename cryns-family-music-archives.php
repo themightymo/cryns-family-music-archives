@@ -556,43 +556,53 @@ function cfma_song_filter_shortcode() {
     ob_start();
     ?>
     <div id="cfma-filter-wrap">
-        <div class="cfma-filter-controls">
-            <div>
-                <label for="cfma-artist-select">Select an Artist:</label>
-                <select id="cfma-artist-select" name="cfma_artist">
-                    <option value="">Any Artist</option>
-                    <?php foreach ( (array) $artists as $term ) : ?>
-                    <option value="<?php echo esc_attr( $term->term_id ); ?>">
-                        <?php echo esc_html( $term->name ); ?> (<?php echo esc_html( $term->count ); ?>)
-                    </option>
-                    <?php endforeach; ?>
-                </select>
+        <div class="cfma-layout">
+
+            <aside class="cfma-sidebar">
+                <div class="cfma-filter-controls">
+                    <div>
+                        <p class="cfma-filter-label">Select an Artist:</p>
+                        <input type="text" id="cfma-artist-search" class="cfma-filter-search" placeholder="Search artists…" autocomplete="off">
+                        <div id="cfma-artist-checkboxes" class="cfma-checkbox-group">
+                            <?php foreach ( (array) $artists as $term ) : ?>
+                            <label class="cfma-checkbox-label">
+                                <input type="checkbox" class="cfma-artist-cb" value="<?php echo esc_attr( $term->term_id ); ?>">
+                                <?php echo esc_html( $term->name ); ?> (<?php echo esc_html( $term->count ); ?>)
+                            </label>
+                            <?php endforeach; ?>
+                        </div>
+                    </div>
+                    <div>
+                        <p class="cfma-filter-label">Select an Album:</p>
+                        <input type="text" id="cfma-album-search" class="cfma-filter-search" placeholder="Search albums…" autocomplete="off">
+                        <div id="cfma-album-checkboxes" class="cfma-checkbox-group">
+                            <?php foreach ( (array) $albums as $term ) : ?>
+                            <label class="cfma-checkbox-label">
+                                <input type="checkbox" class="cfma-album-cb" value="<?php echo esc_attr( $term->term_id ); ?>">
+                                <?php echo esc_html( $term->name ); ?> (<?php echo esc_html( $term->count ); ?>)
+                            </label>
+                            <?php endforeach; ?>
+                        </div>
+                    </div>
+                </div>
+            </aside>
+
+            <div class="cfma-main">
+                <div id="cfma-selections"></div>
+
+                <div class="cfma-results-meta">
+                    RESULTS (By default, the most recent songs are displayed):
+                    <span class="cfma-count-wrap">Total Results: <strong id="cfma-count">&mdash;</strong></span>
+                </div>
+
+                <div id="cfma-results">
+                    <p class="cfma-loading">Loading songs&hellip;</p>
+                </div>
+
+                <div id="cfma-pagination"></div>
             </div>
-            <div>
-                <label for="cfma-album-select">Select an Album:</label>
-                <select id="cfma-album-select" name="cfma_album">
-                    <option value="">Any Album</option>
-                    <?php foreach ( (array) $albums as $term ) : ?>
-                    <option value="<?php echo esc_attr( $term->term_id ); ?>">
-                        <?php echo esc_html( $term->name ); ?> (<?php echo esc_html( $term->count ); ?>)
-                    </option>
-                    <?php endforeach; ?>
-                </select>
-            </div>
+
         </div>
-
-        <div id="cfma-selections"></div>
-
-        <div class="cfma-results-meta">
-            RESULTS (By default, the most recent songs are displayed):
-            <span class="cfma-count-wrap">Total Results: <strong id="cfma-count">&mdash;</strong></span>
-        </div>
-
-        <div id="cfma-results">
-            <p class="cfma-loading">Loading songs&hellip;</p>
-        </div>
-
-        <div id="cfma-pagination"></div>
     </div>
     <?php
     return ob_get_clean();
