@@ -540,18 +540,20 @@ function cfma_song_filter_shortcode() {
         'number'     => 500,
     ] );
 
-    wp_enqueue_script(
-        'cfma-song-filter',
-        plugins_url( '/js/song-filter.js', __FILE__ ),
-        [],
-        '1.2.0',
-        true
-    );
+    // Register with no src so SiteGround's JS combiner can't swallow the file.
+    // The script content is inlined directly via wp_add_inline_script.
+    wp_register_script( 'cfma-song-filter', false, [], false, true );
+    wp_enqueue_script( 'cfma-song-filter' );
 
     wp_localize_script( 'cfma-song-filter', 'cfmaFilter', [
         'feedUrl' => rest_url( 'custom/v1/mixed-feed' ),
         'perPage' => 20,
     ] );
+
+    wp_add_inline_script(
+        'cfma-song-filter',
+        file_get_contents( plugin_dir_path( __FILE__ ) . 'js/song-filter.js' )
+    );
 
     ob_start();
     ?>
