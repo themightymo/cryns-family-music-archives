@@ -576,13 +576,23 @@ add_action( 'wp_footer', 'footer_credits' );
 function media_player_styles () {
     wp_register_style('media-player-styles', plugins_url('/media-player-style.css', __FILE__), '', filemtime( plugin_dir_path( __FILE__ ) . 'media-player-style.css' ));
     wp_enqueue_style ( 'media-player-styles' );
-
-    if ( is_singular( 'cryns_audio_file' ) ) {
-        wp_register_script( 'cfma-single-audio-player', plugins_url( '/js/single-audio-player.js', __FILE__ ), [], filemtime( plugin_dir_path( __FILE__ ) . 'js/single-audio-player.js' ), true );
-        wp_enqueue_script( 'cfma-single-audio-player' );
-    }
 }
 add_action('wp_enqueue_scripts', 'media_player_styles');
+
+function cfma_enqueue_audio_player_script() {
+    if ( ! wp_script_is( 'cfma-single-audio-player', 'registered' ) ) {
+        wp_register_script( 'cfma-single-audio-player', plugins_url( '/js/single-audio-player.js', __FILE__ ), [], filemtime( plugin_dir_path( __FILE__ ) . 'js/single-audio-player.js' ), true );
+    }
+
+    wp_enqueue_script( 'cfma-single-audio-player' );
+}
+
+function cfma_enqueue_single_audio_player_script() {
+    if ( is_singular( 'cryns_audio_file' ) ) {
+        cfma_enqueue_audio_player_script();
+    }
+}
+add_action( 'wp_enqueue_scripts', 'cfma_enqueue_single_audio_player_script' );
 
 
 /*
@@ -627,6 +637,8 @@ function cfma_song_filter_shortcode() {
 
     // Register with no src so SiteGround's JS combiner can't swallow the file.
     // The script content is inlined directly via wp_add_inline_script.
+    cfma_enqueue_audio_player_script();
+
     wp_register_script( 'cfma-song-filter', false, [], false, true );
     wp_enqueue_script( 'cfma-song-filter' );
 

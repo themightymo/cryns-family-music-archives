@@ -12,6 +12,10 @@
     display: none;
 }
 
+.cfma-feed-player {
+    margin: 10px 0 4px;
+}
+
 .cfma-single-player-shell {
     display: flex;
     align-items: center;

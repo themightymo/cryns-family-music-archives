@@ -79,6 +79,41 @@
             .replace(/"/g, '&quot;');
     }
 
+    function renderAudioPlayer(audio) {
+        const mime = escHtml(audio.mime || 'audio/mpeg');
+        const src = escHtml(audio.url);
+
+        return '<div class="cfma-single-player cfma-feed-player" data-cfma-player>' +
+            '<div class="cfma-single-player-shell">' +
+            '<div class="cfma-single-player-actions">' +
+            '<button type="button" class="cfma-player-btn cfma-player-skip" data-cfma-skip="-15" aria-label="Skip back 15 seconds">' +
+            '<svg aria-hidden="true" fill="none" height="32" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="32" xmlns="http://www.w3.org/2000/svg"><path d="M2.5 2v6h6M2.66 15.57a10 10 0 1 0 .57-8.38"></path><text fill="currentColor" font-size="7" font-weight="700" stroke="none" text-anchor="middle" x="12" y="17">15</text></svg>' +
+            '</button>' +
+            '<button type="button" class="cfma-player-btn cfma-player-play" data-cfma-play aria-label="Play audio">' +
+            '<svg class="cfma-play-svg" aria-hidden="true" fill="currentColor" height="32" viewBox="0 0 24 24" width="32" xmlns="http://www.w3.org/2000/svg"><path d="M8 5v14l11-7z"></path></svg>' +
+            '<svg class="cfma-pause-svg" aria-hidden="true" fill="currentColor" height="32" viewBox="0 0 24 24" width="32" xmlns="http://www.w3.org/2000/svg"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"></path></svg>' +
+            '</button>' +
+            '<button type="button" class="cfma-player-btn cfma-player-skip" data-cfma-skip="15" aria-label="Skip forward 15 seconds">' +
+            '<svg aria-hidden="true" fill="none" height="32" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="32" xmlns="http://www.w3.org/2000/svg"><path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38"></path><text fill="currentColor" font-size="7" font-weight="700" stroke="none" text-anchor="middle" x="12" y="17">15</text></svg>' +
+            '</button>' +
+            '</div>' +
+            '<div class="cfma-single-player-divider" aria-hidden="true"></div>' +
+            '<div class="cfma-single-player-progress">' +
+            '<span class="cfma-player-time" data-cfma-current>00:00</span>' +
+            '<input class="cfma-player-range cfma-player-seek" data-cfma-seek type="range" min="0" max="100" value="0" step="0.1" aria-label="Audio progress">' +
+            '<span class="cfma-player-time" data-cfma-duration>00:00</span>' +
+            '<button type="button" class="cfma-player-btn cfma-player-volume" data-cfma-mute aria-label="Mute audio">' +
+            '<svg aria-hidden="true" fill="currentColor" height="28" viewBox="0 0 24 24" width="28" xmlns="http://www.w3.org/2000/svg"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"></path></svg>' +
+            '</button>' +
+            '<a class="cfma-player-menu" href="' + src + '" download aria-label="Download audio">' +
+            '<svg aria-hidden="true" fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><circle cx="12" cy="12" r="1"></circle><circle cx="12" cy="5" r="1"></circle><circle cx="12" cy="19" r="1"></circle></svg>' +
+            '</a>' +
+            '</div>' +
+            '</div>' +
+            '<audio preload="metadata" data-cfma-audio><source type="' + mime + '" src="' + src + '"></audio>' +
+            '</div>';
+    }
+
     function renderResults(posts) {
         const container = document.getElementById('cfma-results');
         if (!posts || !posts.length) {
@@ -96,12 +131,7 @@
             const audio    = post.audio_file;
             let playerHtml = '';
             if (audio && audio.url) {
-                const mime = escHtml(audio.mime || 'audio/mpeg');
-                const src  = escHtml(audio.url);
-                playerHtml =
-                    '<audio class="wp-audio-shortcode" preload="none" style="width:100%;" controls>' +
-                    '<source type="' + mime + '" src="' + src + '">' +
-                    '</audio>';
+                playerHtml = renderAudioPlayer(audio);
             }
             const playlistNote = post.has_playlist
                 ? '<p class="cfma-playlist-note">&#127911; This post has a full audio playlist &mdash; <a href="' + link + '">click to listen to all tracks</a>.</p>'
@@ -114,6 +144,9 @@
         });
 
         container.innerHTML = '<ul class="cfma-song-list">' + items.join('') + '</ul>';
+        if (window.cfmaAudioPlayer && typeof window.cfmaAudioPlayer.initAll === 'function') {
+            window.cfmaAudioPlayer.initAll(container);
+        }
     }
 
     function renderPagination() {

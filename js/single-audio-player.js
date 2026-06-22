@@ -24,6 +24,8 @@
     }
 
     function initPlayer(player) {
+        if (player.dataset.cfmaPlayerReady === '1') return;
+
         var audio = player.querySelector('[data-cfma-audio]');
         var playButton = player.querySelector('[data-cfma-play]');
         var seek = player.querySelector('[data-cfma-seek]');
@@ -34,6 +36,7 @@
         var isSeeking = false;
 
         if (!audio || !playButton || !seek) return;
+        player.dataset.cfmaPlayerReady = '1';
 
         function updatePlayState() {
             var isPlaying = !audio.paused && !audio.ended;
@@ -124,7 +127,15 @@
         updateVolume();
     }
 
+    function initAll(root) {
+        (root || document).querySelectorAll('[data-cfma-player]').forEach(initPlayer);
+    }
+
+    window.cfmaAudioPlayer = {
+        initAll: initAll
+    };
+
     document.addEventListener('DOMContentLoaded', function () {
-        document.querySelectorAll('[data-cfma-player]').forEach(initPlayer);
+        initAll(document);
     });
 }());
