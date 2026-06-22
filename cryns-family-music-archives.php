@@ -322,6 +322,246 @@ function cfma_get_audio_file_id( $post_id = null ) {
 	return get_field( 'audio_file', $post_id ) ?: get_post_meta( $post_id, 'Audio File', true );
 }
 
+function cfma_get_attachment_duration( $attachment_id ) {
+    $metadata = wp_get_attachment_metadata( $attachment_id );
+
+    if ( ! empty( $metadata['length_formatted'] ) ) {
+        return $metadata['length_formatted'];
+    }
+
+    if ( ! empty( $metadata['length'] ) ) {
+        $length = (int) $metadata['length'];
+        return sprintf( '%d:%02d', floor( $length / 60 ), $length % 60 );
+    }
+
+    return '--:--';
+}
+
+function cfma_get_playlist_art_url( $attachment_id, $size = 'thumbnail' ) {
+    $image = wp_get_attachment_image_src( get_post_thumbnail_id( $attachment_id ), $size );
+    if ( $image ) {
+        return $image[0];
+    }
+
+    $image = wp_get_attachment_image_src( $attachment_id, $size );
+    if ( $image ) {
+        return $image[0];
+    }
+
+    return '';
+}
+
+function cfma_get_audio_attachment_ids_from_playlist_attrs( $attr ) {
+    global $post;
+
+    $ids = [];
+
+    if ( ! empty( $attr['ids'] ) ) {
+        $ids = array_filter( array_map( 'absint', explode( ',', $attr['ids'] ) ) );
+    } elseif ( ! empty( $attr['include'] ) ) {
+        $ids = array_filter( array_map( 'absint', explode( ',', $attr['include'] ) ) );
+    }
+
+    if ( $ids ) {
+        return $ids;
+    }
+
+    $post_id = $post ? $post->ID : 0;
+    if ( ! $post_id ) {
+        return [];
+    }
+
+    $attachments = get_posts( [
+        'post_type'      => 'attachment',
+        'post_mime_type' => 'audio',
+        'post_parent'    => $post_id,
+        'post_status'    => 'inherit',
+        'posts_per_page' => -1,
+        'orderby'        => 'menu_order title',
+        'order'          => 'ASC',
+        'fields'         => 'ids',
+    ] );
+
+    return array_map( 'absint', $attachments );
+}
+
+function cfma_get_audio_attachment_track( $attachment_id, $index ) {
+    $attachment = get_post( $attachment_id );
+    if ( ! $attachment || 0 !== strpos( (string) $attachment->post_mime_type, 'audio/' ) ) {
+        return null;
+    }
+
+    $parent_id = (int) $attachment->post_parent;
+    $artist_terms = $parent_id ? get_the_terms( $parent_id, 'cryns_artist' ) : [];
+    $album_terms = $parent_id ? get_the_terms( $parent_id, 'cryns_album_title' ) : [];
+    $release_terms = $parent_id ? get_the_terms( $parent_id, 'cryns_release_year' ) : [];
+    $audio_url = wp_get_attachment_url( $attachment_id );
+
+    if ( ! $audio_url ) {
+        return null;
+    }
+
+    return [
+        'id'       => $attachment_id,
+        'url'      => $audio_url,
+        'mime'     => get_post_mime_type( $attachment_id ) ?: 'audio/mpeg',
+        'title'    => get_the_title( $attachment_id ),
+        'artist'   => ( ! empty( $artist_terms ) && ! is_wp_error( $artist_terms ) ) ? wp_list_pluck( $artist_terms, 'name' ) : [],
+        'album'    => ( ! empty( $album_terms ) && ! is_wp_error( $album_terms ) ) ? $album_terms[0]->name : '',
+        'release'  => ( ! empty( $release_terms ) && ! is_wp_error( $release_terms ) ) ? $release_terms[0]->name : '',
+        'duration' => cfma_get_attachment_duration( $attachment_id ),
+        'art'      => cfma_get_playlist_art_url( $attachment_id ),
+        'number'   => $index + 1,
+    ];
+}
+
+function cfma_render_audio_playlist( $attachment_ids, $title = '' ) {
+    cfma_enqueue_audio_player_script();
+
+    $tracks = [];
+
+    foreach ( $attachment_ids as $index => $attachment_id ) {
+        $track = cfma_get_audio_attachment_track( $attachment_id, $index );
+        if ( $track ) {
+            $tracks[] = $track;
+        }
+    }
+
+    if ( ! $tracks ) {
+        return '';
+    }
+
+    $playlist_id = wp_unique_id( 'cfma-playlist-' );
+    $track_count = count( $tracks );
+    $title = $title ?: get_the_title();
+    $first_track = $tracks[0];
+    $artists = array_filter( array_unique( array_merge( ...array_map( function ( $track ) {
+        return $track['artist'];
+    }, $tracks ) ) ) );
+    $subtitle_parts = [
+        sprintf( _n( '%s track', '%s tracks', $track_count ), number_format_i18n( $track_count ) ),
+    ];
+
+    if ( $artists ) {
+        $subtitle_parts[] = implode( ', ', array_slice( $artists, 0, 3 ) );
+    }
+
+    $playlist_json = wp_json_encode( $tracks );
+
+    ob_start();
+    ?>
+    <section id="<?php echo esc_attr( $playlist_id ); ?>" class="cfma-playlist-player" data-cfma-playlist data-cfma-tracks="<?php echo esc_attr( $playlist_json ); ?>">
+        <div class="cfma-playlist-card">
+            <header class="cfma-playlist-hero">
+                <div class="cfma-playlist-cover" aria-hidden="true">
+                    <?php if ( $first_track['art'] ) : ?>
+                        <img src="<?php echo esc_url( $first_track['art'] ); ?>" alt="">
+                    <?php else : ?>
+                        <span>CFMA</span>
+                    <?php endif; ?>
+                </div>
+                <div class="cfma-playlist-summary">
+                    <span class="cfma-playlist-pill">Audio Playlist</span>
+                    <h2><?php echo esc_html( $title ); ?></h2>
+                    <p><?php echo esc_html( implode( ' / ', $subtitle_parts ) ); ?></p>
+                    <button type="button" class="cfma-playlist-primary" data-cfma-playlist-play>
+                        <span aria-hidden="true">&#9658;</span>
+                        <span>Play</span>
+                    </button>
+                </div>
+            </header>
+
+            <div class="cfma-inline-player">
+                <div class="cfma-playlist-buttons">
+                    <button type="button" data-cfma-prev aria-label="Previous track">Prev</button>
+                    <button type="button" class="cfma-playlist-play-button" data-cfma-play aria-label="Play playlist"><span aria-hidden="true">&#9658;</span></button>
+                    <button type="button" data-cfma-next aria-label="Next track">Next</button>
+                </div>
+                <div class="cfma-playlist-progress">
+                    <span data-cfma-current>00:00</span>
+                    <input type="range" min="0" max="100" value="0" step="0.1" data-cfma-seek aria-label="Playlist progress">
+                    <span data-cfma-duration><?php echo esc_html( $first_track['duration'] ); ?></span>
+                </div>
+                <div class="cfma-playlist-volume">
+                    <button type="button" data-cfma-mute aria-label="Mute playlist">Mute</button>
+                    <input type="range" min="0" max="1" value="0.8" step="0.01" data-cfma-volume aria-label="Playlist volume">
+                </div>
+            </div>
+
+            <div class="cfma-track-list" role="list">
+                <div class="cfma-track-heading" aria-hidden="true">
+                    <span>#</span>
+                    <span>Title</span>
+                    <span>Release</span>
+                    <span>Duration</span>
+                </div>
+                <?php foreach ( $tracks as $index => $track ) : ?>
+                    <button type="button" class="cfma-track-row" data-cfma-track-index="<?php echo esc_attr( $index ); ?>" role="listitem">
+                        <span class="cfma-track-number"><?php echo esc_html( $track['number'] ); ?></span>
+                        <span class="cfma-track-title-wrap">
+                            <span class="cfma-track-thumb" aria-hidden="true">
+                                <?php if ( $track['art'] ) : ?>
+                                    <img src="<?php echo esc_url( $track['art'] ); ?>" alt="">
+                                <?php else : ?>
+                                    <span>&#9834;</span>
+                                <?php endif; ?>
+                            </span>
+                            <span>
+                                <strong><?php echo esc_html( $track['title'] ); ?></strong>
+                                <em><?php echo esc_html( $track['artist'] ? implode( ', ', $track['artist'] ) : ( $track['album'] ?: get_bloginfo( 'name' ) ) ); ?></em>
+                            </span>
+                        </span>
+                        <span class="cfma-track-release"><?php echo esc_html( $track['release'] ?: '-' ); ?></span>
+                        <span class="cfma-track-duration"><?php echo esc_html( $track['duration'] ); ?></span>
+                    </button>
+                <?php endforeach; ?>
+            </div>
+        </div>
+
+        <div class="cfma-playlist-bar" aria-live="polite">
+            <div class="cfma-now-playing">
+                <span class="cfma-now-thumb" aria-hidden="true"></span>
+                <span>
+                    <strong data-cfma-now-title><?php echo esc_html( $first_track['title'] ); ?></strong>
+                    <em data-cfma-now-artist><?php echo esc_html( $first_track['artist'] ? implode( ', ', $first_track['artist'] ) : get_bloginfo( 'name' ) ); ?></em>
+                </span>
+            </div>
+            <div class="cfma-playlist-controls">
+                <div class="cfma-playlist-buttons">
+                    <button type="button" data-cfma-prev aria-label="Previous track">Prev</button>
+                    <button type="button" class="cfma-playlist-play-button" data-cfma-play aria-label="Play playlist"><span aria-hidden="true">&#9658;</span></button>
+                    <button type="button" data-cfma-next aria-label="Next track">Next</button>
+                </div>
+                <div class="cfma-playlist-progress">
+                    <span data-cfma-current>00:00</span>
+                    <input type="range" min="0" max="100" value="0" step="0.1" data-cfma-seek aria-label="Playlist progress">
+                    <span data-cfma-duration><?php echo esc_html( $first_track['duration'] ); ?></span>
+                </div>
+            </div>
+            <div class="cfma-playlist-volume">
+                <button type="button" data-cfma-mute aria-label="Mute playlist">Mute</button>
+                <input type="range" min="0" max="1" value="0.8" step="0.01" data-cfma-volume aria-label="Playlist volume">
+            </div>
+            <audio preload="metadata" data-cfma-audio></audio>
+        </div>
+    </section>
+    <?php
+
+    return ob_get_clean();
+}
+
+function cfma_replace_wordpress_audio_playlist( $output, $attr ) {
+    $type = empty( $attr['type'] ) ? 'audio' : $attr['type'];
+    if ( 'audio' !== $type ) {
+        return $output;
+    }
+
+    $custom = cfma_render_audio_playlist( cfma_get_audio_attachment_ids_from_playlist_attrs( $attr ) );
+
+    return $custom ?: $output;
+}
+add_filter( 'post_playlist', 'cfma_replace_wordpress_audio_playlist', 10, 2 );
+
 function return_audio_player() {
 	global $post;
 	$audio_id = cfma_get_audio_file_id( $post->ID );

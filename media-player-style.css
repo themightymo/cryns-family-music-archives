@@ -265,6 +265,478 @@
 }
 
 /* ============================================================
+   Audio Playlist Player
+   ============================================================ */
+
+.cfma-playlist-player {
+    --cfma-playlist-orange: #f39c12;
+    --cfma-playlist-blue: #0056c3;
+    --cfma-playlist-ink: #111;
+    --cfma-playlist-muted: #534434;
+    --cfma-playlist-track: #e5e7eb;
+    --cfma-playlist-surface: #fff;
+    margin: 30px 0 120px;
+    font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+.cfma-playlist-card {
+    overflow: hidden;
+    border: 2px solid var(--cfma-playlist-ink);
+    border-radius: 24px;
+    background: var(--cfma-playlist-surface);
+    box-shadow: 8px 8px 0 var(--cfma-playlist-ink);
+}
+
+.cfma-playlist-hero {
+    display: flex;
+    align-items: center;
+    gap: 28px;
+    padding: 28px;
+    border-bottom: 2px solid var(--cfma-playlist-ink);
+    background: #f9f9f9;
+}
+
+.cfma-playlist-cover,
+.cfma-track-thumb,
+.cfma-now-thumb {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    background:
+        radial-gradient(circle at 70% 30%, #ff2dac 0 10%, transparent 11%),
+        linear-gradient(135deg, #0b1020, #26114f 55%, #0056c3);
+    color: #fff;
+    font-weight: 800;
+}
+
+.cfma-playlist-cover {
+    width: 190px;
+    height: 190px;
+    flex: 0 0 190px;
+    border: 2px solid var(--cfma-playlist-ink);
+    border-radius: 14px;
+    box-shadow: 5px 5px 0 var(--cfma-playlist-ink);
+    font-size: 28px;
+    letter-spacing: 0;
+}
+
+.cfma-playlist-cover img,
+.cfma-track-thumb img,
+.cfma-now-thumb img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.cfma-playlist-summary {
+    min-width: 0;
+}
+
+.cfma-playlist-pill {
+    display: inline-flex;
+    margin-bottom: 10px;
+    border-radius: 999px;
+    background: var(--cfma-playlist-blue);
+    color: #fff;
+    padding: 4px 13px;
+    font-size: 13px;
+    font-weight: 800;
+    line-height: 1.2;
+}
+
+.cfma-playlist-summary h2 {
+    margin: 0 0 8px;
+    color: var(--cfma-playlist-ink);
+    font-size: clamp(26px, 4vw, 40px);
+    font-weight: 800;
+    line-height: 1.05;
+    letter-spacing: 0;
+    text-transform: uppercase;
+}
+
+.cfma-playlist-summary p {
+    margin: 0;
+    color: var(--cfma-playlist-muted);
+    font-size: 18px;
+    line-height: 1.45;
+}
+
+.cfma-playlist-primary {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 22px;
+    border: 2px solid var(--cfma-playlist-ink);
+    border-radius: 999px;
+    background: var(--cfma-playlist-blue);
+    color: #fff;
+    padding: 11px 28px;
+    font: inherit;
+    font-weight: 800;
+    line-height: 1;
+    cursor: pointer;
+    box-shadow: 4px 4px 0 var(--cfma-playlist-ink);
+    transition: transform 0.12s ease, box-shadow 0.12s ease;
+}
+
+.cfma-playlist-primary:active {
+    box-shadow: 1px 1px 0 var(--cfma-playlist-ink);
+    transform: translate(3px, 3px);
+}
+
+.cfma-track-list {
+    max-height: min(620px, 70vh);
+    overflow-y: auto;
+    background: #fff;
+}
+
+.cfma-inline-player {
+    display: grid;
+    grid-template-columns: auto minmax(220px, 1fr) minmax(150px, auto);
+    align-items: center;
+    gap: 20px;
+    padding: 16px 24px;
+    border-bottom: 2px solid var(--cfma-playlist-ink);
+    background: #fff;
+}
+
+.cfma-track-heading,
+.cfma-track-row {
+    display: grid;
+    grid-template-columns: 58px minmax(0, 1fr) minmax(110px, 180px) 90px;
+    align-items: center;
+    gap: 0;
+}
+
+.cfma-track-heading {
+    position: sticky;
+    top: 0;
+    z-index: 1;
+    border-bottom: 1px solid var(--cfma-playlist-track);
+    background: #fff;
+    color: var(--cfma-playlist-muted);
+    font-size: 13px;
+    font-weight: 800;
+}
+
+.cfma-track-heading span,
+.cfma-track-row > span {
+    padding: 12px 16px;
+}
+
+.cfma-track-row {
+    width: 100%;
+    border: 0;
+    border-bottom: 1px solid rgba(229, 231, 235, 0.75);
+    background: transparent;
+    color: var(--cfma-playlist-ink);
+    font: inherit;
+    text-align: left;
+    cursor: pointer;
+    transition: background 0.12s ease;
+}
+
+.cfma-track-row:hover,
+.cfma-track-row.is-active {
+    background: var(--cfma-playlist-track);
+}
+
+.cfma-track-row.is-active .cfma-track-number {
+    color: var(--cfma-playlist-blue);
+    font-weight: 800;
+}
+
+.cfma-track-number,
+.cfma-track-duration {
+    text-align: center;
+    font-variant-numeric: tabular-nums;
+}
+
+.cfma-track-title-wrap {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    min-width: 0;
+}
+
+.cfma-track-thumb {
+    width: 48px;
+    height: 48px;
+    flex: 0 0 48px;
+    border: 1px solid var(--cfma-playlist-ink);
+    border-radius: 8px;
+    font-size: 20px;
+}
+
+.cfma-track-title-wrap strong,
+.cfma-track-title-wrap em,
+.cfma-now-playing strong,
+.cfma-now-playing em {
+    display: block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.cfma-track-title-wrap strong {
+    color: var(--cfma-playlist-ink);
+    font-size: 17px;
+    line-height: 1.25;
+}
+
+.cfma-track-title-wrap em {
+    margin-top: 2px;
+    color: var(--cfma-playlist-muted);
+    font-size: 15px;
+    font-style: normal;
+    line-height: 1.3;
+}
+
+.cfma-track-release,
+.cfma-track-duration {
+    color: var(--cfma-playlist-muted);
+}
+
+.cfma-playlist-bar {
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 9999;
+    display: grid;
+    grid-template-columns: minmax(180px, 1fr) minmax(280px, 2fr) minmax(150px, 1fr);
+    align-items: center;
+    gap: 18px;
+    border-top: 2px solid var(--cfma-playlist-ink);
+    background: #fff;
+    padding: 12px 24px;
+    box-shadow: 0 -2px 0 rgba(0, 0, 0, 0.08);
+}
+
+.cfma-playlist-player:not(.is-active-playlist) .cfma-playlist-bar {
+    display: none;
+}
+
+.cfma-playlist-bar audio {
+    display: none;
+}
+
+.cfma-now-playing {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    min-width: 0;
+}
+
+.cfma-now-thumb {
+    width: 58px;
+    height: 58px;
+    flex: 0 0 58px;
+    border: 2px solid var(--cfma-playlist-ink);
+    border-radius: 9px;
+    box-shadow: 4px 4px 0 var(--cfma-playlist-ink);
+    font-size: 20px;
+}
+
+.cfma-now-playing strong {
+    color: var(--cfma-playlist-ink);
+    font-weight: 800;
+}
+
+.cfma-now-playing em {
+    color: var(--cfma-playlist-muted);
+    font-style: normal;
+}
+
+.cfma-playlist-controls {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    min-width: 0;
+}
+
+.cfma-playlist-buttons {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
+
+.cfma-playlist-buttons button,
+.cfma-playlist-volume button {
+    border: 0;
+    background: transparent;
+    color: var(--cfma-playlist-ink);
+    font: inherit;
+    font-weight: 800;
+    cursor: pointer;
+}
+
+.cfma-playlist-buttons .cfma-playlist-play-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 56px;
+    height: 56px;
+    border: 2px solid var(--cfma-playlist-ink);
+    border-radius: 999px;
+    background: var(--cfma-playlist-blue);
+    color: #fff;
+    font-size: 24px;
+    line-height: 1;
+    box-shadow: 3px 3px 0 var(--cfma-playlist-ink);
+}
+
+.cfma-playlist-progress {
+    display: grid;
+    grid-template-columns: 48px minmax(120px, 520px) 48px;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+    max-width: 620px;
+}
+
+.cfma-playlist-progress span {
+    color: var(--cfma-playlist-ink);
+    font-size: 12px;
+    font-variant-numeric: tabular-nums;
+    text-align: center;
+}
+
+.cfma-playlist-player input[type="range"] {
+    --cfma-range-progress: 0%;
+    width: 100%;
+    height: 28px;
+    margin: 0;
+    appearance: none;
+    background: transparent;
+    cursor: pointer;
+}
+
+.cfma-playlist-player input[type="range"]::-webkit-slider-runnable-track {
+    height: 8px;
+    border-radius: 999px;
+    background: linear-gradient(to right, var(--cfma-playlist-blue) 0 var(--cfma-range-progress), var(--cfma-playlist-track) var(--cfma-range-progress) 100%);
+}
+
+.cfma-playlist-player input[type="range"]::-moz-range-track {
+    height: 8px;
+    border-radius: 999px;
+    background: linear-gradient(to right, var(--cfma-playlist-blue) 0 var(--cfma-range-progress), var(--cfma-playlist-track) var(--cfma-range-progress) 100%);
+}
+
+.cfma-playlist-player input[type="range"]::-webkit-slider-thumb {
+    width: 7px;
+    height: 26px;
+    margin-top: -9px;
+    border: 2px solid var(--cfma-playlist-ink);
+    border-radius: 4px;
+    appearance: none;
+    background: #fff;
+}
+
+.cfma-playlist-player input[type="range"]::-moz-range-thumb {
+    width: 7px;
+    height: 26px;
+    border: 2px solid var(--cfma-playlist-ink);
+    border-radius: 4px;
+    background: #fff;
+}
+
+.cfma-playlist-volume {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 12px;
+    min-width: 0;
+}
+
+.cfma-playlist-volume input {
+    max-width: 120px;
+}
+
+@media (max-width: 820px) {
+    .cfma-playlist-player {
+        margin-bottom: 190px;
+    }
+
+    .cfma-playlist-hero {
+        align-items: flex-start;
+        padding: 20px;
+    }
+
+    .cfma-playlist-cover {
+        width: 120px;
+        height: 120px;
+        flex-basis: 120px;
+    }
+
+    .cfma-track-heading,
+    .cfma-track-release {
+        display: none;
+    }
+
+    .cfma-inline-player {
+        grid-template-columns: 1fr;
+        gap: 12px;
+        padding: 14px 18px;
+    }
+
+    .cfma-inline-player .cfma-playlist-volume {
+        display: flex;
+        justify-content: center;
+    }
+
+    .cfma-track-row {
+        grid-template-columns: 44px minmax(0, 1fr) 70px;
+    }
+
+    .cfma-track-duration {
+        text-align: right;
+    }
+
+    .cfma-playlist-bar {
+        grid-template-columns: 1fr;
+        gap: 10px;
+        padding: 10px 16px 14px;
+    }
+
+    .cfma-playlist-volume {
+        display: none;
+    }
+}
+
+@media (max-width: 560px) {
+    .cfma-playlist-hero {
+        flex-direction: column;
+    }
+
+    .cfma-playlist-cover {
+        width: 100%;
+        height: auto;
+        aspect-ratio: 1 / 1;
+        flex-basis: auto;
+        max-width: 220px;
+    }
+
+    .cfma-track-heading span,
+    .cfma-track-row > span {
+        padding: 10px;
+    }
+
+    .cfma-track-thumb {
+        width: 42px;
+        height: 42px;
+        flex-basis: 42px;
+    }
+
+    .cfma-playlist-progress {
+        grid-template-columns: 42px minmax(0, 1fr) 42px;
+    }
+}
+
+/* ============================================================
    Song Filter — [cfma_song_filter] shortcode
    ============================================================ */
 
