@@ -171,6 +171,31 @@
         return labels;
     }
 
+    function countIds(value) {
+        return value ? value.split(',').filter(Boolean).length : 0;
+    }
+
+    function getActiveFilterCount() {
+        return countIds(currentArtist) +
+            countIds(currentAlbum) +
+            countIds(currentMusicians) +
+            countIds(currentWrittenBy);
+    }
+
+    function updateMobileFilterButton() {
+        var countEl = document.getElementById('cfma-mobile-filter-count');
+        if (!countEl) return;
+
+        var count = getActiveFilterCount();
+        if (count) {
+            countEl.hidden = false;
+            countEl.textContent = count + ' selected';
+        } else {
+            countEl.hidden = true;
+            countEl.textContent = '';
+        }
+    }
+
     function renderSelections() {
         const container = document.getElementById('cfma-selections');
         const chips = [];
@@ -205,6 +230,7 @@
         }
 
         container.innerHTML = chips.join('');
+        updateMobileFilterButton();
 
         container.querySelectorAll('.cfma-chip-clear').forEach(function (btn) {
             btn.addEventListener('click', function () {
@@ -285,6 +311,16 @@
         if (!document.querySelector('.cfma-artist-cb')) return;
 
         readState();
+        updateMobileFilterButton();
+
+        var sidebar = document.querySelector('.cfma-sidebar');
+        var mobileFilterToggle = document.querySelector('.cfma-mobile-filter-toggle');
+        if (sidebar && mobileFilterToggle) {
+            mobileFilterToggle.addEventListener('click', function () {
+                var isOpen = sidebar.classList.toggle('is-open');
+                mobileFilterToggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+            });
+        }
 
         initCheckboxSearch('cfma-artist-search',     'cfma-artist-checkboxes');
         initCheckboxSearch('cfma-album-search',      'cfma-album-checkboxes');

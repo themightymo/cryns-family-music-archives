@@ -20,6 +20,10 @@
     min-width: 0;
 }
 
+.cfma-mobile-filter-toggle {
+    display: none;
+}
+
 .cfma-main {
     flex: 1;
     min-width: 0;
@@ -247,20 +251,90 @@
 @media (max-width: 700px) {
     .cfma-layout {
         flex-direction: column;
+        gap: 16px;
     }
 
     .cfma-sidebar {
         flex: none;
         width: 100%;
+        border: 1px solid #ddd;
+        border-radius: 6px;
+        background: #fff;
+        box-sizing: border-box;
+    }
+
+    .cfma-mobile-filter-toggle {
+        display: flex;
+        width: 100%;
+        min-height: 44px;
+        align-items: center;
+        justify-content: space-between;
+        gap: 10px;
+        padding: 10px 12px;
+        border: 0;
+        border-radius: 6px;
+        background: #f7f7f7;
+        color: #222;
+        font: inherit;
+        font-weight: 700;
+        cursor: pointer;
+        text-align: left;
+    }
+
+    .cfma-mobile-filter-toggle::after {
+        content: "+";
+        flex: 0 0 auto;
+        font-size: 1.25em;
+        line-height: 1;
+    }
+
+    .cfma-sidebar.is-open .cfma-mobile-filter-toggle {
+        border-bottom: 1px solid #ddd;
+        border-radius: 6px 6px 0 0;
+    }
+
+    .cfma-sidebar.is-open .cfma-mobile-filter-toggle::after {
+        content: "-";
+    }
+
+    .cfma-mobile-filter-count {
+        margin-left: auto;
+        border-radius: 999px;
+        background: #333;
+        color: #fff;
+        padding: 2px 8px;
+        font-size: 0.78em;
+        font-weight: 700;
+        white-space: nowrap;
     }
 
     .cfma-filter-controls {
-        flex-direction: row;
-        flex-wrap: wrap;
+        display: none;
+        padding: 12px;
+        flex-direction: column;
         gap: 12px;
+    }
+
+    .cfma-sidebar.is-open .cfma-filter-controls {
+        display: flex;
     }
 
     .cfma-checkbox-group {
         width: 100%;
+        max-height: 150px;
+    }
+
+    #cfma-selections {
+        min-height: 0;
+    }
+
+    .cfma-results-meta {
+        line-height: 1.35;
+    }
+
+    .cfma-count-wrap {
+        display: block;
+        margin-left: 0;
+        margin-top: 4px;
     }
 }

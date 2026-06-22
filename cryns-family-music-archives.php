@@ -591,7 +591,12 @@ function cfma_song_filter_shortcode() {
         <div class="cfma-layout">
 
             <aside class="cfma-sidebar">
-                <div class="cfma-filter-controls">
+                <button type="button" class="cfma-mobile-filter-toggle" aria-expanded="false" aria-controls="cfma-filter-controls">
+                    <span>Filters</span>
+                    <span id="cfma-mobile-filter-count" class="cfma-mobile-filter-count" hidden></span>
+                </button>
+
+                <div id="cfma-filter-controls" class="cfma-filter-controls">
                     <div>
                         <p class="cfma-filter-label">Select an Artist:</p>
                         <input type="text" id="cfma-artist-search" class="cfma-filter-search" placeholder="Search artists…" autocomplete="off">
@@ -856,5 +861,4 @@ function search_audio_files_with_acf($request) {
 
   return rest_ensure_response($results);
 }
-
 
