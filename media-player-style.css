@@ -1,4 +1,266 @@
 /* ============================================================
+   Single Audio File Player
+   ============================================================ */
+
+.cfma-single-player {
+    margin: 28px 0 18px;
+    container-type: inline-size;
+    font-family: inherit;
+}
+
+.cfma-single-player audio {
+    display: none;
+}
+
+.cfma-single-player-shell {
+    display: flex;
+    align-items: center;
+    min-height: 96px;
+    border: 1px solid #e5e7eb;
+    border-radius: 16px;
+    background: #fff;
+    box-shadow: 12px 12px 0 #000;
+    overflow: hidden;
+}
+
+.cfma-single-player-actions {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 24px;
+    height: 96px;
+    padding: 0 40px;
+    flex: 0 0 auto;
+}
+
+.cfma-single-player-divider {
+    align-self: stretch;
+    width: 1px;
+    background: #e5e7eb;
+    flex: 0 0 auto;
+}
+
+.cfma-single-player-progress {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    flex: 1 1 auto;
+    min-width: 0;
+    padding: 0 40px;
+}
+
+.cfma-player-btn,
+.cfma-player-menu {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border: 0;
+    background: transparent;
+    color: #64748b;
+    cursor: pointer;
+    line-height: 1;
+    padding: 0;
+    transition: color 0.15s ease, transform 0.15s ease;
+}
+
+.cfma-player-btn:hover,
+.cfma-player-menu:hover {
+    color: #1e293b;
+}
+
+.cfma-player-btn:focus-visible,
+.cfma-player-range:focus-visible,
+.cfma-player-menu:focus-visible {
+    outline: 3px solid #3b82f6;
+    outline-offset: 4px;
+}
+
+.cfma-player-skip {
+    width: 32px;
+    height: 32px;
+    flex: 0 0 32px;
+}
+
+.cfma-player-skip svg {
+    display: block;
+    overflow: visible;
+}
+
+.cfma-player-play {
+    width: 64px;
+    height: 64px;
+    flex: 0 0 64px;
+    border-radius: 50%;
+    background: #1a1c2c;
+    color: #fff;
+}
+
+.cfma-player-play:hover {
+    color: #fff;
+    transform: scale(1.05);
+}
+
+.cfma-pause-svg,
+.cfma-player-play.is-playing .cfma-play-svg {
+    display: none;
+}
+
+.cfma-player-play.is-playing .cfma-pause-svg {
+    display: block;
+}
+
+.cfma-player-time {
+    flex: 0 0 60px;
+    min-width: 60px;
+    color: #475569;
+    font-size: 18px;
+    font-weight: 500;
+    font-variant-numeric: tabular-nums;
+    line-height: 1;
+}
+
+.cfma-player-range {
+    --cfma-range-progress: 0%;
+    width: 100%;
+    min-width: 180px;
+    height: 28px;
+    margin: 0;
+    appearance: none;
+    background: transparent;
+    cursor: pointer;
+}
+
+.cfma-player-range::-webkit-slider-runnable-track {
+    height: 12px;
+    border-radius: 8px;
+    background: linear-gradient(to right, #3b82f6 0 var(--cfma-range-progress), #e5e7eb var(--cfma-range-progress) 100%);
+}
+
+.cfma-player-range::-moz-range-track {
+    height: 12px;
+    border-radius: 8px;
+    background: linear-gradient(to right, #3b82f6 0 var(--cfma-range-progress), #e5e7eb var(--cfma-range-progress) 100%);
+}
+
+.cfma-player-range::-webkit-slider-thumb {
+    width: 4px;
+    height: 24px;
+    margin-top: -6px;
+    border: 0;
+    border-radius: 2px;
+    appearance: none;
+    background: #3b82f6;
+}
+
+.cfma-player-range::-moz-range-thumb {
+    width: 4px;
+    height: 24px;
+    border: 0;
+    border-radius: 2px;
+    background: #3b82f6;
+}
+
+.cfma-player-seek {
+    flex: 1 1 260px;
+}
+
+.cfma-player-volume {
+    width: 28px;
+    height: 28px;
+    flex: 0 0 28px;
+    margin-left: 16px;
+}
+
+.cfma-single-player.is-muted .cfma-player-volume svg {
+    opacity: 0.45;
+}
+
+.cfma-player-menu {
+    width: 24px;
+    height: 24px;
+    flex: 0 0 24px;
+    color: #94a3b8;
+    text-decoration: none;
+}
+
+@container (max-width: 760px) {
+    .cfma-single-player-shell {
+        min-height: 84px;
+        box-shadow: 10px 10px 0 #000;
+    }
+
+    .cfma-single-player-actions {
+        gap: 18px;
+        height: 84px;
+        padding: 0 24px;
+    }
+
+    .cfma-player-play {
+        width: 56px;
+        height: 56px;
+        flex-basis: 56px;
+    }
+
+    .cfma-single-player-progress {
+        gap: 14px;
+        padding: 0 18px;
+    }
+
+    .cfma-player-time {
+        flex-basis: 50px;
+        min-width: 50px;
+        font-size: 16px;
+    }
+
+    .cfma-player-range {
+        min-width: 150px;
+    }
+
+    .cfma-player-volume {
+        margin-left: 4px;
+    }
+}
+
+@container (max-width: 620px) {
+    .cfma-single-player-shell {
+        flex-wrap: wrap;
+    }
+
+    .cfma-single-player-actions {
+        width: 100%;
+        height: 86px;
+        border-bottom: 1px solid #e5e7eb;
+    }
+
+    .cfma-single-player-divider {
+        display: none;
+    }
+
+    .cfma-single-player-progress {
+        width: 100%;
+        padding: 18px 22px;
+    }
+}
+
+@container (max-width: 420px) {
+    .cfma-single-player-progress {
+        display: grid;
+        grid-template-columns: auto auto auto auto;
+        gap: 12px;
+    }
+
+    .cfma-player-seek {
+        grid-column: 1 / -1;
+        grid-row: 1;
+        min-width: 0;
+    }
+
+    .cfma-player-time:last-of-type {
+        justify-self: end;
+    }
+}
+
+/* ============================================================
    Song Filter — [cfma_song_filter] shortcode
    ============================================================ */
 
